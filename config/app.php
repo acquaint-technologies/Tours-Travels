@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Anam\Dashboard\DashboardServiceProvider::class,
 
         /*
          * Application Service Providers...
