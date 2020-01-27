@@ -15,6 +15,11 @@ class CreateCustomerPassportsTable extends Migration
     {
         Schema::create('customer_passports', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('passport_no')->nullable();
+            $table->tinyInteger('passport_type')->comment('1=General | 2=Government | 3=Others');
+            $table->date('issue_date')->nullable();
+            $table->date('expiry_date')->nullable();
+            $table->text('issue_location')->nullable();
             $table->timestamps();
         });
     }
