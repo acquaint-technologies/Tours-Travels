@@ -46,7 +46,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapCommandRoutes();
     }
 
     /**
@@ -76,5 +76,18 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "Command" routes for the application.
+     *
+     * Dev: Ferdous Anam
+     *
+     * @return void
+     */
+    protected function mapCommandRoutes()
+    {
+        Route::middleware('web')
+            ->group(base_path('routes/cmd.php'));
     }
 }
