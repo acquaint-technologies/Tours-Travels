@@ -479,19 +479,3 @@ pre[class*=language-] {
 
 .mce-shy::after {
   content: '-'; }
-
-.tox-toolbar-dock-fadeout {
-  opacity: 0;
-  visibility: hidden; }
-
-.tox-toolbar-dock-fadein {
-  opacity: 1;
-  visibility: visible; }
-
-.tox-toolbar-dock-transition {
-  -webkit-transition: visibility 0s linear .3s,opacity .3s ease;
-  transition: visibility 0s linear .3s,opacity .3s ease; }
-
-.tox-toolbar-dock-transition.tox-toolbar-dock-fadein {
-  -webkit-transition-delay: 0s;
-  transition-delay: 0s; }

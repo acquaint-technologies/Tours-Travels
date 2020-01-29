@@ -384,6 +384,9 @@ pre[class*="language-"] {
 .mce-content-body th[data-mce-selected]::-moz-selection {
   background: none; }
 
+.mce-content-body td[data-mce-selected]::-moz-selection, .mce-content-body th[data-mce-selected]::-moz-selection {
+  background: none; }
+
 .mce-content-body td[data-mce-selected]::selection,
 .mce-content-body th[data-mce-selected]::selection {
   background: none; }

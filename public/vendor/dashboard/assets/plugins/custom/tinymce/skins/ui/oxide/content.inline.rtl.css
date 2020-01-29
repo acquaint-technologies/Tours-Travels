@@ -83,6 +83,10 @@ code[class*="language-"] ::-moz-selection {
   text-shadow: none;
   background: #b3d4fc; }
 
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection, code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+  text-shadow: none;
+  background: #b3d4fc; }
+
 pre[class*="language-"]::selection,
 pre[class*="language-"] ::selection,
 code[class*="language-"]::selection,
@@ -401,6 +405,9 @@ pre[class*="language-"] {
 .mce-content-body th[data-mce-selected]::-moz-selection {
   background: none; }
 
+.mce-content-body td[data-mce-selected]::-moz-selection, .mce-content-body th[data-mce-selected]::-moz-selection {
+  background: none; }
+
 .mce-content-body td[data-mce-selected]::selection,
 .mce-content-body th[data-mce-selected]::selection {
   background: none; }
@@ -598,19 +605,3 @@ pre[class*="language-"] {
 
 .mce-shy::after {
   content: '-'; }
-
-.tox-toolbar-dock-fadeout {
-  opacity: 0;
-  visibility: hidden; }
-
-.tox-toolbar-dock-fadein {
-  opacity: 1;
-  visibility: visible; }
-
-.tox-toolbar-dock-transition {
-  -webkit-transition: visibility 0s linear 0.3s, opacity 0.3s ease;
-  transition: visibility 0s linear 0.3s, opacity 0.3s ease; }
-
-.tox-toolbar-dock-transition.tox-toolbar-dock-fadein {
-  -webkit-transition-delay: 0s;
-  transition-delay: 0s; }
