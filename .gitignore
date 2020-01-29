@@ -1,10 +1,10 @@
 /node_modules
 /public/hot
 /public/storage
-/public/css/*
-/public/fonts/*
-/public/images/*
-/public/js/*
+/public/css
+/public/fonts
+/public/images
+/public/js
 /storage/*.key
 /vendor
 .env
@@ -16,3 +16,5 @@ npm-debug.log
 yarn-error.log
 
 .idea
+composer.lock
+package-lock.json
