@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], function (){
+    Route::resource('groups', 'GroupController');
+});
+
 // Turned off Register Routes
 Auth::routes([
     'register' => false, // Registration Routes...
