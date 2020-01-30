@@ -20,7 +20,12 @@
         </div>
 
     @php
-        $route = isset($group->id) ? route('groups.update', $group->id) : route('groups.store');
+        if (isset($group->id)){
+            $route =route('groups.update', $group->id);
+        }else {
+            $route = route('groups.store');
+            $group = new \App\Group();
+        }
     @endphp
     <!--begin::Form-->
         <form id="menu-form" action="{{ $route }}" method="POST"
@@ -48,10 +53,10 @@
                     <label for="management_type" class="col-2 col-form-label">Management Type *</label>
                     <div class="col-10">
                         <select class="form-control" name="management_type" id="management_type">
-                            <option value="0" {{ old('contact_no', $group->management_type) === 0 ? 'selected' : '' }}>
+                            <option value="0" {{ old('contact_no', $group->management_type) !== 1 ? 'selected' : '' }}>
                                 Public
                             </option>
-                            <option value="1" {{ old('contact_no', $group->management_type) !== 0 ? 'selected' : '' }}>
+                            <option value="1" {{ old('contact_no', $group->management_type) === 1 ? 'selected' : '' }}>
                                 Private
                             </option>
                         </select>

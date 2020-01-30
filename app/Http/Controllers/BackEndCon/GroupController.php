@@ -45,7 +45,6 @@ class GroupController extends Controller
             'leader_name' => 'required',
             'management_type' => 'required',
             'contact_no' => 'required',
-            'email' => 'email',
         ))->validate();
 
         $group = Group::create($request->all());
@@ -96,7 +95,6 @@ class GroupController extends Controller
             'leader_name' => 'required',
             'management_type' => 'required',
             'contact_no' => 'required',
-            'email' => 'email',
         ))->validate();
 
         $group = Group::FindOrFail($id)->update($request->all());
