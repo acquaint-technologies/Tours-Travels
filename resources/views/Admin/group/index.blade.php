@@ -73,7 +73,8 @@
     <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
-            $('#groups-mm').addClass('kt-menu__item--active');
+            $('#groups-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
+            $('#groups-sm').addClass('kt-menu__item--active');
             $('.table').DataTable({
                 responsive: {
                     details: false
