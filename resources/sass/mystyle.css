@@ -11,3 +11,7 @@
     width: 200px;
     max-width: 100%;
 }
+
+.kt-wizard-v3 .kt-wizard-v3__wrapper .kt-form {
+    width: 95% !important;
+}
