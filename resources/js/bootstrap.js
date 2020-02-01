@@ -7,10 +7,17 @@ window._ = require('lodash');
  */
 
 try {
+    /*
+    | We have to turn off this JS because they ar requiring again.
+    | This plugins are already declared on the template's JS files
+    | Always make sure that not to include jquery plugin twice.
+    | I have made changes here because I have issue with bootstrap-datepicker
+    | Because the jquery was required twice
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    */
 } catch (e) {}
 
 /**
