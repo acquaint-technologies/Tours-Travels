@@ -24,7 +24,7 @@ class CreateCustomersTable extends Migration
             $table->string('resident_type')->nullable();
             $table->tinyInteger('gender')->comment('1=Male | 2=Female');
             $table->tinyInteger('type')->comment('1=Individual | 2=Group');
-            $table->bigInteger('group_id');
+            $table->bigInteger('group_id')->nullable();
             $table->tinyInteger('management')->comment('1=Private | 2=Government');
             $table->tinyInteger('identity')->comment('1=NID | 2=Birth Certificate');
             $table->string('nid_number')->nullable();
