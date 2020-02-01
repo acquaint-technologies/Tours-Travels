@@ -46,13 +46,13 @@
                     <label for="passport_type" class="col-2 col-form-label">Passport Type *</label>
                     <div class="col-10">
                         <select class="form-control kt-selectpicker" name="passport_type" id="passport_type">
-                            <option value="1" {{ old('contact_no', $passport->passport_type) == 1 || old('contact_no', $passport->passport_type) == null ? 'selected' : '' }}>
+                            <option value="1" {{ old('passport_type', $passport->passport_type) == 1 || old('passport_type', $passport->passport_type) == null ? 'selected' : '' }}>
                                 General
                             </option>
-                            <option value="2" {{ old('contact_no', $passport->passport_type) == 2 ? 'selected' : '' }}>
+                            <option value="2" {{ old('passport_type', $passport->passport_type) == 2 ? 'selected' : '' }}>
                                 Government
                             </option>
-                            <option value="3" {{ old('contact_no', $passport->passport_type) == 3 ? 'selected' : '' }}>
+                            <option value="3" {{ old('passport_type', $passport->passport_type) == 3 ? 'selected' : '' }}>
                                 Others
                             </option>
                         </select>

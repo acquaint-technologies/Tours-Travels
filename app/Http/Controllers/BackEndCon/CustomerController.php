@@ -77,8 +77,14 @@ class CustomerController extends Controller
                     $data['passport_id'] = $passport;
                 }
             }
+            $remove_passport_data = array(
+                'passport_no', 'passport_type', 'issue_date', 'expiry_date', 'issue_location'
+            );
+            foreach ($remove_passport_data as $key){
+                unset($data[$key]);
+            }
             $customer = Customer::create($data);
-            $updated_customer = $customer->update('serial_no', $customer->id + 1000);
+            $updated_customer = $customer->update(['serial_no'=> $customer->id + 1000]);
             if ($updated_customer) {
                 return response()->json(['data' => $customer, 'message' => 'Customer Created Successfully', 'success' => true, 'type' => 'success', 'status' => 200], 200);
             } else {
@@ -258,10 +264,11 @@ class CustomerController extends Controller
         $data = array(
             'passport_no' => $request->passport_no,
             'passport_type' => $request->passport_type,
-            'issue_date' => $request->issue_date,
-            'expiry_date' => $request->expiry_date,
+            'issue_date' => Carbon::parse($request->issue_date)->format('Y-m-d'),
+            'expiry_date' => Carbon::parse($request->expiry_date)->format('Y-m-d'),
             'issue_location' => $request->issue_location,
         );
+
         $passport = CustomerPassport::create($data);
         if ($passport) {
             return $passport->id;

@@ -556,6 +556,13 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 @if(!$customer->id)
+                                                    @php
+                                                        if ($customer->passport){
+                                                            $passport = $customer->passport;
+                                                        }else {
+                                                            $passport = new \App\CustomerPassport();
+                                                        }
+                                                    @endphp
                                                     <div class="form-group row">
                                                         <label for="passport_no"
                                                                class="col-4 col-form-label text-right">
@@ -564,8 +571,31 @@
                                                         <div class="col-8">
                                                             <input class="form-control" type="text"
                                                                    id="passport_no" name="passport_no"
-                                                                   value="{{ old('passport_no', $customer->passport_no) }}"
+                                                                   value="{{ old('passport_no', $passport->passport_no) }}"
                                                                    placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="passport_type"
+                                                               class="col-4 col-form-label text-right">
+                                                            Passport Type
+                                                        </label>
+                                                        <div class="col-8">
+                                                            <select class="form-control kt-selectpicker"
+                                                                    name="passport_type" id="passport_type">
+                                                                <option
+                                                                    value="1" {{ old('passport_type', $passport->passport_type) == 1 || old('passport_type', $passport->passport_type) == null ? 'selected' : '' }}>
+                                                                    General
+                                                                </option>
+                                                                <option
+                                                                    value="2" {{ old('passport_type', $passport->passport_type) == 2 ? 'selected' : '' }}>
+                                                                    Government
+                                                                </option>
+                                                                <option
+                                                                    value="3" {{ old('passport_type', $passport->passport_type) == 3 ? 'selected' : '' }}>
+                                                                    Others
+                                                                </option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -576,7 +606,7 @@
                                                         <div class="col-8">
                                                             <input class="form-control kt-datepicker" type="text"
                                                                    id="issue_date" name="issue_date"
-                                                                   value="{{ \Carbon\Carbon::parse(old('issue_date', $customer->issue_date))->format('d-m-Y') }}"
+                                                                   value="{{ \Carbon\Carbon::parse(old('issue_date', $passport->issue_date))->format('d-m-Y') }}"
                                                                    placeholder="">
                                                         </div>
                                                     </div>
@@ -588,7 +618,7 @@
                                                         <div class="col-8">
                                                             <input class="form-control kt-datepicker" type="text"
                                                                    id="expiry_date" name="expiry_date"
-                                                                   value="{{ \Carbon\Carbon::parse(old('expiry_date', $customer->expiry_date))->format('d-m-Y') }}"
+                                                                   value="{{ \Carbon\Carbon::parse(old('expiry_date', $passport->expiry_date))->format('d-m-Y') }}"
                                                                    placeholder="">
                                                         </div>
                                                     </div>
@@ -600,7 +630,7 @@
                                                         <div class="col-8">
                                                             <input class="form-control" type="text"
                                                                    id="issue_location" name="issue_location"
-                                                                   value="{{ old('issue_location', $customer->issue_location) }}"
+                                                                   value="{{ old('issue_location', $passport->issue_location) }}"
                                                                    placeholder="">
                                                         </div>
                                                     </div>
