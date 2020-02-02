@@ -30,7 +30,9 @@
                 class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
                 <thead>
                 <tr>
+                    <th>Full Name</th>
                     <th>Passport Number</th>
+                    <th>Date Of Birth</th>
                     <th>Passport Type</th>
                     <th>Passport Issue Date</th>
                     <th>Passport Expiry Date</th>
@@ -41,8 +43,10 @@
                 <tbody>
                 @foreach($passports as $passport)
                     <tr id="tr-{{ $passport->id }}">
+                        <td scope="row">{{ $passport->full_name }}</td>
                         <td scope="row">{{ $passport->passport_no }}</td>
-                        <td>{{ ($passport->passport_type == 1) ? 'General' : ($passport->passport_type == 1) ? 'Government' : 'Others' }}</td>
+                        <td>{{ $passport->date_of_birth ? \Carbon\Carbon::parse($passport->date_of_birth)->format('d-m-Y') : '' }}</td>
+                        <td>{{ ($passport->passport_type == 1) ? 'General' : (($passport->passport_type == 2) ? 'Government' : 'Others') }}</td>
                         <td>{{ \Carbon\Carbon::parse($passport->issue_date)->format('d-m-Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($passport->expiry_date)->format('d-m-Y') }}</td>
                         <td>{{ $passport->issue_location }}</td>

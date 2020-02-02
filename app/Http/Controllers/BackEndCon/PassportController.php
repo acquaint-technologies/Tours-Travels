@@ -42,14 +42,16 @@ class PassportController extends Controller
     public function store(Request $request)
     {
         $validatedData = Validator::make($request->all(), array(
+            'full_name' => 'required',
             'passport_no' => 'required',
+            'date_of_birth' => 'required',
             'passport_type' => 'required',
             'issue_date' => 'required',
             'expiry_date' => 'required',
-            'issue_location' => 'required',
         ))->validate();
 
         $data = $request->all();
+        $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
         $data['issue_date'] = Carbon::parse($data['issue_date'])->format('Y-m-d');
         $data['expiry_date'] = Carbon::parse($data['expiry_date'])->format('Y-m-d');
 
@@ -97,14 +99,16 @@ class PassportController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = Validator::make($request->all(), array(
+            'full_name' => 'required',
             'passport_no' => 'required',
+            'date_of_birth' => 'required',
             'passport_type' => 'required',
             'issue_date' => 'required',
             'expiry_date' => 'required',
-            'issue_location' => 'required',
         ))->validate();
 
         $data = $request->all();
+        $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
         $data['issue_date'] = Carbon::parse($data['issue_date'])->format('Y-m-d');
         $data['expiry_date'] = Carbon::parse($data['expiry_date'])->format('Y-m-d');
 

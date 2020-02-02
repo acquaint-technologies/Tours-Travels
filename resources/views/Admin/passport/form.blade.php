@@ -34,12 +34,28 @@
                 @csrf
                 @if(isset($passport->id)) @method('PUT') @endif
                 <div class="form-group row">
+                    <label for="full_name" class="col-2 col-form-label">
+                        Full Name *
+                    </label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="full_name" name="full_name"
+                               value="{{ old('full_name', $passport->full_name) }}" placeholder="Full Name" required>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="passport_no" class="col-2 col-form-label">
                         Passport Number *
                     </label>
                     <div class="col-10">
                         <input class="form-control" type="text" id="passport_no" name="passport_no"
                                value="{{ old('passport_no', $passport->passport_no) }}" placeholder="Passport Number" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="date_of_birth" class="col-2 col-form-label">Date Of Birth *</label>
+                    <div class="col-10">
+                        <input class="form-control kt-datepicker" type="text" id="date_of_birth" name="date_of_birth"
+                               value="{{ \Carbon\Carbon::parse(old('date_of_birth', $passport->date_of_birth))->format('d-m-Y') }}" placeholder="Date Of Birth" required>
                     </div>
                 </div>
                 <div class="form-group row">

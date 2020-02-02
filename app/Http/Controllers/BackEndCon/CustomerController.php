@@ -253,7 +253,9 @@ class CustomerController extends Controller
     private function createPassport(Request $request)
     {
         $validator = Validator::make($request->all(), array(
+            'full_name' => 'required',
             'passport_no' => 'required',
+            'date_of_birth' => 'required',
             'passport_type' => 'required',
             'issue_date' => 'required',
             'expiry_date' => 'required',
@@ -262,7 +264,9 @@ class CustomerController extends Controller
             return false;
         }
         $data = array(
+            'full_name' => $request->full_name,
             'passport_no' => $request->passport_no,
+            'date_of_birth' => $request->date_of_birth,
             'passport_type' => $request->passport_type,
             'issue_date' => Carbon::parse($request->issue_date)->format('Y-m-d'),
             'expiry_date' => Carbon::parse($request->expiry_date)->format('Y-m-d'),
