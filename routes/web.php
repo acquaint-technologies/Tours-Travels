@@ -20,6 +20,8 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::resource('customer', 'CustomerController');
     Route::get('customer/pdf/{customer}', 'CustomerController@customerInfoPDF')->name('customer.pdf');
     Route::resource('passport-info', 'PassportController');
+    Route::resource('hajj-package', 'HajjPackageController');
+    Route::resource('omra-hajj-package', 'OmraHajjPackageController');
 });
 
 // Turned off Register Routes
