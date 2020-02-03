@@ -21,7 +21,9 @@
                     </h3>
             </div>
             <div class="float-right mt-3">
-                <a href="{{ route('customer.create') }}" class="btn btn-label-success btn-sm btn-upper"><i class="fa fa-plus"></i></a>
+                <a href="{{ route('customer.create') }}" class="btn btn-label-success btn-sm btn-upper">
+                    <i class="fa fa-plus"></i> Add New Customer
+                </a>
             </div>
         </div>
         <div class="kt-portlet__body">
