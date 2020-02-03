@@ -15,6 +15,7 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->tinyInteger('package_type')->default(1)->comment('1=Hajj | 2=Omra Hajj');
             $table->string('package_name');
             $table->string('pack_code')->nullable();
             $table->integer('no_of_days')->default(0);
