@@ -49,6 +49,9 @@
                         <td>{{ $customer->mobile }}</td>
                         <td>{{ $customer->email }}</td>
                         <td class="text-center">
+                            <a href="{{ route('customer.show', $customer->id) }}" class="btn btn-success btn-sm btn-icon-sm btn-circle">
+                                <i class="flaticon-eye"></i>
+                            </a>
                             <a href="{{ route('customer.edit', $customer->id) }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">
                                 <i class="flaticon2-edit"></i>
                             </a>

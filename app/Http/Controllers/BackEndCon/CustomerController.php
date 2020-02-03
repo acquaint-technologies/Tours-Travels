@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\BackEndCon;
 
+use Anam\Dashboard\Models\Menu;
 use App\Customer;
 use App\CustomerPassport;
 use App\Group;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -116,11 +118,12 @@ class CustomerController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
-        return $group = Group::FindOrFail($id);
+        $customer = Customer::with('group', 'passport', 'maharam', 'dependent')->FindOrFail($id);
+        return view('Admin.customer.show', compact('customer'));
     }
 
     /**
@@ -279,5 +282,23 @@ class CustomerController extends Controller
         } else {
             return false;
         }
+    }
+
+    public function customerInfoPDF($id)
+    {
+        $contxt = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed'=> TRUE
+            ]
+        ]);
+        $customer = Customer::with('group', 'passport', 'maharam', 'dependent')->FindOrFail($id);
+        return view('Admin.customer.customer-info-pdf', compact('customer'));
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        $pdf->getDomPDF()->setHttpContext($contxt);
+        $pdf->loadView('Admin.customer.customer-info-pdf', compact('customer'))->setPaper('','landscape');
+        return $pdf->stream();
+//        return $pdf->download('invoice.pdf');
     }
 }
