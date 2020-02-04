@@ -22,6 +22,8 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::resource('passport-info', 'PassportController');
     Route::resource('hajj-package', 'HajjPackageController');
     Route::resource('omra-hajj-package', 'OmraHajjPackageController');
+    Route::resource('haji', 'HajjController');
+    Route::resource('omra-haji', 'OmraHajjController');
 });
 
 // Turned off Register Routes

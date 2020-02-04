@@ -18,4 +18,9 @@ class Package extends Model
     public function getPackageTypeTitleAttribute() {
         return $this->attributes['package_type_title'] = $this->package_type === 1 ? 'Hajj' : 'Omra Hajj';
     }
+
+    public function hajj()
+    {
+        return $this->hasMany(Hajj::class);
+    }
 }

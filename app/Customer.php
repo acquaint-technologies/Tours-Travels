@@ -36,4 +36,9 @@ class Customer extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function hajj()
+    {
+        return $this->hasOne(Hajj::class);
+    }
 }
