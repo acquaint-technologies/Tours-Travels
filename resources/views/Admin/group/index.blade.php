@@ -51,6 +51,9 @@
                         <td>{{ $group->contact_no }}</td>
                         <td>{{ $group->email }}</td>
                         <td class="text-center">
+                            <a href="{{ route('groups.show', $group->id) }}" class="btn btn-success btn-sm btn-icon-sm btn-circle">
+                                <i class="flaticon-eye"></i>
+                            </a>
                             <a href="{{ route('groups.edit', $group->id) }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">
                                 <i class="flaticon2-edit"></i>
                             </a>
