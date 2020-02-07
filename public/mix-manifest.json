@@ -4,5 +4,6 @@
     "/js/all.js": "/js/all.js",
     "/js/pages/customer.js": "/js/pages/customer.js",
     "/js/pages/passport.js": "/js/pages/passport.js",
-    "/js/pages/haji.js": "/js/pages/haji.js"
+    "/js/pages/haji.js": "/js/pages/haji.js",
+    "/js/pages/hajj-payment.js": "/js/pages/hajj-payment.js"
 }

@@ -93,4 +93,9 @@ class Hajj extends Model
     {
         return $this->belongsTo(Package::class);
     }
+
+    public function payments()
+    {
+        return $this->hasMany(HajjPayment::class);
+    }
 }

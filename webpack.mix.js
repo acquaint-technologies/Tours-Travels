@@ -38,5 +38,8 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/views/Admin/passport/bootstrap-datepicker.js',
     ], 'public/js/pages/passport.js')
     .scripts([
-        'resources/views/Admin/passport/bootstrap-datepicker.js',
-    ], 'public/js/pages/haji.js');
+        'resources/views/Admin/hajj/bootstrap-datepicker.js',
+    ], 'public/js/pages/haji.js')
+    .scripts([
+        'resources/views/Admin/hajj-payment/bootstrap-datepicker.js',
+    ], 'public/js/pages/hajj-payment.js');
