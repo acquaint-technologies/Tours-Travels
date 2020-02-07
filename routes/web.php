@@ -39,6 +39,8 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::post('omra-hajj-payment', 'OmraHajjPaymentController@store')->name('omra-hajj-payment.store');
     Route::get('omra-hajj-payment/{payment_id}/edit', 'OmraHajjPaymentController@edit')->name('omra-hajj-payment.edit');
     Route::put('omra-hajj-payment/{payment_id}', 'OmraHajjPaymentController@update')->name('omra-hajj-payment.update');
+
+    Route::resource('customer-payment', 'CustomerPaymentController');
 });
 
 // Turned off Register Routes

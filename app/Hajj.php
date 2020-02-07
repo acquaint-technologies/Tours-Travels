@@ -44,7 +44,7 @@ class Hajj extends Model
 
     public function getDepartureStatusTitleAttribute()
     {
-        switch ($this->departure_status){
+        switch ($this->departure_status) {
             case 0:
                 $data = 'None';
                 break;
@@ -67,12 +67,12 @@ class Hajj extends Model
                 $data = null;
                 break;
         }
-        return $this->attributes['departure_status_title'] =  $data;
+        return $this->attributes['departure_status_title'] = $data;
     }
 
     public function getPaymentStatusTitleAttribute()
     {
-        switch ($this->payment_status){
+        switch ($this->payment_status) {
             case 1:
                 $data = 'Paid';
                 break;
@@ -80,8 +80,14 @@ class Hajj extends Model
                 $data = 'Partially Paid';
                 break;
         }
-        return $this->attributes['payment_status_title'] =  $data;
+        return $this->attributes['payment_status_title'] = $data;
     }
+
+    public function getTypeValueAttribute()
+    {
+        return $this->attributes['type_value'] = ($this->type === 1) ? 'Hajj' : 'Omra Hajj';
+    }
+
     /*Accessors & Mutator End*/
 
     public function customer()
