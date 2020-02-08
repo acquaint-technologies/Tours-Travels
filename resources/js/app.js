@@ -28,6 +28,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import api from "./config/api";
+window.api = api;
+
 /*const app = new Vue({
     el: '#app',
 });*/

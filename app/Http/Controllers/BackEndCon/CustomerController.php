@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackEndCon;
 use Anam\Dashboard\Models\Menu;
 use App\Customer;
 use App\CustomerPassport;
+use App\District;
 use App\Group;
 use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -36,8 +37,9 @@ class CustomerController extends Controller
     public function create()
     {
         $groups = Group::select('id', 'group_name')->get();
+        $districts = District::orderBy('name')->get();
         $registered_customers = Customer::all();
-        return view('Admin.customer.form', compact('groups', 'registered_customers'));
+        return view('Admin.customer.form', compact('districts', 'groups', 'registered_customers'));
     }
 
     /**
@@ -74,7 +76,7 @@ class CustomerController extends Controller
                 }
             }
 
-            if ($request->has('passport_no')){
+            if ($request->has('passport_no')) {
                 if ($passport = $this->createPassport($request)) {
                     $data['passport_id'] = $passport;
                 }
@@ -82,11 +84,11 @@ class CustomerController extends Controller
             $remove_passport_data = array(
                 'passport_no', 'passport_type', 'issue_date', 'expiry_date', 'issue_location'
             );
-            foreach ($remove_passport_data as $key){
+            foreach ($remove_passport_data as $key) {
                 unset($data[$key]);
             }
             $customer = Customer::create($data);
-            $updated_customer = $customer->update(['serial_no'=> $customer->id + 1000]);
+            $updated_customer = $customer->update(['serial_no' => $customer->id + 1000]);
             if ($updated_customer) {
                 return response()->json(['data' => $customer, 'message' => 'Customer Created Successfully', 'success' => true, 'type' => 'success', 'status' => 200], 200);
             } else {
@@ -136,9 +138,10 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
         $groups = Group::select('id', 'group_name')->get();
+        $districts = District::orderBy('name')->get();
         $registered_customers = Customer::where('id', '<>', $id)->get();
         $passports = CustomerPassport::all();
-        return view('Admin.customer.form', compact('customer', 'groups', 'registered_customers', 'passports'));
+        return view('Admin.customer.form', compact('customer', 'districts', 'groups', 'registered_customers', 'passports'));
     }
 
     /**
@@ -178,7 +181,7 @@ class CustomerController extends Controller
                 }
             }
             $updated = false;
-            if ($customer){
+            if ($customer) {
                 $updated = $customer->update($data);
             }
             if ($updated) {
@@ -200,7 +203,7 @@ class CustomerController extends Controller
                 }
             }
             $updated = false;
-            if ($customer){
+            if ($customer) {
                 $updated = $customer->update($data);
             }
             if ($updated) {
@@ -290,14 +293,14 @@ class CustomerController extends Controller
             'ssl' => [
                 'verify_peer' => FALSE,
                 'verify_peer_name' => FALSE,
-                'allow_self_signed'=> TRUE
+                'allow_self_signed' => TRUE
             ]
         ]);
         $customer = Customer::with('group', 'passport', 'maharam', 'dependent')->FindOrFail($id);
         return view('Admin.customer.customer-info-pdf', compact('customer'));
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
         $pdf->getDomPDF()->setHttpContext($contxt);
-        $pdf->loadView('Admin.customer.customer-info-pdf', compact('customer'))->setPaper('','landscape');
+        $pdf->loadView('Admin.customer.customer-info-pdf', compact('customer'))->setPaper('', 'landscape');
         return $pdf->stream();
 //        return $pdf->download('invoice.pdf');
     }

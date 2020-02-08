@@ -1,6 +1,7 @@
 "use strict";
 
 // Class definition
+
 var KTWizard3 = function () {
     // Base elements
     var wizardEl;
@@ -155,7 +156,7 @@ var KTWizard3 = function () {
                     //KTApp.unblock(formEl);
 
                     let errors_messages = '';
-                    if (response.errors){
+                    if (response.errors) {
                         errors_messages += '<ul class="list-group">';
                         Object.keys(response.errors).forEach(error => {
                             errors_messages += '<li class="list-group-item text-danger">';
@@ -167,12 +168,12 @@ var KTWizard3 = function () {
 
                     swal.fire({
                         "title": "",
-                        "text":  response.message,
+                        "text": response.message,
                         "html": errors_messages,
                         "type": response.type,
                         "confirmButtonClass": "btn btn-secondary"
                     });
-                    if (thisForm.find('[name="_method"]').val() !== 'PUT'){
+                    if (thisForm.find('[name="_method"]').val() !== 'PUT') {
                         if (response.success === true) {
                             thisForm.each(function () {
                                 this.reset();
@@ -202,15 +203,21 @@ jQuery(document).ready(function () {
     KTWizard3.init();
 });
 
-new Vue({
+
+let vm = new Vue({
     el: "#customer_page",
     data: {
         type: customer_type,
         identity: customer_identity_type,
         gender: customer_gender,
+        current_district: current_district,
+        current_police_station: current_police_station,
+        permanent_district: permanent_district,
+        permanent_police_station: permanent_police_station,
+        current_police_stations: [],
+        permanent_police_stations: [],
     },
     mounted() {
-        console.log(this.type);
         setTimeout(function () {
             KTBootstrapSelect.init();
         }, 1200);
@@ -232,6 +239,30 @@ new Vue({
             let CSS = 'background-image: url(' + URL.createObjectURL(event.target.files[0]) + ')';
             CSS += '; background-size: contain; width: 150px; height: 180px;';
             document.getElementById("avatar__holder").style.cssText = CSS;
-        }
+        },
+        getPresentPoliceStation(event) {
+            let _this = this;
+            axios.get(api.getThanas + event.target.value)
+                .then(res => {
+                    if (res.data.success) {
+                        _this.current_police_stations = res.data.data;
+                        setTimeout(function () {
+                            $('.kt-selectpicker').selectpicker('refresh');
+                        }, 100);
+                    }
+                });
+        },
+        getPermanentPoliceStation(event) {
+            let _this = this;
+            axios.get(api.getThanas + event.target.value)
+                .then(res => {
+                    if (res.data.success) {
+                        _this.permanent_police_stations = res.data.data;
+                        setTimeout(function () {
+                            $('.kt-selectpicker').selectpicker('refresh');
+                        }, 100);
+                    }
+                });
+        },
     }
 });
