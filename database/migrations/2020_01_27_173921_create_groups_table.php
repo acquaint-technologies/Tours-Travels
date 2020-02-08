@@ -16,6 +16,7 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('group_name');
+            $table->string('group_code')->unique();
             $table->string('leader_name')->nullable();
             $table->tinyInteger('management_type')->comment('0=Public | 1=Private');
             $table->text('address')->nullable();
