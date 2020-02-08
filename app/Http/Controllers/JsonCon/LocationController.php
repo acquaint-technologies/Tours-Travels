@@ -16,7 +16,7 @@ class LocationController extends Controller
      */
     public function getUpazilasFromDistrict($district)
     {
-        $upazilas = Upazila::where('district_id', $district)->get();
+        $upazilas = Upazila::where('district_id', $district)->orderBy('name')->get();
         if ($upazilas->count() > 0) {
             return response()->json(['success' => true, 'data' => $upazilas, 'status' => 200], 200);
         } else {
