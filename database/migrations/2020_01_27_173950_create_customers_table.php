@@ -30,6 +30,7 @@ class CreateCustomersTable extends Migration
             $table->string('nid_number')->nullable();
             $table->string('birth_certificate_number')->nullable();
             $table->string('occupation')->nullable();
+            $table->string('company_name')->nullable();
             $table->string('email')->nullable();
             $table->string('passport_id')->nullable();
             $table->string('mobile')->nullable();

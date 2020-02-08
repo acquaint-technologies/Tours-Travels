@@ -586,6 +586,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
+                                                    <label for="company_name"
+                                                           class="col-3 col-form-label text-right">Company Name </label>
+                                                    <div class="col-9">
+                                                        <input class="form-control" type="company_name" id="company_name" name="company_name"
+                                                               value="{{ old('company_name', $customer->company_name) }}"
+                                                               placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
                                                     <label for="email"
                                                            class="col-3 col-form-label text-right">Email *</label>
                                                     <div class="col-9">
