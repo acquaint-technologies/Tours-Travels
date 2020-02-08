@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/**
+ * Json Response with web middleware
+ */
+include 'json.php';
+
 Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], function (){
     Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard.index');
     Route::resource('groups', 'GroupController');
