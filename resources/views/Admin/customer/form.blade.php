@@ -357,7 +357,8 @@
                                                     Present Address Information
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="current_district" class="col-4 col-form-label text-right">
+                                                    <label for="current_district"
+                                                           class="col-4 col-form-label text-right">
                                                         Current District *</label>
                                                     <div class="col-8">
                                                         <select class="form-control kt-selectpicker" data-size="7"
@@ -376,18 +377,21 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="current_police_station" class="col-4 col-form-label text-right">
+                                                    <label for="current_police_station"
+                                                           class="col-4 col-form-label text-right">
                                                         Current Police Station *</label>
                                                     <div class="col-8">
                                                         <select class="form-control kt-selectpicker" data-size="7"
                                                                 data-live-search="true"
-                                                                name="current_police_station" id="current_police_station">
-                                                                <option value="">Select Present Police Station</option>
-                                                                <option
-                                                                    v-for="policeStation in current_police_stations"
-                                                                    :value="policeStation.id">
-                                                                    @{{ policeStation.name }}
-                                                                </option>
+                                                                name="current_police_station"
+                                                                id="current_police_station">
+                                                            <option value="">Select Present Police Station</option>
+                                                            <option
+                                                                v-for="policeStation in current_police_stations"
+                                                                :value="policeStation.id"
+                                                                :selected="(policeStation.id === current_police_station) ? 'selected':''">
+                                                                @{{ policeStation.name }}
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -419,7 +423,8 @@
                                                     Permanent Address Information
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="permanent_district" class="col-4 col-form-label text-right">
+                                                    <label for="permanent_district"
+                                                           class="col-4 col-form-label text-right">
                                                         Permanent District *</label>
                                                     <div class="col-8">
                                                         <select class="form-control kt-selectpicker" data-size="7"
@@ -438,16 +443,19 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="permanent_police_station" class="col-4 col-form-label text-right">
+                                                    <label for="permanent_police_station"
+                                                           class="col-4 col-form-label text-right">
                                                         Permanent Police Station *</label>
                                                     <div class="col-8">
                                                         <select class="form-control kt-selectpicker" data-size="7"
                                                                 data-live-search="true"
-                                                                name="permanent_police_station" id="permanent_police_station">
+                                                                name="permanent_police_station"
+                                                                id="permanent_police_station">
                                                             <option value="">Select Present Police Station</option>
                                                             <option
                                                                 v-for="policeStation in permanent_police_stations"
-                                                                :value="policeStation.id">
+                                                                :value="policeStation.id"
+                                                                :selected="(policeStation.id === permanent_police_station) ? 'selected':''">
                                                                 @{{ policeStation.name }}
                                                             </option>
                                                         </select>
@@ -614,7 +622,8 @@
                                                     <label for="company_name"
                                                            class="col-3 col-form-label text-right">Company Name </label>
                                                     <div class="col-9">
-                                                        <input class="form-control" type="company_name" id="company_name" name="company_name"
+                                                        <input class="form-control" type="company_name"
+                                                               id="company_name" name="company_name"
                                                                value="{{ old('company_name', $customer->company_name) }}"
                                                                placeholder="">
                                                     </div>
@@ -742,15 +751,15 @@
             $('#add-new-customer-sm').addClass('kt-menu__item--active');
         });
 
-        var customer_type = "{{ old('type', $customer->type) == null ? 1 : old('type', $customer->type) }}";
-        var customer_identity_type = "{{ old('identity', $customer->identity) == null ? 1 : old('identity', $customer->identity) }}";
-        var customer_gender = "{{ old('gender', $customer->gender) == null ? 1 : old('gender', $customer->gender) }}";
+        var customer_type = parseInt("{{ old('type', $customer->type) == null ? 1 : old('type', $customer->type) }}");
+        var customer_identity_type = parseInt("{{ old('identity', $customer->identity) == null ? 1 : old('identity', $customer->identity) }}");
+        var customer_gender = parseInt("{{ old('gender', $customer->gender) == null ? 1 : old('gender', $customer->gender) }}");
 
-        var current_district = "{{ old('current_district', $customer->current_district) }}";
-        var current_police_station = "{{ old('current_police_station', $customer->current_police_station) }}";
+        var current_district = parseInt("{{ old('current_district', $customer->current_district) }}");
+        var current_police_station = parseInt("{{ old('current_police_station', $customer->current_police_station) }}");
 
-        var permanent_district = "{{ old('permanent_district', $customer->permanent_district) }}";
-        var permanent_police_station = "{{ old('permanent_police_station', $customer->permanent_police_station) }}";
+        var permanent_district = parseInt("{{ old('permanent_district', $customer->permanent_district) }}");
+        var permanent_police_station = parseInt("{{ old('permanent_police_station', $customer->permanent_police_station) }}");
     </script>
     <!--begin::Page Scripts(used by this page) -->
     <script src="{{ asset('js/pages/customer.js') }}" type="text/javascript"></script>

@@ -218,6 +218,13 @@ let vm = new Vue({
         permanent_police_stations: [],
     },
     mounted() {
+        let _this = this;
+        if (current_police_station !== '') {
+            _this.setPresentPoliceStation(current_district);
+        }
+        if (permanent_police_station !== '') {
+            _this.setPermanentPoliceStation(permanent_district);
+        }
         setTimeout(function () {
             KTBootstrapSelect.init();
         }, 1200);
@@ -240,29 +247,35 @@ let vm = new Vue({
             CSS += '; background-size: contain; width: 150px; height: 180px;';
             document.getElementById("avatar__holder").style.cssText = CSS;
         },
-        getPresentPoliceStation(event) {
+        setPresentPoliceStation(id) {
             let _this = this;
-            axios.get(api.getThanas + event.target.value)
+            axios.get(api.getThanas + id)
                 .then(res => {
                     if (res.data.success) {
                         _this.current_police_stations = res.data.data;
-                        setTimeout(function () {
-                            $('.kt-selectpicker').selectpicker('refresh');
-                        }, 100);
                     }
+                })
+                .then(() => {
+                    $('.kt-selectpicker').selectpicker('refresh');
                 });
         },
-        getPermanentPoliceStation(event) {
+        getPresentPoliceStation(event) {
+            this.setPresentPoliceStation(event.target.value);
+        },
+        setPermanentPoliceStation(id) {
             let _this = this;
-            axios.get(api.getThanas + event.target.value)
+            axios.get(api.getThanas + id)
                 .then(res => {
                     if (res.data.success) {
                         _this.permanent_police_stations = res.data.data;
-                        setTimeout(function () {
-                            $('.kt-selectpicker').selectpicker('refresh');
-                        }, 100);
                     }
+                })
+                .then(() => {
+                    $('.kt-selectpicker').selectpicker('refresh');
                 });
+        },
+        getPermanentPoliceStation(event) {
+            this.setPermanentPoliceStation(event.target.value);
         },
     }
 });
