@@ -219,10 +219,10 @@ let vm = new Vue({
     },
     mounted() {
         let _this = this;
-        if (current_police_station !== '') {
+        if (!isNaN(current_police_station)) {
             _this.setPresentPoliceStation(current_district);
         }
-        if (permanent_police_station !== '') {
+        if (!isNaN(permanent_police_station)) {
             _this.setPermanentPoliceStation(permanent_district);
         }
         setTimeout(function () {
