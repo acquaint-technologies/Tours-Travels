@@ -88,7 +88,7 @@ class CustomerController extends Controller
                 unset($data[$key]);
             }
             $customer = Customer::create($data);
-            $updated_customer = $customer->update(['serial_no' => $customer->id + 1000]);
+            $updated_customer = $customer->update(['serial_no' => $customer->id + 1000, 'tracking_no' => 'SN' . getSixDigitNumber($customer->id)]);
             if ($updated_customer) {
                 return response()->json(['data' => $customer, 'message' => 'Customer Created Successfully', 'success' => true, 'type' => 'success', 'status' => 200], 200);
             } else {

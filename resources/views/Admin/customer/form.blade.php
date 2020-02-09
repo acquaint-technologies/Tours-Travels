@@ -110,17 +110,17 @@
                                                                placeholder="Full Name" required>
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label for="tracking_no" class="col-3 col-form-label text-right">Tracking
-                                                        No.
-                                                        *</label>
-                                                    <div class="col-9">
-                                                        <input class="form-control" type="text" id="tracking_no"
-                                                               name="tracking_no"
-                                                               value="{{ old('tracking_no', $customer->tracking_no) }}"
-                                                               placeholder="Tracking No." required>
+                                                @if(isset($customer->id))
+                                                    <div class="form-group row">
+                                                        <label for="tracking_no"
+                                                               class="col-3 col-form-label text-right">
+                                                            Tracking No.
+                                                        </label>
+                                                        <div class="col-9">
+                                                            <div class="form-control">{{ $customer->tracking_no }}</div>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @endif
                                                 <div class="form-group row">
                                                     <label for="date_of_birth" class="col-3 col-form-label text-right">Date
                                                         of
