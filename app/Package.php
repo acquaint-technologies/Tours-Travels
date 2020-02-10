@@ -23,4 +23,9 @@ class Package extends Model
     {
         return $this->hasMany(Hajj::class);
     }
+
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class);
+    }
 }
