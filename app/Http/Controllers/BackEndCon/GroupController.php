@@ -44,11 +44,13 @@ class GroupController extends Controller
             'group_name' => 'required',
             'leader_name' => 'required',
             'management_type' => 'required',
+            'management_name' => 'required',
             'contact_no' => 'required',
         ))->validate();
 
         $group = Group::create($request->all());
-        if ($group) {
+        $updated_group = $group->update(['group_code' => 'SN-G' . getSixDigitNumber($group->id)]);
+        if ($updated_group) {
             Session::flash('success', 'Group Created Successfully');
             return redirect()->route('groups.index');
         } else {

@@ -53,13 +53,20 @@
                     <label for="management_type" class="col-2 col-form-label">Management Type *</label>
                     <div class="col-10">
                         <select class="form-control" name="management_type" id="management_type">
-                            <option value="0" {{ old('contact_no', $group->management_type) !== 1 ? 'selected' : '' }}>
-                                Public
+                            <option value="0" {{ old('management_type', $group->management_type) !== 1 ? 'selected' : '' }}>
+                                Group Leader
                             </option>
-                            <option value="1" {{ old('contact_no', $group->management_type) === 1 ? 'selected' : '' }}>
-                                Private
+                            <option value="1" {{ old('management_type', $group->management_type) === 1 ? 'selected' : '' }}>
+                                Office
                             </option>
                         </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="management_name" class="col-2 col-form-label">Management Name *</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="management_name" name="management_name"
+                               value="{{ old('management_name', $group->management_name) }}" placeholder="Leader Name" required>
                     </div>
                 </div>
                 <div class="form-group row">

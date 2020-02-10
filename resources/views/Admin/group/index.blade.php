@@ -34,6 +34,7 @@
                 <tr>
                     <th>Group Name</th>
                     <th>Leader Name</th>
+                    <th>Group Type</th>
                     <th>Management Type</th>
                     <th>Group Address</th>
                     <th>Group Contact No.</th>
@@ -46,7 +47,8 @@
                     <tr id="tr-{{ $group->id }}">
                         <td scope="row">{{ $group->group_name }}</td>
                         <td>{{ $group->leader_name }}</td>
-                        <td>{{ $group->management_type == 0 ? 'Public' : 'Private' }}</td>
+                        <td>{{ $group->group_type == 1 ? 'Hajj' : 'Omra Hajj' }}</td>
+                        <td>{{ $group->management_type == 0 ? 'Group Leader' : 'Office' }}</td>
                         <td>{{ $group->address }}</td>
                         <td>{{ $group->contact_no }}</td>
                         <td>{{ $group->email }}</td>
