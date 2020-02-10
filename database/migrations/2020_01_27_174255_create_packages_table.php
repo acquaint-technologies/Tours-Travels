@@ -20,6 +20,7 @@ class CreatePackagesTable extends Migration
             $table->string('pack_code')->nullable();
             $table->integer('no_of_days')->default(0);
             $table->bigInteger('hotel_id');
+            $table->bigInteger('vehicle_id');
             $table->double('total_price')->default(0);
             $table->tinyInteger('status')->default(0)->comment('0=Inactive | 1=Active');
             $table->timestamps();

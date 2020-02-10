@@ -28,4 +28,9 @@ class Package extends Model
     {
         return $this->belongsTo(Hotel::class);
     }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
 }
