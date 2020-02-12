@@ -99,15 +99,27 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group row">
-                                                    <label for="full_name"
+                                                    <label for="given_name"
                                                            class="col-3 col-form-label text-right text-right">
-                                                        Full Name *
+                                                        Given Name *
                                                     </label>
                                                     <div class="col-9">
-                                                        <input class="form-control" type="text" id="full_name"
-                                                               name="full_name"
-                                                               value="{{ old('full_name', $customer->full_name) }}"
-                                                               placeholder="Full Name" required>
+                                                        <input class="form-control" type="text" id="given_name"
+                                                               name="given_name"
+                                                               value="{{ old('given_name', $customer->given_name) }}"
+                                                               placeholder="Given Name" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="sur_name"
+                                                           class="col-3 col-form-label text-right text-right">
+                                                        Surname *
+                                                    </label>
+                                                    <div class="col-9">
+                                                        <input class="form-control" type="text" id="sur_name"
+                                                               name="sur_name"
+                                                               value="{{ old('sur_name', $customer->sur_name) }}"
+                                                               placeholder="Surname" required>
                                                     </div>
                                                 </div>
                                                 @if(isset($customer->id))

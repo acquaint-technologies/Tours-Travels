@@ -53,7 +53,8 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), array(
-            'full_name' => 'required',
+            'given_name' => 'required',
+            'sur_name' => 'required',
             'date_of_birth' => 'required',
             'email' => 'required|email',
             'mobile' => 'required',
@@ -155,7 +156,8 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), array(
-            'full_name' => 'required',
+            'given_name' => 'required',
+            'sur_name' => 'required',
             'date_of_birth' => 'required',
             'email' => 'required|email',
             'mobile' => 'required',
@@ -224,8 +226,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $delete = Customer::find($id)->delete();
-        if ($delete) {
+        $customer = Customer::find($id);
+        if ($customer->delete()) {
+            File::delete('uploads/customers/images/' . $customer->photo);
             return response()->json(['success' => true, 'message' => 'Customer Deleted Successfully'], 200);
         } else {
             return response()->json(['success' => false, 'message' => 'Whoops! Customer Not Deleted'], 200);

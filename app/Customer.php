@@ -17,6 +17,10 @@ class Customer extends Model
         'date_of_birth' => 'datetime:d-m-Y',
     ];
 
+    public function getFullNameAttribute(){
+        return $this->given_name . ' ' . $this->sur_name;
+    }
+
     public function passport()
     {
         return $this->belongsTo(CustomerPassport::class);

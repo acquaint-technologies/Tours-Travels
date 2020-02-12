@@ -17,7 +17,8 @@ class CreateCustomersTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('serial_no');
             $table->string('tracking_no')->nullable();
-            $table->string('full_name')->nullable();
+            $table->string('given_name')->nullable();
+            $table->string('sur_name')->nullable();
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
             $table->date('date_of_birth')->nullable();
