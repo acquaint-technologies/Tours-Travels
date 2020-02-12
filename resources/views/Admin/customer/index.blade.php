@@ -9,7 +9,6 @@
 @section('page_tagline', 'Customer List')
 
 @section('content')
-    @include('dashboard::components.delete-modal')
     @include('dashboard::msg.message')
     <!--begin::Portlet-->
     <div class="kt-portlet kt-portlet--mobile">
@@ -51,15 +50,10 @@
                         <td>{{ $customer->mobile }}</td>
                         <td>{{ $customer->email }}</td>
                         <td class="text-center">
-                            <a href="{{ route('customer.show', $customer->id) }}" class="btn btn-success btn-sm btn-icon-sm btn-circle">
+                            <a href="{{ route('customer.show', $customer->id) }}" class="btn btn-success btn-sm btn-icon-sm btn-circle"
+                               data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="View Customer Details">
                                 <i class="flaticon-eye"></i>
                             </a>
-                            <a href="{{ route('customer.edit', $customer->id) }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">
-                                <i class="flaticon2-edit"></i>
-                            </a>
-                            <button type="button" class="btn btn-danger btn-sm btn-icon-sm btn-circle delete-button" data-toggle="modal" data-target="#delete-modal" data-id="{{ $customer->id }}">
-                                <i class="flaticon-delete"></i>
-                            </button>
                         </td>
                     </tr>
                 @endforeach

@@ -13,6 +13,7 @@
 @section('page_tagline', $customer->full_name)
 
 @section('content')
+    @include('dashboard::components.delete-modal')
     @include('dashboard::msg.message')
     <!--begin::Portlet-->
     <div class="kt-portlet kt-portlet--mobile">
@@ -24,7 +25,13 @@
                 </h3>
             </div>
             <div class="float-right mt-3">
-                <a href="{{ route('customer.pdf', $customer->id) }}">
+                <a href="{{ route('customer.edit', $customer->id) }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">
+                    <i class="flaticon2-edit"></i> Edit
+                </a>
+                <button type="button" class="btn btn-danger btn-sm btn-icon-sm btn-circle delete-button" data-toggle="modal" data-target="#delete-modal" data-id="{{ $customer->id }}">
+                    <i class="flaticon-delete"></i> Delete
+                </button>
+                <a href="{{ route('customer.pdf', $customer->id) }}" class="btn btn-secondary btn-sm btn-icon-sm btn-circle">
                     <i class="flaticon2-printer"></i>
                 </a>
             </div>
@@ -313,7 +320,6 @@
 @endsection
 
 @push('scripts')
-    @include('dashboard::scripts.delete')
     <script>
         function printData()
         {
@@ -332,6 +338,30 @@
         $(document).ready(function () {
             $('#Customer-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#all-customer-list-sm').addClass('kt-menu__item--active');
+
+            $('.kt-portlet__head').on('click', '.delete-button', function () {
+                $('#modal-delete-button').unbind().click(function () {
+                    $.ajax({
+                        headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                        url: "{{ url()->current() }}",
+                        type: 'DELETE',
+                        dataType: 'json',
+                        data: {},
+                        success: function (response) {
+                            if (response.success) {
+                                toastr.success(response.message);
+                                setTimeout(function(){
+                                    window.location.href = "{{ route('customer.index') }}";
+                                }, 5000);
+                            } else {
+                                toastr.error("Whoops! Something Went Wrong!")
+                            }
+                        }
+                    }).done(function () {
+
+                    });
+                });
+            });
         });
     </script>
 @endpush
