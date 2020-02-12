@@ -45,4 +45,9 @@ class Customer extends Model
     {
         return $this->hasOne(Hajj::class);
     }
+
+    public function serviceType()
+    {
+        return $this->belongsTo(ServiceType::class);
+    }
 }

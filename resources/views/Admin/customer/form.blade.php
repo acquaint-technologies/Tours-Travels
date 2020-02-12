@@ -134,10 +134,9 @@
                                                     </div>
                                                 @endif
                                                 <div class="form-group row">
-                                                    <label for="date_of_birth" class="col-3 col-form-label text-right">Date
-                                                        of
-                                                        Birth
-                                                        *</label>
+                                                    <label for="date_of_birth" class="col-3 col-form-label text-right">
+                                                        Date of Birth *
+                                                    </label>
                                                     <div class="col-9">
                                                         <input class="form-control" type="text" id="date_of_birth"
                                                                name="date_of_birth"
@@ -204,8 +203,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row" v-if="type == 2">
-                                                    <label for="group_id" class="col-3 col-form-label text-right">Group
-                                                        *</label>
+                                                    <label for="group_id" class="col-3 col-form-label text-right">
+                                                        Group *
+                                                    </label>
                                                     <div class="col-9">
                                                         <select class="form-control kt-selectpicker" data-size="7"
                                                                 data-live-search="true"
@@ -249,6 +249,24 @@
                                                 </div>
                                             </div>
                                             <div class="col-6">
+                                                <div class="form-group row">
+                                                    <label for="service_type_id"
+                                                           class="col-4 col-form-label text-right">
+                                                        Service Type *
+                                                    </label>
+                                                    <div class="col-8">
+                                                        <select class="form-control kt-selectpicker"
+                                                                name="service_type_id" id="service_type_id">
+                                                            @foreach($service_types as $service_type)
+                                                                <option
+                                                                    value="{{ $service_type->id }}"
+                                                                    {{ old('passport_id', $customer->service_type_id) == $service_type->id ? 'selected' : '' }}>
+                                                                    {{ $service_type->service_type }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 @if(!$customer->id)
                                                     @php
                                                         if ($customer->passport){
@@ -331,10 +349,10 @@
                                                 @else
                                                     <div class="form-group row">
                                                         <label for="passport_id"
-                                                               class="col-3 col-form-label text-right">
+                                                               class="col-4 col-form-label text-right">
                                                             Select Passport
                                                         </label>
-                                                        <div class="col-9">
+                                                        <div class="col-8">
                                                             <select class="form-control kt-selectpicker" data-size="7"
                                                                     data-live-search="true"
                                                                     name="passport_id"
