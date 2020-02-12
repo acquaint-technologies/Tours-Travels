@@ -216,6 +216,11 @@ let vm = new Vue({
         permanent_police_station: permanent_police_station,
         current_police_stations: [],
         permanent_police_stations: [],
+        isGroup: false,
+        current_maharam_id: maharam_id,
+        mahramList: [],
+        current_dependent_id: dependent_id,
+        dependentList: [],
         hasMahram: false,
     },
     mounted() {
@@ -226,8 +231,14 @@ let vm = new Vue({
         if (!isNaN(permanent_police_station)) {
             _this.setPermanentPoliceStation(permanent_district);
         }
+        if (!isNaN(group_id)) {
+            _this.setMaharamList(group_id);
+        }
         if (!isNaN(maharam_id)) {
             _this.setMahramId(maharam_id);
+        }
+        if (!isNaN(dependent_id)) {
+            _this.setDependentId(dependent_id);
         }
         setTimeout(function () {
             KTBootstrapSelect.init();
@@ -257,6 +268,8 @@ let vm = new Vue({
                 .then(res => {
                     if (res.data.success) {
                         _this.current_police_stations = res.data.data;
+                    } else {
+                        _this.current_police_stations = [];
                     }
                 })
                 .then(() => {
@@ -272,6 +285,8 @@ let vm = new Vue({
                 .then(res => {
                     if (res.data.success) {
                         _this.permanent_police_stations = res.data.data;
+                    } else {
+                        _this.permanent_police_stations = [];
                     }
                 })
                 .then(() => {
@@ -281,11 +296,39 @@ let vm = new Vue({
         getPermanentPoliceStation(event) {
             this.setPermanentPoliceStation(event.target.value);
         },
+        setMaharamList(id) {
+            let _this = this;
+            if (id) {
+                _this.isGroup = true;
+                axios.get(api.getMahramList + id)
+                    .then(res => {
+                        if (res.data.success) {
+                            _this.mahramList = res.data.data;
+                            _this.dependentList = res.data.data;
+                        } else {
+                            _this.mahramList = [];
+                            _this.dependentList = [];
+                        }
+                    })
+                    .then(() => {
+                        $('.kt-selectpicker').selectpicker('refresh');
+                    });
+            } else {
+                _this.isGroup = false;
+            }
+
+        },
+        getGrpupId(event) {
+            this.setMaharamList(event.target.value);
+        },
         setMahramId(id) {
             this.hasMahram = !!id;
         },
         getMahramId(event) {
             this.setMahramId(event.target.value);
+        },
+        setDependentId(id) {
+            this.hasMahram = !!id;
         }
     }
 });

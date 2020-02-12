@@ -209,7 +209,13 @@
                                                     <div class="col-9">
                                                         <select class="form-control kt-selectpicker" data-size="7"
                                                                 data-live-search="true"
-                                                                name="group_id" id="group_id">
+                                                                name="group_id" id="group_id"
+                                                                @change="getGrpupId($event)">
+                                                            <option
+                                                                value=""
+                                                                {{ old('group_id', $customer->group_id) === null ? 'selected' : '' }}>
+                                                                Select a Group
+                                                            </option>
                                                             @foreach($groups as $group)
                                                                 <option
                                                                     value="{{ $group->id }}"
@@ -678,73 +684,65 @@
                                                                placeholder="Spouse Name">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label for="maharam_id" class="col-3 col-form-label text-right">
-                                                        Maharam ID
-                                                    </label>
-                                                    <div class="col-9">
-                                                        <select class="form-control kt-selectpicker" data-size="7"
-                                                                data-live-search="true"
-                                                                name="maharam_id"
-                                                                id="maharam_id"
-                                                                @change="getMahramId($event)">
-                                                            <option
-                                                                value=""
-                                                                {{ old('maharam_id', $customer->maharam_id) === null ? 'selected' : '' }}>
-                                                                Select a Maharam
-                                                            </option>
-                                                            @foreach($registered_customers as $registered_customer)
+                                                <section v-if="isGroup && (parseInt(type) === 2)">
+                                                    <div class="form-group row">
+                                                        <label for="maharam_id" class="col-3 col-form-label text-right">
+                                                            Maharam ID
+                                                        </label>
+                                                        <div class="col-9">
+                                                            <select class="form-control kt-selectpicker" data-size="7"
+                                                                    data-live-search="true"
+                                                                    name="maharam_id"
+                                                                    id="maharam_id"
+                                                                    @change="getMahramId($event)">
+                                                                <option value="">Select Maharam</option>
                                                                 <option
-                                                                    value="{{ $registered_customer->id }}"
-                                                                    {{ old('maharam_id', $customer->maharam_id) == $registered_customer->id ? 'selected' : '' }}>
-                                                                    {{ $registered_customer->full_name }}
+                                                                    v-for="mahram in mahramList"
+                                                                    :value="mahram.id"
+                                                                    :selected="(mahram.id === current_maharam_id) ? 'selected':''">
+                                                                    @{{ mahram.full_name }}
                                                                 </option>
-                                                            @endforeach
-                                                        </select>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row" v-if="hasMahram">
-                                                    <label for="mahram_relation_id"
-                                                           class="col-3 col-form-label text-right">
-                                                        Maharam Relationship *
-                                                    </label>
-                                                    <div class="col-9">
-                                                        <select class="form-control kt-selectpicker"
-                                                                name="mahram_relation_id" id="mahram_relation_id">
-                                                            @foreach($mahram_relationships as $mahram_relationship)
+                                                    <div class="form-group row" v-if="hasMahram">
+                                                        <label for="mahram_relation_id"
+                                                               class="col-3 col-form-label text-right">
+                                                            Maharam Relationship *
+                                                        </label>
+                                                        <div class="col-9">
+                                                            <select class="form-control kt-selectpicker"
+                                                                    name="mahram_relation_id" id="mahram_relation_id">
+                                                                @foreach($mahram_relationships as $mahram_relationship)
+                                                                    <option
+                                                                        value="{{ $mahram_relationship->id }}"
+                                                                        {{ old('passport_id', $customer->mahram_relation_id) == $mahram_relationship->id ? 'selected' : '' }}>
+                                                                        {{ $mahram_relationship->relation_title }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="dependent_id" class="col-3 col-form-label text-right">
+                                                            Dependent ID
+                                                        </label>
+                                                        <div class="col-9">
+                                                            <select class="form-control kt-selectpicker" data-size="7"
+                                                                    data-live-search="true"
+                                                                    name="dependent_id"
+                                                                    id="dependent_id">
+                                                                <option value="">Select Dependent</option>
                                                                 <option
-                                                                    value="{{ $mahram_relationship->id }}"
-                                                                    {{ old('passport_id', $customer->mahram_relation_id) == $mahram_relationship->id ? 'selected' : '' }}>
-                                                                    {{ $mahram_relationship->relation_title }}
+                                                                    v-for="dependent in dependentList"
+                                                                    :value="dependent.id"
+                                                                    :selected="(dependent.id === current_dependent_id) ? 'selected':''">
+                                                                    @{{ dependent.full_name }}
                                                                 </option>
-                                                            @endforeach
-                                                        </select>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="dependent_id" class="col-3 col-form-label text-right">
-                                                        Dependent ID
-                                                    </label>
-                                                    <div class="col-9">
-                                                        <select class="form-control kt-selectpicker" data-size="7"
-                                                                data-live-search="true"
-                                                                name="dependent_id"
-                                                                id="dependent_id">
-                                                            <option
-                                                                value=""
-                                                                {{ old('dependent_id', $customer->dependent_id) === null ? 'selected' : '' }}>
-                                                                Select a Dependent
-                                                            </option>
-                                                            @foreach($registered_customers as $registered_customer)
-                                                                <option
-                                                                    value="{{ $registered_customer->id }}"
-                                                                    {{ old('dependent_id', $customer->dependent_id) == $registered_customer->id ? 'selected' : '' }}>
-                                                                    {{ $registered_customer->full_name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                </section>
                                             </div>
                                         </div>
                                     </div>
@@ -809,7 +807,9 @@
 
         var permanent_district = parseInt("{{ old('permanent_district', $customer->permanent_district) }}");
         var permanent_police_station = parseInt("{{ old('permanent_police_station', $customer->permanent_police_station) }}");
+        var group_id = parseInt("{{ old('group_id', $customer->group_id) }}");
         var maharam_id = parseInt("{{ old('maharam_id', $customer->maharam_id) }}");
+        var dependent_id = parseInt("{{ old('dependent_id', $customer->dependent_id) }}");
     </script>
     <!--begin::Page Scripts(used by this page) -->
     <script src="{{ asset('js/pages/customer.js') }}" type="text/javascript"></script>
