@@ -57,6 +57,40 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="hotel_id" class="col-2 col-form-label text-right">
+                        Hotel *</label>
+                    <div class="col-10">
+                        <select class="form-control kt-selectpicker" data-size="7"
+                                data-live-search="true"
+                                name="hotel_id" id="hotel_id">
+                            @foreach($hotels as $hotel)
+                                <option
+                                    value="{{ $hotel->id }}"
+                                    {{ old('hotel_id', $package->hotel_id) === $hotel->id ? 'selected' : '' }}>
+                                    {{ $hotel->hotel_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="vehicle_id" class="col-2 col-form-label text-right">
+                        Vehicles *</label>
+                    <div class="col-10">
+                        <select class="form-control kt-selectpicker" data-size="7"
+                                data-live-search="true"
+                                name="vehicle_id" id="vehicle_id">
+                            @foreach($vehicles as $vehicle)
+                                <option
+                                    value="{{ $vehicle->id }}"
+                                    {{ old('vehicle_id', $package->vehicle_id) === $vehicle->id ? 'selected' : '' }}>
+                                    {{ $vehicle->vehicle_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="total_price" class="col-2 col-form-label">Total Price *</label>
                     <div class="col-10">
                         <input class="form-control" type="text" id="total_price" name="total_price"
@@ -114,4 +148,8 @@
             @endif
         });
     </script>
+    <!--begin::Page Scripts(used by this page) -->
+    <script src="{{ asset('js/pages/package.js') }}" type="text/javascript"></script>
+
+    <!--end::Page Scripts -->
 @endpush

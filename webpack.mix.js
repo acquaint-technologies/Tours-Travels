@@ -42,4 +42,7 @@ mix.js('resources/js/app.js', 'public/js')
     ], 'public/js/pages/haji.js')
     .scripts([
         'resources/views/Admin/hajj-payment/bootstrap-datepicker.js',
-    ], 'public/js/pages/hajj-payment.js');
+    ], 'public/js/pages/hajj-payment.js')
+    .scripts([
+        'resources/views/Admin/package/bootstrap-pickers.js',
+    ], 'public/js/pages/package.js');

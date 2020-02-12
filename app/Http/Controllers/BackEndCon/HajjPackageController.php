@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\BackEndCon;
 
+use App\Hotel;
 use App\Http\Controllers\Controller;
 use App\Package;
+use App\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Validator;
@@ -38,7 +40,9 @@ class HajjPackageController extends Controller
     public function create()
     {
         $package_type = $this->package_type;
-        return view('Admin.package.form', compact('package_type'));
+        $hotels = Hotel::all();
+        $vehicles = Vehicle::all();
+        return view('Admin.package.form', compact('package_type', 'hotels', 'vehicles'));
     }
 
     /**
@@ -90,7 +94,9 @@ class HajjPackageController extends Controller
     {
         $package_type = $this->package_type;
         $package = Package::FindOrFail($id);
-        return view('Admin.package.form', compact('package_type', 'package'));
+        $hotels = Hotel::all();
+        $vehicles = Vehicle::all();
+        return view('Admin.package.form', compact('package_type', 'package', 'hotels', 'vehicles'));
     }
 
     /**
@@ -112,7 +118,7 @@ class HajjPackageController extends Controller
         ))->validate();
 
         $validatedData['package_type'] = $this->package_type_no;
-        $package = Package::FindOrFail($id)->update($validatedData);
+        $package = Package::FindOrFail($id)->update($request->all());
         if ($package) {
             Session::flash('success', 'Package Updated Successfully');
             return redirect()->route('hajj-package.index');
