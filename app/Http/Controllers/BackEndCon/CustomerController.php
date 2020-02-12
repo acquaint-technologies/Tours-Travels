@@ -8,6 +8,7 @@ use App\CustomerPassport;
 use App\District;
 use App\Group;
 use App\Http\Controllers\Controller;
+use App\MahramRelation;
 use App\ServiceType;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
@@ -41,7 +42,8 @@ class CustomerController extends Controller
         $districts = District::orderBy('name')->get();
         $registered_customers = Customer::all();
         $service_types = ServiceType::all();
-        return view('Admin.customer.form', compact('districts', 'groups', 'registered_customers', 'service_types'));
+        $mahram_relationships = MahramRelation::all();
+        return view('Admin.customer.form', compact('districts', 'groups', 'registered_customers', 'service_types', 'mahram_relationships'));
     }
 
     /**
@@ -145,7 +147,8 @@ class CustomerController extends Controller
         $registered_customers = Customer::where('id', '<>', $id)->get();
         $passports = CustomerPassport::all();
         $service_types = ServiceType::all();
-        return view('Admin.customer.form', compact('customer', 'districts', 'groups', 'registered_customers', 'passports', 'service_types'));
+        $mahram_relationships = MahramRelation::all();
+        return view('Admin.customer.form', compact('customer', 'districts', 'groups', 'registered_customers', 'passports', 'service_types', 'mahram_relationships'));
     }
 
     /**

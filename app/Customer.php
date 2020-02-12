@@ -50,4 +50,9 @@ class Customer extends Model
     {
         return $this->belongsTo(ServiceType::class);
     }
+
+    public function mahramRelation()
+    {
+        return $this->belongsTo(MahramRelation::class);
+    }
 }

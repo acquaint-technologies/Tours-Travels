@@ -216,6 +216,7 @@ let vm = new Vue({
         permanent_police_station: permanent_police_station,
         current_police_stations: [],
         permanent_police_stations: [],
+        hasMahram: false,
     },
     mounted() {
         let _this = this;
@@ -224,6 +225,9 @@ let vm = new Vue({
         }
         if (!isNaN(permanent_police_station)) {
             _this.setPermanentPoliceStation(permanent_district);
+        }
+        if (!isNaN(maharam_id)) {
+            _this.setMahramId(maharam_id);
         }
         setTimeout(function () {
             KTBootstrapSelect.init();
@@ -277,5 +281,11 @@ let vm = new Vue({
         getPermanentPoliceStation(event) {
             this.setPermanentPoliceStation(event.target.value);
         },
+        setMahramId(id) {
+            this.hasMahram = !!id;
+        },
+        getMahramId(event) {
+            this.setMahramId(event.target.value);
+        }
     }
 });

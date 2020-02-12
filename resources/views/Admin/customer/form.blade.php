@@ -686,7 +686,8 @@
                                                         <select class="form-control kt-selectpicker" data-size="7"
                                                                 data-live-search="true"
                                                                 name="maharam_id"
-                                                                id="maharam_id">
+                                                                id="maharam_id"
+                                                                @change="getMahramId($event)">
                                                             <option
                                                                 value=""
                                                                 {{ old('maharam_id', $customer->maharam_id) === null ? 'selected' : '' }}>
@@ -697,6 +698,24 @@
                                                                     value="{{ $registered_customer->id }}"
                                                                     {{ old('maharam_id', $customer->maharam_id) == $registered_customer->id ? 'selected' : '' }}>
                                                                     {{ $registered_customer->full_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" v-if="hasMahram">
+                                                    <label for="mahram_relation_id"
+                                                           class="col-3 col-form-label text-right">
+                                                        Maharam Relationship *
+                                                    </label>
+                                                    <div class="col-9">
+                                                        <select class="form-control kt-selectpicker"
+                                                                name="mahram_relation_id" id="mahram_relation_id">
+                                                            @foreach($mahram_relationships as $mahram_relationship)
+                                                                <option
+                                                                    value="{{ $mahram_relationship->id }}"
+                                                                    {{ old('passport_id', $customer->mahram_relation_id) == $mahram_relationship->id ? 'selected' : '' }}>
+                                                                    {{ $mahram_relationship->relation_title }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -790,6 +809,7 @@
 
         var permanent_district = parseInt("{{ old('permanent_district', $customer->permanent_district) }}");
         var permanent_police_station = parseInt("{{ old('permanent_police_station', $customer->permanent_police_station) }}");
+        var maharam_id = parseInt("{{ old('maharam_id', $customer->maharam_id) }}");
     </script>
     <!--begin::Page Scripts(used by this page) -->
     <script src="{{ asset('js/pages/customer.js') }}" type="text/javascript"></script>
