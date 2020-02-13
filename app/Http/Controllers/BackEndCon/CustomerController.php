@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\BackEndCon;
 
-use Anam\Dashboard\Models\Menu;
 use App\Customer;
 use App\CustomerPassport;
 use App\District;
@@ -90,6 +89,9 @@ class CustomerController extends Controller
             $remove_passport_data = array(
                 'passport_no', 'passport_type', 'issue_date', 'expiry_date', 'issue_location'
             );
+            if ($request->has('document')){
+                array_push($remove_passport_data, 'document', 'document_title');
+            }
             foreach ($remove_passport_data as $key) {
                 unset($data[$key]);
             }
@@ -142,7 +144,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $customer = Customer::findOrFail($id);
+        $customer = Customer::with('documents')->findOrFail($id);
         $groups = Group::select('id', 'group_name')->get();
         $districts = District::orderBy('name')->get();
         $registered_customers = Customer::where('id', '<>', $id)->get();
@@ -168,7 +170,7 @@ class CustomerController extends Controller
             'date_of_birth' => 'required',
             'email' => 'required|email',
             'mobile' => 'required',
-            'photo' => 'required|mimes:jpeg,jpg,png|max:500',
+            'photo' => 'mimes:jpeg,jpg,png|max:500',
         ));
 
         $data = $request->all();
@@ -179,6 +181,13 @@ class CustomerController extends Controller
                 return response()->json(['errors' => $validator->errors(), 'success' => false, 'type' => 'error', 'status' => 422], 200);
             }
 
+            $remove_data = array();
+            if ($request->has('document')){
+                array_push($remove_data, 'document', 'document_title');
+            }
+            foreach ($remove_data as $key) {
+                unset($data[$key]);
+            }
             $customer = Customer::find($id);
             if ($request->hasFile('photo')) {
                 $upload = $this->uploadFile($request->photo, 'uploads/customers/images');
@@ -187,6 +196,17 @@ class CustomerController extends Controller
                     $data['photo'] = $upload;
                 } else {
                     return response()->json(['message' => 'Whoops! Failed to upload photo', 'success' => false, 'type' => 'error', 'status' => 422], 200);
+                }
+            }
+            foreach ($request->document as $key => $document){
+                $attachDocument = new \App\Services\AttachedDocument();
+                $file_name = $attachDocument->uploadDocument($document);
+                $attachDocumentData = [
+                    'title' => $request->document_title[$key],
+                    'document' => $file_name
+                ];
+                if (!$attachDocument->attachDocument($customer->id, $attachDocumentData)) {
+                    return response()->json(['message' => 'Whoops! Failed to upload document', 'success' => false, 'type' => 'error', 'status' => 422], 200);
                 }
             }
             $updated = false;
