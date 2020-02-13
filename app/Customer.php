@@ -57,4 +57,9 @@ class Customer extends Model
     {
         return $this->belongsTo(MahramRelation::class);
     }
+
+    public function documents()
+    {
+        return $this->hasMany(AttachedDocument::class);
+    }
 }

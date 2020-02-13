@@ -15,4 +15,5 @@
 Route::group(['prefix' => 'json', 'namespace' => 'JsonCon', 'middleware' => ['auth:admin']], function () {
     Route::get('get-upazilas/{district}', 'LocationController@getUpazilasFromDistrict');
     Route::get('get-customers-by-group-id/{group_id}', 'CustomerController@getCustomerByGroup');
+    Route::post('delete-attached-document/{document_id}', 'AttachedDocumentController@destroy')->name('attached-document.delete');
 });

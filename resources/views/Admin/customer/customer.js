@@ -222,6 +222,10 @@ let vm = new Vue({
         current_dependent_id: dependent_id,
         dependentList: [],
         hasMahram: false,
+        documents: [{
+            document: '',
+            title: '',
+        }]
     },
     mounted() {
         let _this = this;
@@ -329,6 +333,12 @@ let vm = new Vue({
         },
         setDependentId(id) {
             this.hasMahram = !!id;
+        },
+        addNewDocument(){
+            this.documents.push({
+                document: '',
+                title: '',
+            });
         }
     }
 });
