@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Validator;
 
@@ -62,7 +63,7 @@ class CustomerController extends Controller
             'date_of_birth' => 'required',
             'email' => 'required|email',
             'mobile' => 'required',
-            'photo' => 'required|mimes:jpeg,jpg,png,gif|max:10000',
+            'photo' => 'required|mimes:jpeg,jpg,png|max:500',
         ));
 
         $data = $request->all();
@@ -167,7 +168,7 @@ class CustomerController extends Controller
             'date_of_birth' => 'required',
             'email' => 'required|email',
             'mobile' => 'required',
-            'photo' => 'mimes:jpeg,jpg,png,gif|max:10000',
+            'photo' => 'required|mimes:jpeg,jpg,png|max:500',
         ));
 
         $data = $request->all();
@@ -253,6 +254,10 @@ class CustomerController extends Controller
         $fileName = time() . ' - ' . $file->getClientOriginalName();
         $uploaded = $file->move(public_path($UploadPath), $fileName);
         if ($uploaded) {
+            list($width, $height, $type, $attr) = getimagesize(public_path($UploadPath).'/'.$fileName);
+            if ($attr != 'width="300" height="400"') {
+                $image = Image::make(public_path($UploadPath).'/'.$fileName)->resize(300, 400)->save();
+            }
             return $fileName;
         } else {
             return false;

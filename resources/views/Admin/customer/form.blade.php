@@ -531,22 +531,32 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="col-9 offset-3 mb-4">
-                                                    <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar_1">
-                                                        <div class="kt-avatar__holder" id="avatar__holder"
-                                                             style="@if($customer->photo)background-image: url('{{ asset('uploads/customers/images').'/'. $customer->photo }}');@endif
-                                                                 background-size: contain; width: 150px; height: 180px;"></div>
-                                                        <label class="kt-avatar__upload" data-toggle="kt-tooltip"
-                                                               title=""
-                                                               data-original-title="Photo">
-                                                            <i class="fa fa-pen"></i>
-                                                            <input type="file" name="photo" accept=".png, .jpg, .jpeg"
-                                                                   id="photo" @change="loadFile($event)">
-                                                        </label>
-                                                        <span class="kt-avatar__cancel" data-toggle="kt-tooltip"
-                                                              title=""
-                                                              data-original-title="Cancel avatar">
-                                                            <i class="fa fa-times"></i>
-                                                        </span>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar_1">
+                                                                <div class="kt-avatar__holder" id="avatar__holder"
+                                                                     style="@if($customer->photo)background-image: url('{{ asset('uploads/customers/images').'/'. $customer->photo }}');@endif
+                                                                         background-size: contain; width: 150px; height: 200px;"></div>
+                                                                <label class="kt-avatar__upload" data-toggle="kt-tooltip"
+                                                                       title=""
+                                                                       data-original-title="Photo">
+                                                                    <i class="fa fa-pen"></i>
+                                                                    <input type="file" name="photo" accept=".png, .jpg, .jpeg"
+                                                                           id="photo" @change="loadFile($event)">
+                                                                </label>
+                                                                <span class="kt-avatar__cancel" data-toggle="kt-tooltip"
+                                                                      title=""
+                                                                      data-original-title="Cancel avatar">
+                                                                    <i class="fa fa-times"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <p>
+                                                                <b>Image Resolution: </b> 300 x 400 px <br/>
+                                                                <b>Max Size: </b> 500KB
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">

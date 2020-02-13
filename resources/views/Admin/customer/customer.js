@@ -259,7 +259,7 @@ let vm = new Vue({
         },
         loadFile(event) {
             let CSS = 'background-image: url(' + URL.createObjectURL(event.target.files[0]) + ')';
-            CSS += '; background-size: contain; width: 150px; height: 180px;';
+            CSS += '; background-size: contain; width: 150px; height: 200px;';
             document.getElementById("avatar__holder").style.cssText = CSS;
         },
         setPresentPoliceStation(id) {
