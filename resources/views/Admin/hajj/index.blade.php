@@ -38,6 +38,8 @@
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Departure Status</th>
+                    <th>Paid Amount</th>
+                    <th>Remaining Amount</th>
                     <th>Payment Status</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -51,6 +53,8 @@
                         <td>{{ $haji->start_date }}</td>
                         <td>{{ $haji->end_date }}</td>
                         <td>{{ $haji->departure_status_title }}</td>
+                        <td>{{ $haji->paid_amount }}</td>
+                        <td>{{ $haji->due_amount }}</td>
                         <td>{{ $haji->payment_status_title }}</td>
                         <td class="text-center">
                             <a href="{{ $hajj_type == 'Haji' ? route('hajj-payment.create', $haji->id) :  route('omra-hajj-payment.create', $haji->id)  }}" class="btn btn-success btn-sm btn-icon-sm btn-circle"

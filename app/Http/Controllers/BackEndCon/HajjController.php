@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Hajj;
 use App\Package;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Validator;
+use function foo\func;
 
 class HajjController extends Controller
 {
@@ -24,12 +26,20 @@ class HajjController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
         $hajj_type = $this->hajj_type;
-        $hajis = Hajj::with('customer')->where('type', $this->hajj_type_no)->get();
+        DB::connection()->enableQueryLog();
+        $hajis = Hajj::select('hajjs.*')->with(['customer'])
+            ->addSelect(DB::raw('SUM(hajj_payments.amount) as paid_amount'))
+            ->addSelect(DB::raw('CAST(packages.total_price - SUM(hajj_payments.amount) AS DECIMAL(10,2)) AS due_amount'))
+            ->join('hajj_payments', 'hajjs.id', '=', 'hajj_payments.hajj_id', 'left')
+            ->join('packages', 'hajjs.package_id', '=', 'packages.id', 'left')
+            ->groupBy('hajj_payments.hajj_id')
+            ->where('hajjs.type', $this->hajj_type_no)->get();
+        DB::getQueryLog();
         return view('Admin.hajj.index', compact('hajj_type', 'hajis'));
     }
 
