@@ -15,6 +15,11 @@ class AttachedDocument extends Model
         return public_path('uploads/customers/documents' . '/' . $this->document);
     }
 
+    public function getDocumentDownloadUrlAttribute()
+    {
+        return asset('uploads/customers/documents' . '/' . $this->document);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

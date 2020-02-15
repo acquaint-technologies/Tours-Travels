@@ -171,7 +171,7 @@
                                             <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar_1">
                                                 <div class="kt-avatar__holder" id="avatar__holder"
                                                      style="@if($customer->photo)background-image: url('{{ asset('uploads/customers/images').'/'. $customer->photo }}');@endif
-                                                         background-size: contain; width: 150px; height: 180px;"></div>
+                                                         background-size: contain; width: 150px; height: 200px;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -309,6 +309,54 @@
                                     @endif
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <!--end::Portlet-->
+
+
+                    <!--begin::Portlet-->
+                    <div class="kt-portlet kt-portlet--head-sm" data-ktportlet="true" id="kt_portlet_tools_1">
+                        <div class="kt-bg-light-dark kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Attached Documents
+                                </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="kt-portlet__head-group">
+                                    <a href="#" data-ktportlet-tool="toggle"
+                                       class="btn btn-sm btn-icon btn-clean btn-icon-md"><i
+                                            class="la la-angle-down"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            @if ($customer->documents)
+                                <div class="row" id="document_table_section">
+                                    <div class="col-12">
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <td width="80%">Document Title</td>
+                                                <td width="20%" class="text-center">Action</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($customer->documents as $document)
+                                                <tr id="tr-{{ $document->id }}">
+                                                    <td>{{ $document->title }}</td>
+                                                    <td class="text-center">
+                                                        <a class="btn btn-danger btn-sm btn-icon-sm btn-circle delete-button" href="{{ $document->document_download_url }}" target="_blank">
+                                                            <i class="flaticon-download"></i> Download Document
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <!--end::Portlet-->
