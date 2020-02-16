@@ -47,6 +47,10 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::get('omra-hajj-payment/{payment_id}/edit', 'OmraHajjPaymentController@edit')->name('omra-hajj-payment.edit');
     Route::put('omra-hajj-payment/{payment_id}', 'OmraHajjPaymentController@update')->name('omra-hajj-payment.update');
 
+    // Makka-Madina Management Routes
+    Route::resource('hotel-rate', 'HotelRateController');
+    // END Makka-Madina Management Routes
+
     Route::resource('customer-payment', 'CustomerPaymentController');
 });
 
