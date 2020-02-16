@@ -21,6 +21,7 @@ class DepositController extends Controller
     {
         $this->controllerInfo = (object) array(
             'title' => 'Deposit',
+            'actionButtons' => true,
             'routeNamePrefix' => 'deposit-list',
         );
     }
@@ -173,6 +174,7 @@ class DepositController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function changePaymentStatus(Request $request)
     {
@@ -191,5 +193,20 @@ class DepositController extends Controller
             Session::flash('error', 'Whoops! Failed to Update ' . $this->controllerInfo->title);
             return redirect()->back()->withInput();
         }
+    }
+
+    /**
+     * deposit Details view Only
+     *
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function depositDetails($id)
+    {
+        $this->controllerInfo->actionButtons = false;
+        $this->controllerInfo->activeMenu = false;
+        $controllerInfo = $this->controllerInfo;
+        $haji = Hajj::with('payments')->FindOrFail($id);
+        return view('Admin.accounts.deposit.show', compact('controllerInfo', 'haji'));
     }
 }

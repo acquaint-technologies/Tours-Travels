@@ -33,6 +33,8 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::resource('haji', 'HajjController');
     Route::resource('omra-haji', 'OmraHajjController');
 
+    Route::get('deposit-details/{hajj_id}', 'Accounts\DepositController@depositDetails')->name('deposit-details.view');
+
     Route::get('haji-payment-details', 'HajjPaymentController@index')->name('hajj-payment.index');
     Route::get('haji-payment-details/{payment_id}', 'HajjPaymentController@destroy')->name('hajj-payment.destroy');
     Route::get('hajj-payment/create/{hajj_id}', 'HajjPaymentController@create')->name('hajj-payment.create');
