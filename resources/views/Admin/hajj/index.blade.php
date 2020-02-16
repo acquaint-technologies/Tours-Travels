@@ -57,9 +57,9 @@
                         <td>{{ $haji->due_amount }}</td>
                         <td>{{ $haji->payment_status_title }}</td>
                         <td class="text-center">
-                            <a href="{{ $hajj_type == 'Haji' ? route('hajj-payment.create', $haji->id) :  route('omra-hajj-payment.create', $haji->id)  }}" class="btn btn-success btn-sm btn-icon-sm btn-circle"
-                               data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="Add Payment">
-                                <i class="fab fa-cc-amazon-pay"></i>
+                            <a href="{{ route('deposit-details.view', $haji->id) }}" class="btn btn-warning btn-sm btn-icon-sm btn-circle"
+                               data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="View Payments">
+                                <i class="fas fa-money-bill"></i>
                             </a>
                             <a href="{{ $hajj_type == 'Haji' ? route('haji.edit', $haji->id) :  route('omra-haji.edit', $haji->id)  }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">
                                 <i class="flaticon2-edit"></i>

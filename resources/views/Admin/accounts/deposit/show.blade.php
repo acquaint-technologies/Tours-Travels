@@ -15,13 +15,14 @@
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
-                    <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
-                    <h3 class="kt-portlet__head-title">
-                        {{ ($haji->customer ? $haji->customer->full_name : '') . '\'s ' .$controllerInfo->title }} List
-                    </h3>
+                <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
+                <h3 class="kt-portlet__head-title">
+                    {{ ($haji->customer ? $haji->customer->full_name : '') . '\'s ' .$controllerInfo->title }} List
+                </h3>
             </div>
             <div class="float-right mt-3 display-none">
-                <a href="{{ $controllerInfo->title == 'Haji' ? route('haji.create') : route('omra-haji.create') }}" class="btn btn-label-success btn-sm btn-upper">
+                <a href="{{ $controllerInfo->title == 'Haji' ? route('haji.create') : route('omra-haji.create') }}"
+                   class="btn btn-label-success btn-sm btn-upper">
                     <i class="fa fa-plus"></i> Add New {{ $controllerInfo->title }}
                 </a>
             </div>
@@ -37,7 +38,9 @@
                     <th>Depositor Name</th>
                     <th>Amount</th>
                     <th class="text-center">Payment Status</th>
-                    <th class="text-center">Actions</th>
+                    @if ($controllerInfo->actionButtons)
+                        <th class="text-center">Actions</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -48,14 +51,17 @@
                         <td>{{ $payment->depositor_name }}</td>
                         <td>{{ $payment->amount }}</td>
                         <td class="text-center">{{ $payment->status == 0 ? 'Pending' : 'Paid' }}</td>
-                        <td class="text-center">
-                            <a href="{{ route($controllerInfo->routeNamePrefix . '.edit', $payment->id) }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">
-                                <i class="flaticon2-edit"></i>
-                            </a>
-                            {{--<button type="button" class="btn btn-danger btn-sm btn-icon-sm btn-circle delete-button" data-toggle="modal" data-target="#delete-modal" data-id="{{ $payment->id }}">
-                                <i class="flaticon-delete"></i>
-                            </button>--}}
-                        </td>
+                        @if ($controllerInfo->actionButtons)
+                            <td class="text-center">
+                                <a href="{{ route($controllerInfo->routeNamePrefix . '.edit', $payment->id) }}"
+                                   class="btn btn-primary btn-sm btn-icon-sm btn-circle">
+                                    <i class="flaticon2-edit"></i>
+                                </a>
+                                {{--<button type="button" class="btn btn-danger btn-sm btn-icon-sm btn-circle delete-button" data-toggle="modal" data-target="#delete-modal" data-id="{{ $payment->id }}">
+                                    <i class="flaticon-delete"></i>
+                                </button>--}}
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>
@@ -73,8 +79,10 @@
     <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
+            @if(!isset($controllerInfo->activeMenu))
             $('#accounts-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#deposit-list-sm').addClass('kt-menu__item--active');
+            @endif
             $('.table').DataTable({
                 responsive: {
                     details: false
