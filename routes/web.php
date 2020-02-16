@@ -20,7 +20,7 @@ Route::get('/', function () {
  */
 include 'json.php';
 
-Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], function (){
+Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], function () {
     Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard.index');
     Route::resource('groups', 'GroupController');
     Route::resource('hajj-groups', 'HajjGroupController');
@@ -53,7 +53,12 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     // END Makka-Madina Management Routes
 
     // Accounts Management Routes
-    Route::resource('expense-list', 'Accounts\ExpenseController');
+    Route::group(['namespace' => 'Accounts'], function () {
+        Route::resource('deposit-list', 'DepositController');
+        Route::get('deposit-list/add/{hajj_id}', 'DepositController@addPayment')->name('deposit-list.add-payment');
+        Route::post('hajj-payment-status/change', 'DepositController@changePaymentStatus')->name('deposit-list.change-status');
+        Route::resource('expense-list', 'ExpenseController');
+    });
     // END Accounts Management Routes
 
     Route::resource('customer-payment', 'CustomerPaymentController');
