@@ -45,4 +45,7 @@ mix.js('resources/js/app.js', 'public/js')
     ], 'public/js/pages/hajj-payment.js')
     .scripts([
         'resources/views/Admin/package/bootstrap-pickers.js',
-    ], 'public/js/pages/package.js');
+    ], 'public/js/pages/package.js')
+    .scripts([
+        'resources/views/Admin/accounts/expense/bootstrap-pickers.js',
+    ], 'public/js/pages/accounts/expense.js');

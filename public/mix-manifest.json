@@ -6,5 +6,6 @@
     "/js/pages/passport.js": "/js/pages/passport.js",
     "/js/pages/haji.js": "/js/pages/haji.js",
     "/js/pages/hajj-payment.js": "/js/pages/hajj-payment.js",
-    "/js/pages/package.js": "/js/pages/package.js"
+    "/js/pages/package.js": "/js/pages/package.js",
+    "/js/pages/accounts/expense.js": "/js/pages/accounts/expense.js"
 }
