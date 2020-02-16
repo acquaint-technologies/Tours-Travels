@@ -52,6 +52,10 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::resource('vehicle-rate', 'VehicleRateController');
     // END Makka-Madina Management Routes
 
+    // Accounts Management Routes
+    Route::resource('expense-list', 'Accounts\ExpenseController');
+    // END Accounts Management Routes
+
     Route::resource('customer-payment', 'CustomerPaymentController');
 });
 
