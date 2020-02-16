@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Miscellaneous Helper Functions
+ */
+include 'Misc.php';
+
+/**
  * Custom Url Helper Functions
  */
 include 'UrlHelper.php';
