@@ -37,6 +37,7 @@ class HajjController extends Controller
             ->addSelect(DB::raw('CAST(packages.total_price - SUM(hajj_payments.amount) AS DECIMAL(10,2)) AS due_amount'))
             ->join('hajj_payments', 'hajjs.id', '=', 'hajj_payments.hajj_id', 'left')
             ->join('packages', 'hajjs.package_id', '=', 'packages.id', 'left')
+            ->groupBy('hajjs.id')
             ->groupBy('hajj_payments.hajj_id')
             ->where('hajjs.type', $this->hajj_type_no)->get();
         DB::getQueryLog();
