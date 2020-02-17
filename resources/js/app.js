@@ -8,6 +8,11 @@ require('./bootstrap');
 require('./plugins');
 
 window.Vue = require('vue');
+import Loading from 'vue-loading-overlay';
+window.Vue.use(Loading, {
+    container: null,
+    color: 'green',
+});
 
 /**
  * The following block of code may be used to automatically register your

@@ -3,11 +3,19 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalTitle">Change Payment Status</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
+                <h5 v-if="payment.status === false" class="modal-title" id="deleteModalTitle">Warning</h5>
+                <h5 v-else class="modal-title" id="deleteModalTitle">Change Payment Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="menu-form" action="{{ route('deposit-list.change-status') }}" method="POST"
+            <div v-if="payment.status === false" class="modal-body">
+                <div class="kt-scroll" data-scroll="true" data-height="200">
+                    <p class="text-danger">Cannot update status because the due amount is: <b>@{{ payment.due }}</b></p>
+                </div>
+            </div>
+            <div v-if="payment.status === false" class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+            </div>
+            <form v-else id="menu-form" action="{{ route('deposit-list.change-status') }}" method="POST"
                   class="kt-form kt-form--label-right">
                 <div class="modal-body">
                     <div class="kt-portlet__body">
