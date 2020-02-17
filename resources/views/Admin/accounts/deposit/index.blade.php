@@ -64,7 +64,7 @@
                                data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="View Payments">
                                 <i class="fas fa-money-bill"></i>
                             </a>
-                            <button type="button" class="btn btn-skype btn-sm btn-icon-sm btn-circle change-status-button" data-toggle="modal" data-target="#change-status-modal" data-id="{{ $haji->id }}"
+                            <button type="button" class="btn btn-skype btn-sm btn-icon-sm btn-circle change-status-button" data-id="{{ $haji->id }}"
                                     data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="Change Status"
                                     @click="getPaymentStatus({{$haji->id}})">
                                 <i class="fas fa-toggle-on"></i>
