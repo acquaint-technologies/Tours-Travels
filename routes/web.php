@@ -69,6 +69,7 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::group(['namespace' => 'Reports'], function () {
         Route::resource('customer-report', 'CustomerController');
         Route::resource('haji-report', 'HajjReportController');
+        Route::resource('omra-haji-report', 'OmraHajjReportController');
     });
     // END Reports Routes
 });
