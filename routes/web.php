@@ -68,6 +68,7 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     // Reports Routes
     Route::group(['namespace' => 'Reports'], function () {
         Route::resource('customer-report', 'CustomerController');
+        Route::resource('haji-report', 'HajjReportController');
     });
     // END Reports Routes
 });
