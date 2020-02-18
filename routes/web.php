@@ -64,6 +64,12 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     // END Accounts Management Routes
 
     Route::resource('customer-payment', 'CustomerPaymentController');
+
+    // Reports Routes
+    Route::group(['namespace' => 'Reports'], function () {
+        Route::resource('customer-report', 'CustomerController');
+    });
+    // END Reports Routes
 });
 
 // Turned off Register Routes
