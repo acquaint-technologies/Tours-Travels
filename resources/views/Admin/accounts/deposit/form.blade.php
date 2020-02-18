@@ -144,9 +144,9 @@
                             </div>
                             <div class="col-10">
                                 <a href="{{ route($controllerInfo->routeNamePrefix . '.index') }}"
-                                   class="btn btn-primary">Cancel</a>
+                                   class="btn btn-primary">Back To Deposit List</a>
                                 <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                <input type="reset" class="btn btn-secondary" value="Reset">
                             </div>
                         </div>
                     </div>
