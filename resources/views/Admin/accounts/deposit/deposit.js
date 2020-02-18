@@ -7,7 +7,8 @@ let vm = new Vue({
             id: null,
             status: 0,
             due: 0
-        }
+        },
+        paymentDetails: {}
     },
     mounted() {
         setTimeout(function () {
@@ -36,8 +37,36 @@ let vm = new Vue({
                         $('.kt-selectpicker').selectpicker('refresh');
                     });
             } else {
-                console.log('id not passed');
+                console.log('Hajj ID Not Found!');
             }
         },
+        getPaymentDetails(id){
+            let _this = this;
+            let loader = this.$loading.show();
+            if (id) {
+                axios.post(api.getHajjPaymentDetails, { hajj_id: id })
+                    .then(res => {
+                        if (res.data.success) {
+                            _this.paymentDetails= res.data.data;
+                        } else {
+                            _this.paymentDetails = {};
+                        }
+                    })
+                    .then(() => {
+                        $('#payment-list-modal').modal('show');
+                        loader.hide();
+                        $('.kt-selectpicker').selectpicker('refresh');
+                        if ( ! $.fn.DataTable.isDataTable( '#payment_list_table' ) ) {
+                            $('#payment_list_table').DataTable({
+                                responsive: {
+                                    details: false
+                                }
+                            });
+                        }
+                    });
+            } else {
+                console.log('Hajj ID Not Found!');
+            }
+        }
     }
 });

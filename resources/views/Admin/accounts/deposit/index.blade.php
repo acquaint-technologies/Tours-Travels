@@ -14,6 +14,7 @@
     <!--begin::Portlet-->
     <div class="kt-portlet kt-portlet--mobile" id="deposit_page">
         @include('Admin.accounts.deposit.change-status-modal')
+        @include('Admin.accounts.deposit.payment-list-modal')
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                     <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
@@ -27,8 +28,7 @@
         </div>
         <div class="kt-portlet__body">
             <!--begin: Datatable -->
-            <table
-                class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
+            <table id="deposits-list-table" class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
                 <thead>
                 <tr>
                     <th>Customer Name</th>
@@ -60,10 +60,15 @@
                                data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="Add Payment">
                                 <i class="fab fa-cc-amazon-pay"></i>
                             </a>
-                            <a href="{{ route($controllerInfo->routeNamePrefix . '.show', $haji->id) }}" class="btn btn-warning btn-sm btn-icon-sm btn-circle"
+                            {{--<a href="{{ route($controllerInfo->routeNamePrefix . '.show', $haji->id) }}" class="btn btn-warning btn-sm btn-icon-sm btn-circle"
                                data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="View Payments">
                                 <i class="fas fa-money-bill"></i>
-                            </a>
+                            </a>--}}
+                            <button type="button" class="btn btn-warning btn-sm btn-icon-sm btn-circle"
+                                    data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="View Payments"
+                                    @click="getPaymentDetails({{$haji->id}})">
+                                <i class="fas fa-money-bill"></i>
+                            </button>
                             <button type="button" class="btn btn-skype btn-sm btn-icon-sm btn-circle change-status-button" data-id="{{ $haji->id }}"
                                     data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="Change Status"
                                     @click="getPaymentStatus({{$haji->id}})">
@@ -95,7 +100,7 @@
         $(document).ready(function () {
             $('#accounts-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#deposit-list-sm').addClass('kt-menu__item--active');
-            $('.table').DataTable({
+            $('#deposits-list-table').DataTable({
                 responsive: {
                     details: false
                 }
