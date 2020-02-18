@@ -2,11 +2,14 @@
 
 namespace App;
 
+use App\ModelTraits\Hajj\HajjRelationshipsTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Hajj extends Model
 {
+    use HajjRelationshipsTrait;
+
     protected $guarded = ['id'];
 
     protected $dates = [
