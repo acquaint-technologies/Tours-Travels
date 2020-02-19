@@ -42,7 +42,7 @@
     							Number of Listed Haji
     						</span>
                                     <span class="kt-widget17__desc" style='font-size: 2rem; font-weight: 700;'>
-    							15
+    							{{ $totalCounts->haji_count }}
     						</span>
                                 </div>
                                 <div class="kt-widget17__item">
@@ -51,7 +51,7 @@
     							Number of Listed Omra Haji
     						</span>
                                     <span class="kt-widget17__desc" style='font-size: 2rem; font-weight: 700;'>
-    							25
+    							{{ $totalCounts->omra_haji_count }}
     						</span>
                                 </div>
                                 <div class="kt-widget17__item">
@@ -60,7 +60,7 @@
     							Number of Listed Agent Group
     						</span>
                                     <span class="kt-widget17__desc" style='font-size: 2rem; font-weight: 700;'>
-    							5
+    							{{ $totalCounts->agent_group_count }}
     						</span>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
     							Number of Pre-registerd Listed Haji
     						</span>
                                     <span class="kt-widget17__desc" style='font-size: 2rem; font-weight: 700;'>
-    							{{ $customer_count }}
+    							{{ $totalCounts->customer_count }}
     						</span>
                                 </div>
                                 <div class="kt-widget17__item">
