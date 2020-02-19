@@ -18,4 +18,5 @@ Route::group(['prefix' => 'json', 'namespace' => 'JsonCon', 'middleware' => ['au
     Route::post('delete-attached-document/{document_id}', 'AttachedDocumentController@destroy')->name('attached-document.delete');
     Route::get('get-hajj-payment-status/{hajj_id}', 'DepositController@getPaymentStatus');
     Route::post('get-hajj-payment-details', 'DepositController@getDepositList');
+    Route::get('get-passport-current-status', 'PassportHistoryController@getPassportStatus');
 });
