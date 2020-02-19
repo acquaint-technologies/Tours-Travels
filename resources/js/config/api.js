@@ -7,5 +7,6 @@ const api = {
     getMahramList : json_path + 'get-customers-by-group-id/',
     getHajjPaymentStatus : json_path + 'get-hajj-payment-status/',
     getHajjPaymentDetails : json_path + 'get-hajj-payment-details',
+    getPassportStatus : json_path + 'get-passport-current-status',
 };
 export default api;

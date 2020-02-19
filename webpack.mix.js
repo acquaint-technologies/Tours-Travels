@@ -52,4 +52,8 @@ mix.js('resources/js/app.js', 'public/js')
     ], 'public/js/pages/accounts/deposit.js')
     .scripts([
         'resources/views/Admin/accounts/expense/bootstrap-pickers.js',
-    ], 'public/js/pages/accounts/expense.js');
+    ], 'public/js/pages/accounts/expense.js')
+    .scripts([
+        'resources/views/Admin/passport-history/bootstrap-pickers.js',
+        'resources/views/Admin/passport-history/passportHistory.js',
+    ], 'public/js/pages/passportHistory.js');
