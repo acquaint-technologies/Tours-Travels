@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackEndCon\Reports;
 
 use App\Customer;
+use App\DataTables\Reports\CustomersDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -22,13 +23,14 @@ class CustomerReportController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param CustomersDataTable $customers
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(CustomersDataTable $customers, Request $request)
     {
         $controllerInfo = $this->controllerInfo;
-        $customers = Customer::all();
-        return view('Admin.reports.customer-report.index', compact('controllerInfo', 'customers'));
+        return $customers->setData($request->input())->render('Admin.reports.customer-report.index-dt', compact('controllerInfo'));
     }
 
     /**
@@ -44,13 +46,14 @@ class CustomerReportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param CustomersDataTable $customers
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(CustomersDataTable $customers, Request $request)
     {
-        //
+        $controllerInfo = $this->controllerInfo;
+        return $customers->setData($request->input())->render('Admin.reports.customer-report.index-dt', compact('controllerInfo'));
     }
 
     /**
