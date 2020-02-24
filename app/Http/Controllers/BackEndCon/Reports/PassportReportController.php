@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\BackEndCon\Reports;
 
-use App\CustomerPassport;
+use App\DataTables\Reports\PassportsDataTable;
 use App\Hajj;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -23,13 +23,14 @@ class PassportReportController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param PassportsDataTable $passports
+     * @param Request $request
+     * @return mixed
      */
-    public function index()
+    public function index(PassportsDataTable $passports, Request $request)
     {
         $controllerInfo = $this->controllerInfo;
-        $passports = CustomerPassport::all();
-        return view('Admin.reports.passport-report.index', compact('controllerInfo', 'passports'));
+        return $passports->setData($request->input())->render('Admin.reports.passport-report.index-dt', compact('controllerInfo'));
     }
 
     /**
@@ -45,13 +46,14 @@ class PassportReportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @param PassportsDataTable $passports
+     * @param Request $request
+     * @return mixed
      */
-    public function store(Request $request)
+    public function store(PassportsDataTable $passports, Request $request)
     {
-        //
+        $controllerInfo = $this->controllerInfo;
+        return $passports->setData($request->input())->render('Admin.reports.passport-report.index-dt', compact('controllerInfo'));
     }
 
     /**
