@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\BackEndCon\Reports;
 
 use App\Customer;
+use App\DataTables\Reports\HajjDataTable;
 use App\Hajj;
 use App\Http\Controllers\Controller;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -25,21 +27,14 @@ class HajjReportController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param HajjDataTable $hajj
+     * @param Request $request
+     * @return mixed
      */
-    public function index()
+    public function index(HajjDataTable $hajj, Request $request)
     {
         $controllerInfo = $this->controllerInfo;
-        $hajis = Hajj::select('*')->with(['customer'])
-            ->addSelect(DB::raw('SUM(hajj_payments.amount) as paid_amount'))
-            ->addSelect(DB::raw('CAST(packages.total_price - SUM(hajj_payments.amount) AS DECIMAL(10,2)) AS due_amount'))
-            ->join('hajj_payments', 'hajjs.id', '=', 'hajj_payments.hajj_id', 'left')
-            ->join('packages', 'hajjs.package_id', '=', 'packages.id', 'left')
-            ->groupBy('hajjs.id')
-            ->groupBy('hajj_payments.hajj_id')
-            ->where('hajjs.type', $this->controllerInfo->hajj_type_no)
-            ->get();
-        return view('Admin.reports.haji-report.index', compact('controllerInfo', 'hajis'));
+        return $hajj->setData($request->input())->render('Admin.reports.haji-report.index-dt', compact('controllerInfo'));
     }
 
     /**
@@ -49,19 +44,36 @@ class HajjReportController extends Controller
      */
     public function create()
     {
-        //
+        DB::enableQueryLog();
+        $model = Hajj::with(['customer', 'package']);
+        $data = $model->addSelect(['paid_amount' => function ($q) {
+            $q->select(DB::raw('SUM(hajj_payments.amount) as paid_amount'))
+                ->from('hajj_payments')
+                ->whereColumn('hajj_id', 'hajjs.id')
+                ->groupBy('hajj_payments.hajj_id');
+        }/*, 'due_amount' => function ($q) {
+            $q->select(DB::raw('CAST(packages.total_price - SUM(hajj_payments.amount) AS DECIMAL(10,2)) AS due_amount'))
+                ->from('hajj_payments')
+                ->whereColumn('hajj_id', 'hajjs.id')
+                ->groupBy('hajj_payments.hajj_id');
+        }*/])
+            ->join('packages', 'hajjs.package_id', '=', 'packages.id', 'left')
+            ->where('hajjs.type', 1)->get();
+        $sql = DB::getQueryLog();
+        return response()->json(['data' => $data, 'sql' => $sql]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @param HajjDataTable $hajj
+     * @param Request $request
+     * @return mixed
      */
-    public function store(Request $request)
+    public function store(HajjDataTable $hajj, Request $request)
     {
-        //
+        $controllerInfo = $this->controllerInfo;
+        return $hajj->setData($request->input())->render('Admin.reports.haji-report.index-dt', compact('controllerInfo'));
     }
 
     /**

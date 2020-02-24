@@ -56,4 +56,7 @@ mix.js('resources/js/app.js', 'public/js')
     .scripts([
         'resources/views/Admin/passport-history/bootstrap-pickers.js',
         'resources/views/Admin/passport-history/passportHistory.js',
-    ], 'public/js/pages/passportHistory.js');
+    ], 'public/js/pages/passportHistory.js')
+    .scripts([
+        'resources/views/Admin/reports/bootstrap-pickers.js',
+    ], 'public/js/pages/report-bootstrap-pickers.js');
