@@ -8,12 +8,16 @@ let vm = new Vue({
             id: null,
             currentStatus: null,
         },
+        passportStatusHistories: [],
     },
     mounted() {
     },
     updated() {
     },
     methods: {
+        moment(dateTime){
+            return moment(dateTime);
+        },
         getPassportStatus(id) {
             let _this = this;
             let loader = this.$loading.show();
@@ -30,6 +34,27 @@ let vm = new Vue({
                     })
                     .then(() => {
                         $('#change-status-modal').modal('show');
+                        loader.hide();
+                        $('.kt-selectpicker').selectpicker('refresh');
+                    });
+            } else {
+                console.log('Passport ID Not Found!');
+            }
+        },
+        getPassportStatusHistories(id) {
+            let _this = this;
+            let loader = this.$loading.show();
+            if (id) {
+                axios.get(api.getPassportStatusHistories, { params: { passport_id: id } })
+                    .then(res => {
+                        if (res.data.success) {
+                            _this.passportStatusHistories = res.data.passportStatusHistory.passport_statuses;
+                        } else {
+                            _this.passport.currentStatus = null;
+                        }
+                    })
+                    .then(() => {
+                        $('#status-history-modal').modal('show');
                         loader.hide();
                         $('.kt-selectpicker').selectpicker('refresh');
                     });
