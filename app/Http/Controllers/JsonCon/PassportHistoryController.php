@@ -36,4 +36,19 @@ class PassportHistoryController extends Controller
             return response()->json(['success' => false, 'message' => 'Whoops! Data not found', 'status' => 400], 200);
         }
     }
+
+    public function getPassportStatusHistory(Request $request)
+    {
+        if (!$request->passport_id){
+            return response()->json(['success' => false, 'message' => 'Whoops! Passport ID not Mentioned', 'status' => 400], 200);
+        }
+        $currentPassportStatus = CustomerPassport::with(['passportStatuses' => function ($q) {
+            $q->orderBy('pivot_date', 'DESC');
+        }])->find($request->passport_id);
+        if ($currentPassportStatus->passportStatuses->count() > 0) {
+            return response()->json(['success' => true, 'passportStatusHistory' => $currentPassportStatus, 'status' => 200], 200);
+        } else {
+            return response()->json(['success' => true, 'passportStatusHistory' => $currentPassportStatus, 'status' => 200], 200);
+        }
+    }
 }

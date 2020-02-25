@@ -14,6 +14,7 @@
     <!--begin::Portlet-->
     <div class="kt-portlet kt-portlet--mobile" id="passport_history_page">
         @include('Admin.passport-history.change-status-modal')
+        @include('Admin.passport-history.status-history-modal')
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                 <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
@@ -27,7 +28,7 @@
         </div>
         <div class="kt-portlet__body">
             <!--begin: Datatable -->
-            <table class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
+            <table id="passport-history-table" class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
                 <thead>
                 <tr>
                     <th>Full Name</th>
@@ -50,6 +51,11 @@
                                     @click="getPassportStatus({{$passport->id}})">
                                 <i class="fas fa-sync"></i>
                             </button>
+                            <button type="button" class="btn btn-brand btn-sm btn-icon-sm btn-circle"
+                                    data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="View Passport History"
+                                    @click="getPassportStatusHistories({{$passport->id}})">
+                                <i class="fas fa-history"></i>
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -70,7 +76,7 @@
         $(document).ready(function () {
             $('#passport-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#check-passport-history-sm').addClass('kt-menu__item--active');
-            $('.table').DataTable({
+            $('#passport-history-table').DataTable({
                 responsive: {
                     details: false
                 }
