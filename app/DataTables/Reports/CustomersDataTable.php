@@ -35,6 +35,10 @@ class CustomersDataTable extends DataTable {
                 }
                 return "";
             })
+            ->filterColumn('full_name', function ($query, $keyword) {
+                $query->whereRaw("CONCAT(IFNULL(given_name, ''), ' ', IFNULL(sur_name, '')) like ?", "%{$keyword}%");
+            })
+            ->orderColumn('full_name', 'given_name $1')
             ->escapeColumns([]);
     }
 
@@ -68,6 +72,7 @@ class CustomersDataTable extends DataTable {
             $model->where('mobile', 'like', '%' . $this->data['mobile'] . '%');
         }
         // End Of Making Query
+        // return $this->applyScopes($model);
         return $model;
     }
 
@@ -105,7 +110,7 @@ class CustomersDataTable extends DataTable {
             ->setTableId('customer-report-table')
             ->columns($this->getColumns())
             ->dom("Bfltr<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>")
-            ->orderBy(1, "ASC")
+            ->orderBy(0, "ASC")
             ->parameters(array(
                 'processing' => 'Please wait...',
                 'searchDelay' => 500,
