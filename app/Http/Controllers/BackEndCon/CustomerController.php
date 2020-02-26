@@ -89,9 +89,7 @@ class CustomerController extends Controller
             $remove_passport_data = array(
                 'passport_no', 'passport_type', 'issue_date', 'expiry_date', 'issue_location'
             );
-            if ($request->has('document')){
-                array_push($remove_passport_data, 'document', 'document_title');
-            }
+            array_push($remove_passport_data, 'document', 'document_title');
             foreach ($remove_passport_data as $key) {
                 unset($data[$key]);
             }
@@ -182,9 +180,7 @@ class CustomerController extends Controller
             }
 
             $remove_data = array();
-            if ($request->has('document')){
-                array_push($remove_data, 'document', 'document_title');
-            }
+            array_push($remove_data, 'document', 'document_title');
             foreach ($remove_data as $key) {
                 unset($data[$key]);
             }
@@ -198,15 +194,17 @@ class CustomerController extends Controller
                     return response()->json(['message' => 'Whoops! Failed to upload photo', 'success' => false, 'type' => 'error', 'status' => 422], 200);
                 }
             }
-            foreach ($request->document as $key => $document){
-                $attachDocument = new \App\Services\AttachedDocument();
-                $file_name = $attachDocument->uploadDocument($document);
-                $attachDocumentData = [
-                    'title' => $request->document_title[$key],
-                    'document' => $file_name
-                ];
-                if (!$attachDocument->attachDocument($customer->id, $attachDocumentData)) {
-                    return response()->json(['message' => 'Whoops! Failed to upload document', 'success' => false, 'type' => 'error', 'status' => 422], 200);
+            if (isset($request->document)) {
+                foreach ($request->document as $key => $document){
+                    $attachDocument = new \App\Services\AttachedDocument();
+                    $file_name = $attachDocument->uploadDocument($document);
+                    $attachDocumentData = [
+                        'title' => $request->document_title[$key],
+                        'document' => $file_name
+                    ];
+                    if (!$attachDocument->attachDocument($customer->id, $attachDocumentData)) {
+                        return response()->json(['message' => 'Whoops! Failed to upload document', 'success' => false, 'type' => 'error', 'status' => 422], 200);
+                    }
                 }
             }
             $updated = false;
