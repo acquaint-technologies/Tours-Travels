@@ -48,24 +48,24 @@ class CustomersDataTable extends DataTable {
         $model = $model->newQuery();
         $model->with(['passport' => function ($q) {
             if (isset($this->data['passport_no'])) {
-                $q->where('passport_no', 'like', $this->data['passport_no']);
+                $q->where('passport_no', 'like', '%' . $this->data['passport_no'] . '%');
             }
         }]);
 
         // Making Query
         if (isset($this->data['full_name'])) {
-            $model->where(DB::raw("CONCAT(given_name, ' ', sur_name)"), 'like', $this->data['full_name']);
+            $model->where(DB::raw("CONCAT(IFNULL(given_name, ''), ' ', IFNULL(sur_name, ''))"), 'like', '%' . $this->data['full_name'] . '%');
         }
         if (isset($this->data['email'])) {
-            $model->where('email', 'like', $this->data['email']);
+            $model->where('email', 'like', $this->data['email'] . '%');
         }
         if (isset($this->data['passport_no'])) {
             $model->whereHas('passport', function ($q) {
-                $q->where('passport_no', 'like', $this->data['passport_no']);
+                $q->where('passport_no', 'like', '%' . $this->data['passport_no'] . '%');
             });
         }
         if (isset($this->data['mobile'])) {
-            $model->where('mobile', 'like', $this->data['mobile']);
+            $model->where('mobile', 'like', '%' . $this->data['mobile'] . '%');
         }
         // End Of Making Query
         return $model;
