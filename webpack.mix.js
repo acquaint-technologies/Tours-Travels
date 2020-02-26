@@ -47,6 +47,9 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/views/Admin/package/bootstrap-pickers.js',
     ], 'public/js/pages/package.js')
     .scripts([
+        'resources/views/Admin/accounts/bootstrap-pickers.js',
+    ], 'public/js/pages/accounts/bootstrap-pickers.js')
+    .scripts([
         'resources/views/Admin/accounts/deposit/bootstrap-pickers.js',
         'resources/views/Admin/accounts/deposit/deposit.js',
     ], 'public/js/pages/accounts/deposit.js')

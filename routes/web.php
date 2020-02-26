@@ -62,6 +62,7 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
         Route::get('deposit-list/add/{hajj_id}', 'DepositController@addPayment')->name('deposit-list.add-payment');
         Route::post('hajj-payment-status/change', 'DepositController@changePaymentStatus')->name('deposit-list.change-status');
         Route::resource('expense-list', 'ExpenseController');
+        Route::resource('cash-in-hand', 'CashInHandController');
     });
     // END Accounts Management Routes
 

@@ -7,6 +7,7 @@
     "/js/pages/haji.js": "/js/pages/haji.js",
     "/js/pages/hajj-payment.js": "/js/pages/hajj-payment.js",
     "/js/pages/package.js": "/js/pages/package.js",
+    "/js/pages/accounts/bootstrap-pickers.js": "/js/pages/accounts/bootstrap-pickers.js",
     "/js/pages/accounts/deposit.js": "/js/pages/accounts/deposit.js",
     "/js/pages/accounts/expense.js": "/js/pages/accounts/expense.js",
     "/js/pages/passportHistory.js": "/js/pages/passportHistory.js",
