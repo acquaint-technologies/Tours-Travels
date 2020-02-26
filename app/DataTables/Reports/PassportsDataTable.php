@@ -56,13 +56,13 @@ class PassportsDataTable extends DataTable {
 
         // Making Query
         if (isset($this->data['full_name'])) {
-            $model->where('full_name', 'like', $this->data['full_name']);
+            $model->where('full_name', 'like', '%' . $this->data['full_name'] .'%');
         }
         if (isset($this->data['passport_no'])) {
             $model->where('passport_no', '=', $this->data['passport_no']);
         }
         if (isset($this->data['date_of_birth'])) {
-            $model->where('date_of_birth', 'like', Carbon::parse($this->data['date_of_birth'])->format('Y-m-d'));
+            $model->where('date_of_birth', '=', Carbon::parse($this->data['date_of_birth'])->format('Y-m-d'));
         }
         if (isset($this->data['issue_date'])) {
             $model->where('issue_date', '=', Carbon::parse($this->data['issue_date'])->format('Y-m-d'));
@@ -71,7 +71,7 @@ class PassportsDataTable extends DataTable {
             $model->where('expiry_date', '=', Carbon::parse($this->data['expiry_date'])->format('Y-m-d'));
         }
         if (isset($this->data['issue_location'])) {
-            $model->where('issue_location', 'like', $this->data['issue_location']);
+            $model->where('issue_location', 'like', '%' . $this->data['issue_location'] . '%');
         }
         // End Of Making Query
         return $model;

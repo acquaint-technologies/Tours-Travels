@@ -63,7 +63,7 @@ class OmraHajjDataTable extends DataTable {
 
         // Making Query
         if (isset($this->data['full_name'])) {
-            $model->where(DB::raw("CONCAT(given_name, ' ', sur_name)"), 'like', $this->data['full_name']);
+            $model->where(DB::raw("CONCAT(IFNULL(given_name, ''), ' ', IFNULL(sur_name, ''))"), 'like', '%' . $this->data['full_name'] . '%');
         }
         if (isset($this->data['serial_no'])) {
             $model->where('hajjs.serial_no', '=', $this->data['serial_no']);
