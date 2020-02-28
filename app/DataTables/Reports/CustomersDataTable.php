@@ -56,6 +56,9 @@ class CustomersDataTable extends DataTable {
             }
         }]);
 
+        if ($this->request()->get('email')) {
+            $model->where('email', $this->request()->get('email'));
+        }
         // Making Query
         if (isset($this->data['full_name'])) {
             $model->where(DB::raw("CONCAT(IFNULL(given_name, ''), ' ', IFNULL(sur_name, ''))"), 'like', '%' . $this->data['full_name'] . '%');
@@ -72,8 +75,8 @@ class CustomersDataTable extends DataTable {
             $model->where('mobile', 'like', '%' . $this->data['mobile'] . '%');
         }
         // End Of Making Query
-        // return $this->applyScopes($model);
-        return $model;
+         return $this->applyScopes($model);
+//        return $model;
     }
 
     /**
@@ -130,6 +133,7 @@ class CustomersDataTable extends DataTable {
                 }",
                 'searchPlaceholder' => "Search...",
                 'initComplete' => "function (settings, json) {
+                    var DT = this.api()
                     var searchData = $searchData;
                     for (const property in searchData) {
                         $('input[name=\"'+property+'\"]').val(searchData[property]);
@@ -151,6 +155,15 @@ class CustomersDataTable extends DataTable {
                              column.search($(this).val(), false, false,true).draw();
                         });
                     });*/
+                    $('#customer-report-form').on('submit', function(e) {
+                        e.preventDefault();
+                        var formData = $(this).serializeArray();
+                        DT.on('preXhr.dt', function ( e, settings, data ) {
+                            Object.values(formData).forEach((item) => {
+                                data[item.name] = item.value
+                            })
+                        }).draw();;
+                    });
                 }",
                 'preDrawCallback' => "function(){
                     $('#customer-report-table_processing').remove();
