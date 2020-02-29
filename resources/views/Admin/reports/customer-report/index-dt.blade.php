@@ -84,11 +84,17 @@
     </div>
     <!--end::Portlet-->
     <div class="kt-portlet">
+        <form id="frm-example" action="/path/to/your/script" method="POST">
         <div class="kt-portlet__body">
             <!--begin: Datatable -->
         {!! $dataTable->table(['class' => 'table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline'], true) !!}
         <!--end: Datatable -->
         </div>
+        <p><button>Submit</button></p>
+
+        <b>Data submitted to the server:</b><br>
+        <pre id="example-console"></pre>
+        </form>
     </div>
 @endsection
 

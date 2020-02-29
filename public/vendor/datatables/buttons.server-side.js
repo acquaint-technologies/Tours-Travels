@@ -11,10 +11,10 @@
         } else {
             params.visible_columns = null;
         }
-        
+
         return params;
     };
-    
+
     var _getVisibleColumns = function () {
 
         var visible_columns = [];
@@ -85,7 +85,7 @@
         if (url.indexOf('?') > -1) {
             return url + '&' + $.param(params);
         }
-        
+
         return url + '?' + $.param(params);
     };
 
@@ -116,7 +116,7 @@
             _downloadFromUrl(url, params);
         }
     };
-    
+
     DataTable.ext.buttons.postExcelVisibleColumns = {
         className: 'buttons-excel',
 
@@ -171,7 +171,7 @@
             _downloadFromUrl(url, params);
         }
     };
-    
+
     DataTable.ext.buttons.postCsv = {
         className: 'buttons-csv',
 
@@ -225,6 +225,20 @@
         action: function (e, dt, button, config) {
             var url = _buildUrl(dt, 'print');
             window.location = url;
+        }
+    };
+
+    DataTable.ext.buttons.printSelected = {
+        className: 'buttons-print',
+
+        text: function (dt) {
+            return  '<i class="fa fa-print"></i> ' + dt.i18n('buttons.print', 'Print Sel');
+        },
+
+        action: function (e, dt, button, config) {
+            console.log(dt)
+            var url = _buildUrl(dt, 'print');
+            // window.location = url;
         }
     };
 
