@@ -34,6 +34,7 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::resource('omra-hajj-package', 'OmraHajjPackageController');
     Route::resource('haji', 'HajjController');
     Route::resource('omra-haji', 'OmraHajjController');
+    Route::resource('sms-sending-system', 'SmsSenderController');
 
     Route::get('deposit-details/{hajj_id}', 'Accounts\DepositController@depositDetails')->name('deposit-details.view');
 
