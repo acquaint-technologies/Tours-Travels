@@ -133,7 +133,7 @@ class CustomersDataTable extends DataTable {
                 }",
                 'searchPlaceholder' => "Search...",
                 'initComplete' => "function (settings, json) {
-                    var DT = this.api()
+                    var DT = this.api();
                     var searchData = $searchData;
                     for (const property in searchData) {
                         $('input[name=\"'+property+'\"]').val(searchData[property]);
@@ -155,15 +155,8 @@ class CustomersDataTable extends DataTable {
                              column.search($(this).val(), false, false,true).draw();
                         });
                     });*/
-                    $('#customer-report-form').on('submit', function(e) {
-                        e.preventDefault();
-                        var formData = $(this).serializeArray();
-                        DT.on('preXhr.dt', function ( e, settings, data ) {
-                            Object.values(formData).forEach((item) => {
-                                data[item.name] = item.value
-                            })
-                        }).draw();;
-                    });
+                    afterTableInitialization(settings, json);
+                    customSearchAjax(settings, json, $('#customer-report-form'));
                 }",
                 'preDrawCallback' => "function(){
                     $('#customer-report-table_processing').remove();

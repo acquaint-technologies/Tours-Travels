@@ -97,6 +97,7 @@
     <!-- Datatables -->
     <script src="{{asset('vendor/dashboard/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('vendor/datatables/common-callback-functions.js') }}" type="text/javascript"></script>
     {!! $dataTable->scripts() !!}
     <script>
         $(document).ready(function () {
