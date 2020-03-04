@@ -167,6 +167,7 @@ return [
          */
         Anam\Dashboard\DashboardServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
