@@ -60,7 +60,7 @@
                     <select class="form-control kt-selectpicker"
                             name="resident_type"
                             id="resident_type"
-                            @change="changeGender($event)">
+                            @change="changeResidentType($event)">
                         <option
                             value="Bangladeshi" {{ old('resident_type', $customer->resident_type) !== 'NRB' ? 'selected' : '' }}>
                             Bangladeshi
@@ -70,6 +70,17 @@
                             NRB
                         </option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group row" v-if="isNRB">
+                <label for="nrb_residence_country" class="col-3 col-form-label text-right">
+                    Residence Country *
+                </label>
+                <div class="col-9">
+                    <input class="form-control" type="text" id="nrb_residence_country"
+                           name="nrb_residence_country"
+                           value="{{ old('nrb_residence_country', $customer->nrb_residence_country) }}"
+                           placeholder="Country" required>
                 </div>
             </div>
             <div class="form-group row">
