@@ -225,7 +225,17 @@ let vm = new Vue({
         documents: [{
             document: '',
             title: '',
-        }]
+        }],
+        validateMobileData: {
+            hasError: false,
+            input: null,
+            message: 'Mobile Number Must not be 11 digits',
+        },
+        validatePassportNoData: {
+            hasError: false,
+            input: null,
+            message: null,
+        }
     },
     mounted() {
         let _this = this;
@@ -334,11 +344,35 @@ let vm = new Vue({
         setDependentId(id) {
             this.hasMahram = !!id;
         },
-        addNewDocument(){
+        addNewDocument() {
             this.documents.push({
                 document: '',
                 title: '',
             });
+        },
+        validateMobile() {
+            this.validateMobileData.hasError = this.validateMobileData.input.length !== 11;
+        },
+        validatePassport() {
+            let _this = this;
+            if (this.validatePassportNoData.input.length < 9) {
+                this.validatePassportNoData.hasError = true;
+                this.validatePassportNoData.message = 'Passport Number Must be minimum 9 digits';
+            } else {
+                axios.get(api.isRegisteredPassport, {
+                    params: {
+                        'passport_no': _this.validatePassportNoData.input
+                    }
+                }).then(res => {
+                        if (res.data.success) {
+                            _this.validatePassportNoData.hasError = false;
+                            _this.validatePassportNoData.message = null;
+                        } else {
+                            _this.validatePassportNoData.hasError = true;
+                            _this.validatePassportNoData.message = res.data.message;
+                        }
+                    });
+            }
         }
     }
 });

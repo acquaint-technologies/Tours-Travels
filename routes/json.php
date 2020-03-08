@@ -20,4 +20,5 @@ Route::group(['prefix' => 'json', 'namespace' => 'JsonCon', 'middleware' => ['au
     Route::post('get-hajj-payment-details', 'DepositController@getDepositList');
     Route::get('get-passport-current-status', 'PassportHistoryController@getPassportStatus');
     Route::get('get-passport-status-history', 'PassportHistoryController@getPassportStatusHistory');
+    Route::get('is-registered-passport', 'CustomerPassportController@isRegisteredPassport');
 });
