@@ -351,11 +351,11 @@ let vm = new Vue({
             });
         },
         validateMobile() {
-            this.validateMobileData.hasError = this.validateMobileData.input.length !== 11;
+            this.validateMobileData.hasError = this.validateMobileData.input == null || this.validateMobileData.input.length !== 11;
         },
         validatePassport() {
             let _this = this;
-            if (this.validatePassportNoData.input.length < 9) {
+            if (this.validatePassportNoData.input == null || this.validatePassportNoData.input.length < 9) {
                 this.validatePassportNoData.hasError = true;
                 this.validatePassportNoData.message = 'Passport Number Must be minimum 9 digits';
             } else {
@@ -364,14 +364,14 @@ let vm = new Vue({
                         'passport_no': _this.validatePassportNoData.input
                     }
                 }).then(res => {
-                        if (res.data.success) {
-                            _this.validatePassportNoData.hasError = false;
-                            _this.validatePassportNoData.message = null;
-                        } else {
-                            _this.validatePassportNoData.hasError = true;
-                            _this.validatePassportNoData.message = res.data.message;
-                        }
-                    });
+                    if (res.data.success) {
+                        _this.validatePassportNoData.hasError = false;
+                        _this.validatePassportNoData.message = null;
+                    } else {
+                        _this.validatePassportNoData.hasError = true;
+                        _this.validatePassportNoData.message = res.data.message;
+                    }
+                });
             }
         }
     }
