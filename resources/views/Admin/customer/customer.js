@@ -209,7 +209,6 @@ let vm = new Vue({
     data: {
         type: customer_type,
         identity: customer_identity_type,
-        age: null,
         gender: customer_gender,
         current_district: current_district,
         current_police_station: current_police_station,
@@ -241,6 +240,7 @@ let vm = new Vue({
     mounted() {
         let _this = this;
         this.calculateAge();
+        this.calculatePassportExpiry();
         if (!isNaN(current_police_station)) {
             _this.setPresentPoliceStation(current_district);
         }
@@ -281,6 +281,15 @@ let vm = new Vue({
         },
         changeGender(event) {
             this.gender = event.target.value;
+        },
+        calculatePassportExpiry(){
+            $('#expiry_date').change(function () {
+                let PPExpDate = moment($(this).val(), 'DD-MM-YYYY');
+                let years = moment().diff(PPExpDate, 'years');
+                let months = moment().diff(PPExpDate.add(years, 'years'), 'months');
+                let days = moment().diff(PPExpDate.add(months, 'months'), 'days');
+                $('#calculated_passport_expiry').text(`Remaining: ${years} years, ${months} months, ${days} days`);
+            });
         },
         loadFile(event) {
             let CSS = 'background-image: url(' + URL.createObjectURL(event.target.files[0]) + ')';
