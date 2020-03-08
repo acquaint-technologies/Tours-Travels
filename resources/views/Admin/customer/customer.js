@@ -209,6 +209,7 @@ let vm = new Vue({
     data: {
         type: customer_type,
         identity: customer_identity_type,
+        age: null,
         gender: customer_gender,
         current_district: current_district,
         current_police_station: current_police_station,
@@ -239,6 +240,7 @@ let vm = new Vue({
     },
     mounted() {
         let _this = this;
+        this.calculateAge();
         if (!isNaN(current_police_station)) {
             _this.setPresentPoliceStation(current_district);
         }
@@ -267,6 +269,15 @@ let vm = new Vue({
         },
         changeIdentityType(event) {
             this.identity = event.target.value;
+        },
+        calculateAge(){
+            $('#date_of_birth').change(function () {
+                let DOB = moment($(this).val(), 'DD-MM-YYYY');
+                let years = moment().diff(DOB, 'years');
+                let months = moment().diff(DOB.add(years, 'years'), 'months');
+                let days = moment().diff(DOB.add(months, 'months'), 'days');
+                $('#calculated_age').text(`Age: ${years} years, ${months} months, ${days} days`);
+            });
         },
         changeGender(event) {
             this.gender = event.target.value;
