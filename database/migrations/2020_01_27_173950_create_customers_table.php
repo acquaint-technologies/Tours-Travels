@@ -24,6 +24,7 @@ class CreateCustomersTable extends Migration
             $table->string('mother_name')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('resident_type')->nullable();
+            $table->string('nrb_residence_country')->nullable();
             $table->tinyInteger('gender')->comment('1=Male | 2=Female');
             $table->tinyInteger('type')->comment('1=Individual | 2=Group');
             $table->bigInteger('group_id')->nullable();

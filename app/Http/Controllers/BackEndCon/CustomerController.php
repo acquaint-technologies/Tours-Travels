@@ -56,15 +56,16 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), array(
+        $toValidate = array(
             'given_name' => 'required',
             'sur_name' => 'required',
             'date_of_birth' => 'required',
             'email' => 'required|email',
             'mobile' => 'required|max:11',
             'photo' => 'required|mimes:jpeg,jpg,png|max:500',
-        ));
-
+        );
+        $toValidate['nrb_residence_country'] = ($request->resident_type == 'NRB') ? 'required' : 'nullable';
+        $validator = Validator::make($request->all(), $toValidate);
         $data = $request->all();
         $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
         $data['email'] = strtolower($data['email']);
@@ -110,7 +111,7 @@ class CustomerController extends Controller
             }
         }
 
-        if ($request->has('passport_no')) {
+        if (isset($request->passport_no)) {
             if ($passport = $this->createPassport($request)) {
                 if ($passport['success'] == false) {
                     return $passport;

@@ -217,6 +217,7 @@ let vm = new Vue({
         current_police_stations: [],
         permanent_police_stations: [],
         isGroup: false,
+        isNRB: false,
         current_maharam_id: maharam_id,
         mahramList: [],
         current_dependent_id: dependent_id,
@@ -290,6 +291,9 @@ let vm = new Vue({
                 let days = moment().diff(PPExpDate.add(months, 'months'), 'days');
                 $('#calculated_passport_expiry').text(`Remaining: ${years} years, ${months} months, ${days} days`);
             });
+        },
+        changeResidentType(event) {
+            this.isNRB = event.target.value === 'NRB';
         },
         loadFile(event) {
             let CSS = 'background-image: url(' + URL.createObjectURL(event.target.files[0]) + ')';
