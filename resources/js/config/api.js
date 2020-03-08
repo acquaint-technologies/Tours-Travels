@@ -9,5 +9,6 @@ const api = {
     getHajjPaymentDetails : json_path + 'get-hajj-payment-details',
     getPassportStatus : json_path + 'get-passport-current-status',
     getPassportStatusHistories : json_path + 'get-passport-status-history',
+    isRegisteredPassport : json_path + 'is-registered-passport',
 };
 export default api;

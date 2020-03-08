@@ -153,10 +153,14 @@
                 <label for="mobile"
                        class="col-3 col-form-label text-right">Mobile *</label>
                 <div class="col-9">
-                    <input class="form-control" type="text" id="mobile"
+                    <input class="form-control" type="number" id="mobile"
                            name="mobile"
                            value="{{ old('mobile', $customer->mobile) }}"
-                           placeholder="017XXXXXXXX">
+                           placeholder="017XXXXXXXX"
+                           maxlength="11"
+                           @keyup="validateMobile()"
+                           v-model="validateMobileData.input">
+                    <span class="form-text text-danger" v-if="validateMobileData.hasError">@{{ validateMobileData.message }}</span>
                 </div>
             </div>
         </div>
@@ -188,20 +192,21 @@
                     }
                 @endphp
                 <div class="form-group row">
-                    <label for="passport_no"
-                           class="col-4 col-form-label text-right">
+                    <label for="passport_no" class="col-4 col-form-label text-right">
                         Passport No
                     </label>
                     <div class="col-8">
-                        <input class="form-control" type="text"
+                        <input class="form-control" type="number"
                                id="passport_no" name="passport_no"
                                value="{{ old('passport_no', $passport->passport_no) }}"
-                               placeholder="">
+                               placeholder=""
+                               @keyup="validatePassport()"
+                               v-model="validatePassportNoData.input">
+                        <span class="form-text text-danger" v-if="validatePassportNoData.hasError">@{{ validatePassportNoData.message }}</span>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="passport_type"
-                           class="col-4 col-form-label text-right">
+                    <label for="passport_type" class="col-4 col-form-label text-right">
                         Passport Type
                     </label>
                     <div class="col-8">
