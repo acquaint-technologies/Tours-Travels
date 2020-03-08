@@ -86,6 +86,7 @@
                     <div class="col-10">
                         <input class="form-control kt-datepicker" type="text" id="expiry_date" name="expiry_date"
                                value="{{ \Carbon\Carbon::parse(old('expiry_date', $passport->expiry_date))->format('d-m-Y') }}" placeholder="" required>
+                        <span class="form-text text-danger" id="calculated_passport_expiry"></span>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -121,6 +122,14 @@
         $(document).ready(function () {
             $('#passport-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#add-passport-information-sm').addClass('kt-menu__item--active');
+
+            $('#expiry_date').change(function () {
+                let PPExpDate = moment($(this).val(), 'DD-MM-YYYY');
+                let years = moment().diff(PPExpDate, 'years');
+                let months = moment().diff(PPExpDate.add(years, 'years'), 'months');
+                let days = moment().diff(PPExpDate.add(months, 'months'), 'days');
+                $('#calculated_passport_expiry').text(`Remaining: ${years} years, ${months} months, ${days} days`);
+            });
         });
     </script>
     <!--begin::Page Scripts(used by this page) -->
