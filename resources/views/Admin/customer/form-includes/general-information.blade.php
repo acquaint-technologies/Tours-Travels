@@ -1,22 +1,9 @@
 <!--begin: Form Wizard Step 1-->
-<div class="kt-wizard-v3__content" data-ktwizard-type="step-content"
-     data-ktwizard-state="current">
+<div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
     @csrf
     @if(isset($customer->id)) @method('PUT') @endif
     <div class="row">
         <div class="col-6">
-            <div class="form-group row">
-                <label for="given_name"
-                       class="col-3 col-form-label text-right text-right">
-                    Given Name *
-                </label>
-                <div class="col-9">
-                    <input class="form-control" type="text" id="given_name"
-                           name="given_name"
-                           value="{{ old('given_name', $customer->given_name) }}"
-                           placeholder="Given Name" required>
-                </div>
-            </div>
             <div class="form-group row">
                 <label for="sur_name"
                        class="col-3 col-form-label text-right text-right">
@@ -27,6 +14,18 @@
                            name="sur_name"
                            value="{{ old('sur_name', $customer->sur_name) }}"
                            placeholder="Surname" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="given_name"
+                       class="col-3 col-form-label text-right text-right">
+                    Given Name *
+                </label>
+                <div class="col-9">
+                    <input class="form-control" type="text" id="given_name"
+                           name="given_name"
+                           value="{{ old('given_name', $customer->given_name) }}"
+                           placeholder="Given Name" required>
                 </div>
             </div>
             @if(isset($customer->id))
