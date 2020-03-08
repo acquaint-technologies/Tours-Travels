@@ -251,6 +251,7 @@
                                id="expiry_date" name="expiry_date"
                                value="{{ \Carbon\Carbon::parse(old('expiry_date', $passport->expiry_date))->format('d-m-Y') }}"
                                placeholder="">
+                        <span class="form-text text-danger" id="calculated_passport_expiry"></span>
                     </div>
                 </div>
                 <div class="form-group row">
