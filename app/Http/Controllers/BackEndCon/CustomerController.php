@@ -61,7 +61,7 @@ class CustomerController extends Controller
             'sur_name' => 'required',
             'date_of_birth' => 'required',
             'email' => 'required|email',
-            'mobile' => 'required',
+            'mobile' => 'required|max:11',
             'photo' => 'required|mimes:jpeg,jpg,png|max:500',
         ));
 
@@ -69,37 +69,7 @@ class CustomerController extends Controller
         $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
         $data['email'] = strtolower($data['email']);
         if ($request->ajax()) {
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors(), 'success' => false, 'type' => 'error', 'status' => 422], 200);
-            }
-            if ($request->hasFile('photo')) {
-                $upload = $this->uploadFile($request->photo, 'uploads/customers/images');
-                if ($upload) {
-                    $data['photo'] = $upload;
-                } else {
-                    return response()->json(['message' => 'Whoops! Failed to upload photo', 'success' => false, 'type' => 'error', 'status' => 422], 200);
-                }
-            }
-
-            if ($request->has('passport_no')) {
-                if ($passport = $this->createPassport($request)) {
-                    $data['passport_id'] = $passport;
-                }
-            }
-            $remove_passport_data = array(
-                'passport_no', 'passport_type', 'issue_date', 'expiry_date', 'issue_location'
-            );
-            array_push($remove_passport_data, 'document', 'document_title');
-            foreach ($remove_passport_data as $key) {
-                unset($data[$key]);
-            }
-            $customer = Customer::create($data);
-            $updated_customer = $customer->update(['serial_no' => $customer->id + 1000, 'tracking_no' => 'SN' . getSixDigitNumber($customer->id)]);
-            if ($updated_customer) {
-                return response()->json(['data' => $customer, 'message' => 'Customer Created Successfully', 'success' => true, 'type' => 'success', 'status' => 200], 200);
-            } else {
-                return response()->json(['message' => 'Whoops! Failed to create Customer.', 'success' => false, 'type' => 'error', 'status' => 400], 200);
-            }
+            return response()->json($this->ajaxStore($data, $validator, $request), 200);
         } else { // if request is not a AJAX request
             $validator->validate();
             if ($request->hasFile('photo')) {
@@ -119,6 +89,53 @@ class CustomerController extends Controller
                 Session::flash('error', 'Whoops! Failed to Create Customer');
                 return redirect()->back()->withInput();
             }
+        }
+    }
+
+    /**
+     * @param $validator
+     * @param $request
+     * @return array|bool
+     */
+    private function ajaxStore($data, $validator, Request $request) {
+        if ($validator->fails()) {
+            return ['errors' => $validator->errors(), 'success' => false, 'type' => 'error', 'status' => 422];
+        }
+        if ($request->hasFile('photo')) {
+            $upload = $this->uploadFile($request->photo, 'uploads/customers/images');
+            if ($upload) {
+                $data['photo'] = $upload;
+            } else {
+                return ['message' => 'Whoops! Failed to upload photo', 'success' => false, 'type' => 'error', 'status' => 422];
+            }
+        }
+
+        if ($request->has('passport_no')) {
+            if ($passport = $this->createPassport($request)) {
+                if ($passport['success'] == false) {
+                    return $passport;
+                } else {
+                    $data['passport_id'] = $passport['data'];
+                }
+            }
+        }
+        $remove_passport_data = array(
+            'passport_no', 'passport_type', 'issue_date', 'expiry_date', 'issue_location'
+        );
+        array_push($remove_passport_data, 'document', 'document_title');
+        foreach ($remove_passport_data as $key) {
+            unset($data[$key]);
+        }
+        $customer = Customer::create($data);
+        $updated_customer = $customer->update(['serial_no' => $customer->id + 1000, 'tracking_no' => 'SN' . getSixDigitNumber($customer->id)]);
+        if ($updated_customer) {
+            $uploadDocument = $this->uploadDocuments($request, $customer);
+            if ($uploadDocument['success'] == false) {
+                return ['data' => $customer, 'message' => 'Customer Created Successfully But failed to upload documents', 'success' => true, 'type' => 'success', 'status' => 200];
+            }
+            return ['data' => $customer, 'message' => 'Customer Created Successfully', 'success' => true, 'type' => 'success', 'status' => 200];
+        } else {
+            return ['message' => 'Whoops! Failed to create Customer.', 'success' => false, 'type' => 'error', 'status' => 400];
         }
     }
 
@@ -282,29 +299,48 @@ class CustomerController extends Controller
         }
     }
 
+    private function uploadDocuments(Request $request, $customer)
+    {
+        if (isset($request->document)) {
+            foreach ($request->document as $key => $document){
+                $attachDocument = new \App\Services\AttachedDocument();
+                $file_name = $attachDocument->uploadDocument($document);
+                $attachDocumentData = [
+                    'title' => $request->document_title[$key],
+                    'document' => $file_name
+                ];
+                if (!$attachDocument->attachDocument($customer->id, $attachDocumentData)) {
+                    return ['message' => 'Whoops! Failed to upload document', 'success' => false, 'type' => 'error', 'status' => 422];
+                }
+            }
+            return ['message' => 'Document Uploaded Successfully', 'success' => true, 'type' => 'success', 'status' => 200];
+        } else {
+            return ['message' => 'Document Not Submitted', 'success' => true, 'type' => 'success', 'status' => 200];
+        }
+    }
+
     /**
      * Create Passport
      *
      * @param Request $request
-     * @return bool
+     * @return array|bool
      */
     private function createPassport(Request $request)
     {
         $validator = Validator::make($request->all(), array(
-            'full_name' => 'required',
-            'passport_no' => 'required',
+            'passport_no' => 'required|min:9',
             'date_of_birth' => 'required',
             'passport_type' => 'required',
             'issue_date' => 'required',
             'expiry_date' => 'required',
         ));
         if ($validator->fails()) {
-            return false;
+            return ['success' => false, 'errors' => $validator->errors(), 'type' => 'validation-error', 'status' => 422];
         }
         $data = array(
-            'full_name' => $request->full_name,
+            'full_name' => $request->given_name . ' ' . $request->sur_name,
             'passport_no' => $request->passport_no,
-            'date_of_birth' => $request->date_of_birth,
+            'date_of_birth' => Carbon::parse($request->date_of_birth)->format('Y-m-d'),
             'passport_type' => $request->passport_type,
             'issue_date' => Carbon::parse($request->issue_date)->format('Y-m-d'),
             'expiry_date' => Carbon::parse($request->expiry_date)->format('Y-m-d'),
@@ -313,9 +349,9 @@ class CustomerController extends Controller
 
         $passport = CustomerPassport::create($data);
         if ($passport) {
-            return $passport->id;
+            return ['success' => true, 'data' => $passport->id, 'status' => 200];
         } else {
-            return false;
+            return ['success' => false, 'errors' => 'Error in creating passport!', 'type' => 'create-error', 'status' => 422];
         }
     }
 
