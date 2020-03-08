@@ -92,13 +92,13 @@
                                 <!--begin: Form Wizard Form-->
                                 <form class="kt-form" id="kt_form" action="{{ $route }}" method="post">
 
-                                    @include('admin.customer.form-includes.general-information')
+                                    @include('Admin.customer.form-includes.general-information')
 
-                                    @include('admin.customer.form-includes.address')
+                                    @include('Admin.customer.form-includes.address')
 
-                                    @include('admin.customer.form-includes.others')
+                                    @include('Admin.customer.form-includes.others')
 
-                                    @include('admin.customer.form-includes.attachments')
+                                    @include('Admin.customer.form-includes.attachments')
 
                                     <!--begin: Form Actions -->
                                     <div class="kt-form__actions">
@@ -136,7 +136,7 @@
 @push('scripts')
     @include('dashboard::scripts.delete')
 
-    @include('admin.customer.form-includes.scripts')
+    @include('Admin.customer.form-includes.scripts')
 
     <!--begin::Page Scripts(used by this page) -->
     <script src="{{ asset('js/pages/customer.js') }}" type="text/javascript"></script>
