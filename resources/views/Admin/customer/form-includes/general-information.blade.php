@@ -158,6 +158,7 @@
                            value="{{ old('mobile', $customer->mobile) }}"
                            placeholder="017XXXXXXXX"
                            maxlength="11"
+                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                            @keyup="validateMobile()"
                            v-model="validateMobileData.input">
                     <span class="form-text text-danger" v-if="validateMobileData.hasError">@{{ validateMobileData.message }}</span>
