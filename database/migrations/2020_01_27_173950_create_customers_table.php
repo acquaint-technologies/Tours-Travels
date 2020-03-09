@@ -51,6 +51,7 @@ class CreateCustomersTable extends Migration
             $table->bigInteger('dependent_id')->nullable();
             $table->bigInteger('maharam_id')->nullable();
             $table->bigInteger('mahram_relation_id')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
