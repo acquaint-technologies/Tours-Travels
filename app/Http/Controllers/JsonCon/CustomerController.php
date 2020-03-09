@@ -23,4 +23,18 @@ class CustomerController extends Controller
             return response()->json(['success' => false, 'message' => 'Whoops! Data not found', 'status' => 400], 200);
         }
     }
+
+    public function updateNote($customer, Request $request)
+    {
+        $customer = Customer::find($customer);
+        if ($customer) {
+            if ($customer->update(['notes' => $request->notes])) {
+                return response()->json(['success' => true, 'message' => 'Notes Updated Successfully', 'status' => 200], 200);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Whoops! Failed to update notes', 'status' => 400], 200);
+            }
+        } else {
+            return response()->json(['success' => false, 'message' => 'Whoops! Data not found', 'status' => 400], 200);
+        }
+    }
 }

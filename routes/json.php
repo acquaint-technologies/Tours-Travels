@@ -21,4 +21,5 @@ Route::group(['prefix' => 'json', 'namespace' => 'JsonCon', 'middleware' => ['au
     Route::get('get-passport-current-status', 'PassportHistoryController@getPassportStatus');
     Route::get('get-passport-status-history', 'PassportHistoryController@getPassportStatusHistory');
     Route::get('is-registered-passport', 'CustomerPassportController@isRegisteredPassport');
+    Route::post('update-customer-note/{customer}', 'CustomerController@updateNote')->name('json.customer.update-note');
 });
