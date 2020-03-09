@@ -49,6 +49,7 @@ if (isset($group_type)){
                     <th>Group Name</th>
                     <th>Leader Name</th>
                     <th>Group Type</th>
+                    <th>No Of Pilgrims</th>
                     <th>Management Type</th>
                     <th>Group Address</th>
                     <th>Group Contact No.</th>
@@ -62,6 +63,7 @@ if (isset($group_type)){
                         <td scope="row">{{ $group->group_name }}</td>
                         <td>{{ $group->leader_name }}</td>
                         <td>{{ $group->group_type == 1 ? 'Hajj' : 'Omra Hajj' }}</td>
+                        <td class="text-center">{{ $group->customers_count }}</td>
                         <td>{{ $group->management_type == 0 ? 'Group Leader' : 'Office' }}</td>
                         <td>{{ $group->address }}</td>
                         <td>{{ $group->contact_no }}</td>

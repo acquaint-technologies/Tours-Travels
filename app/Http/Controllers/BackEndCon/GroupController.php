@@ -17,7 +17,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
+        $groups = Group::withCount('customers')->get();
         return view('Admin.group.index', compact('groups'));
     }
 

@@ -31,7 +31,7 @@ class OmraHajjGroupController extends Controller
     public function index()
     {
         $group_type = $this->group_type;
-        $groups = Group::where('group_type', $this->group_type_no)->get();
+        $groups = Group::withCount('customers')->where('group_type', $this->group_type_no)->get();
         return view('Admin.group.index', compact('groups', 'group_type'));
     }
 
