@@ -242,6 +242,7 @@ let vm = new Vue({
         let _this = this;
         this.calculateAge();
         this.calculatePassportExpiry();
+        this.jquery();
         if (!isNaN(current_police_station)) {
             _this.setPresentPoliceStation(current_district);
         }
@@ -265,6 +266,11 @@ let vm = new Vue({
         KTBootstrapSelect.init();
     },
     methods: {
+        jquery() {
+            $('body').on('click', '.document-delete-button', function (event) {
+                event.preventDefault();event.target.parentNode.parentNode.parentNode.remove();
+            });
+        },
         changeType(event) {
             this.type = event.target.value;
         },
@@ -369,15 +375,39 @@ let vm = new Vue({
             this.hasMahram = !!id;
         },
         addNewDocument() {
-            this.documents.push({
-                document: '',
-                title: '',
-            });
+            let html = `
+            <div class="row">
+                <div class="col-5">
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label text-right">File</label>
+                        <div class="col-9 custom-file">
+                            <input type="file" class="form-control" name="document[]">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="form-group row">
+                        <label for="document_title[]" class="col-3 col-form-label text-right">Document Title</label>
+                        <div class="col-9">
+                            <input class="form-control" type="text" name="document_title[]" placeholder="Document Title">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-danger document-delete-button"><i class="flaticon-delete"></i></button>
+                </div>
+            </div>
+            `;
+            let el = document.createElement('div');
+            el.innerHTML = html;
+            document.getElementById("document-upload").appendChild(el);
+            /*this.documents.push({
+                document: null,
+                title: null,
+            });*/
         },
-        removeDocument(index) {
-            // document.getElementById('document_' + index).value = '';
-            $('#document_' + index).replaceWith($('#document_' + index).val('').clone(true));
-            // this.documents[index].document = null;
+        removeDocument(index) { // We are not using this method
+            document.getElementById('document_' + index).value = '';
             setTimeout(() => {
                 this.documents.splice(index, 1);
             }, 400);
