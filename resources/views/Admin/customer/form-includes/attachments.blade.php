@@ -27,40 +27,33 @@
         </div>
     @endif
 
-    <div class="row" v-for="(document, index) in documents">
-        <div class="col-5">
-            <div class="form-group row">
-                <label class="col-3 col-form-label text-right">
-                    File
-                </label>
-                <div class="col-9 custom-file">
-                    <input type="file" class="form-control" name="document[]"
-                           :id="'document_'+index">
+    <section id="document-upload">
+        <div class="row">
+            <div class="col-5">
+                <div class="form-group row">
+                    <label class="col-3 col-form-label text-right">File</label>
+                    <div class="col-9 custom-file">
+                        <input type="file" class="form-control" name="document[]">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-5">
-            <div class="form-group row">
-                <label for="document_title[]"
-                       class="col-3 col-form-label text-right">
-                    Document Title
-                </label>
-                <div class="col-9">
-                    <input class="form-control" type="text"
-                           :id="'document_title['+index+']'" name="document_title[]"
-                           v-model="document.title"
-                           placeholder="Document Title">
+            <div class="col-5">
+                <div class="form-group row">
+                    <label for="document_title[]" class="col-3 col-form-label text-right">Document Title</label>
+                    <div class="col-9">
+                        <input class="form-control" type="text" name="document_title[]" placeholder="Document Title">
+                    </div>
                 </div>
             </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger document-delete-button"><i class="flaticon-delete"></i></button>
+            </div>
         </div>
-        <div class="col-2">
-            <button class="btn btn-danger" @click.prevent="removeDocument(index)"><i class="flaticon-delete"></i></button>
-        </div>
-    </div>
+    </section>
     <div class="row">
         <div class="col-6"></div>
         <div class="col-6 text-right">
-            <button type="button" class="btn btn-success text-right" @click="addNewDocument">Add New Document</button>
+            <button type="button" class="btn btn-success text-right" @click.prevent="addNewDocument">Add New Document</button>
         </div>
     </div>
 </div>
