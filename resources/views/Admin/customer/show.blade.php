@@ -360,6 +360,40 @@
                         </div>
                     </div>
                     <!--end::Portlet-->
+
+
+                    <!--begin::Portlet-->
+                    <div class="kt-portlet kt-portlet--head-sm" data-ktportlet="true" id="kt_portlet_tools_1">
+                        <div class="kt-bg-light-dark kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Notes
+                                </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="kt-portlet__head-group">
+                                    <a href="#" data-ktportlet-tool="toggle"
+                                       class="btn btn-sm btn-icon btn-clean btn-icon-md"><i
+                                            class="la la-angle-down"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            <div class="row" id="document_table_section">
+                                <div class="col-10">
+                                    <p>{!! $customer->notes !!}</p>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-primary btn-sm btn-icon-sm" data-toggle="modal" data-target="#update-note-modal" data-id="{{ $customer->id }}">
+                                        <i class="flaticon-edit"></i> Update Note
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Portlet-->
+
+                    @include('Admin.customer.update-note-modal')
                 </div>
             </div>
         </div>
@@ -408,6 +442,30 @@
                     }).done(function () {
 
                     });
+                });
+            });
+
+            $(document).on('submit', '#update-note-form', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            $('#update-note-modal').modal('hide');
+                            setTimeout(function(){
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            toastr.error("Whoops! Something Went Wrong!")
+                        }
+                    }
+                }).done(function () {
+
                 });
             });
         });
