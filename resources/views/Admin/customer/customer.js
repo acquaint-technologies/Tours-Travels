@@ -224,8 +224,8 @@ let vm = new Vue({
         dependentList: [],
         hasMahram: false,
         documents: [{
-            document: '',
-            title: '',
+            document: null,
+            title: null,
         }],
         validateMobileData: {
             hasError: false,
@@ -271,7 +271,7 @@ let vm = new Vue({
         changeIdentityType(event) {
             this.identity = event.target.value;
         },
-        calculateAge(){
+        calculateAge() {
             $('#date_of_birth').change(function () {
                 let DOB = moment($(this).val(), 'DD-MM-YYYY');
                 let years = moment().diff(DOB, 'years');
@@ -283,7 +283,7 @@ let vm = new Vue({
         changeGender(event) {
             this.gender = event.target.value;
         },
-        calculatePassportExpiry(){
+        calculatePassportExpiry() {
             $('#expiry_date').change(function () {
                 let PPExpDate = moment($(this).val(), 'DD-MM-YYYY');
                 let years = moment().diff(PPExpDate, 'years');
@@ -373,6 +373,14 @@ let vm = new Vue({
                 document: '',
                 title: '',
             });
+        },
+        removeDocument(index) {
+            // document.getElementById('document_' + index).value = '';
+            $('#document_' + index).replaceWith($('#document_' + index).val('').clone(true));
+            // this.documents[index].document = null;
+            setTimeout(() => {
+                this.documents.splice(index, 1);
+            }, 400);
         },
         validateMobile() {
             this.validateMobileData.hasError = this.validateMobileData.input == null || this.validateMobileData.input.length !== 11;
