@@ -57,6 +57,7 @@ class ExpenseController extends Controller
     {
         $validatedData = Validator::make($request->all(), array(
             'expense_title' => 'required',
+            'expense_by' => 'required',
             'expense_category_id' => 'required|numeric',
             'description' => 'nullable',
             'expense_date' => 'required',
@@ -113,6 +114,7 @@ class ExpenseController extends Controller
     {
         $validatedData = Validator::make($request->all(), array(
             'expense_title' => 'required',
+            'expense_by' => 'required',
             'expense_category_id' => 'required|numeric',
             'description' => 'nullable',
             'expense_date' => 'required',
