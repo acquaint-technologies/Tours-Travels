@@ -35,8 +35,8 @@
                     <th>Customer Name</th>
                     <th>Serial No.</th>
                     <th>Year</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
+                    <th>Tracking No.</th>
+                    <th>Mobile Number</th>
                     <th>Departure Status</th>
                     <th>Paid Amount</th>
                     <th>Remaining Amount</th>
@@ -50,8 +50,8 @@
                         <td scope="row">{{ $haji->customer ? $haji->customer->full_name : '' }}</td>
                         <td>{{ $haji->serial_no }}</td>
                         <td>{{ $haji->year }}</td>
-                        <td>{{ $haji->start_date }}</td>
-                        <td>{{ $haji->end_date }}</td>
+                        <td>{{ $haji->customer->tracking_no }}</td>
+                        <td>{{ $haji->customer->mobile }}</td>
                         <td>{{ $haji->departure_status_title }}</td>
                         <td>{{ $haji->paid_amount }}</td>
                         <td>{{ $haji->due_amount }}</td>
