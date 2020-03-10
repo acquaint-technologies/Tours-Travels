@@ -60,6 +60,7 @@
                     <label for="type" class="col-2 col-form-label">Payment Type *</label>
                     <div class="col-10">
                         <select class="form-control kt-selectpicker"
+                                v-model="paymentType"
                                 name="type"
                                 id="type">
                             <option
@@ -84,22 +85,31 @@
                                value="{{ old('depositor_name', $hajj_payment->depositor_name) }}" placeholder="" required>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" v-if="paymentType == 2">
                     <label for="bank_name" class="col-2 col-form-label">
-                        Bank Name
+                        Bank Name *
                     </label>
                     <div class="col-10">
                         <input class="form-control" type="text" id="bank_name" name="bank_name"
-                               value="{{ old('bank_name', $hajj_payment->bank_name) }}" placeholder="">
+                               value="{{ old('bank_name', $hajj_payment->bank_name) }}" placeholder="" required>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" v-if="paymentType == 2">
                     <label for="bank_branch_name" class="col-2 col-form-label">
-                        Bank Branch Name
+                        Bank Branch Name *
                     </label>
                     <div class="col-10">
                         <input class="form-control" type="text" id="bank_branch_name" name="bank_branch_name"
-                               value="{{ old('bank_branch_name', $hajj_payment->bank_branch_name) }}" placeholder="">
+                               value="{{ old('bank_branch_name', $hajj_payment->bank_branch_name) }}" placeholder="" required>
+                    </div>
+                </div>
+                <div class="form-group row" v-if="paymentType == 2">
+                    <label for="cheque_number" class="col-2 col-form-label">
+                        Cheque Number
+                    </label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="cheque_number" name="cheque_number"
+                               value="{{ old('cheque_number', $hajj_payment->cheque_number) }}" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -164,6 +174,8 @@
             $('#accounts-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#deposit-list-sm').addClass('kt-menu__item--active');
         });
+
+        var paymentType = '{{ old('type', $hajj_payment->type) ? old('type', $hajj_payment->type) : 1 }}';
     </script>
     <!--begin::Page Scripts(used by this page) -->
     <script src="{{ asset('js/pages/accounts/deposit.js') }}" type="text/javascript"></script>

@@ -21,6 +21,7 @@ class CreateHajjPaymentsTable extends Migration
             $table->string('depositor_name')->nullable();
             $table->string('bank_name')->nullable();
             $table->string('bank_branch_name')->nullable();
+            $table->string('cheque_number')->nullable();
             $table->date('deposit_date')->nullable();
             $table->decimal('amount', 10, 2)->default(0.00);
             $table->tinyInteger('status')->default(0)->comment('0=Pending | 1=Paid');
