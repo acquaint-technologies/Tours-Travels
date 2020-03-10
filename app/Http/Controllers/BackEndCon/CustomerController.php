@@ -148,7 +148,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = Customer::with('group', 'passport', 'maharam', 'dependent', 'documents')->FindOrFail($id);
+        $customer = Customer::with('group', 'passport', 'maharam', 'dependent', 'documents', 'hajj.payments')->FindOrFail($id);
         return view('Admin.customer.show', compact('customer'));
     }
 
