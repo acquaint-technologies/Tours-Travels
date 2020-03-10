@@ -8,6 +8,7 @@ let vm = new Vue({
             status: 0,
             due: 0
         },
+        paymentType: paymentType,
         paymentDetails: {}
     },
     mounted() {
