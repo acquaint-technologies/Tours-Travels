@@ -17,6 +17,7 @@ class CreateExpensesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('expense_category_id');
             $table->string('expense_title');
+            $table->string('expense_by')->nullable();
             $table->text('description')->nullable();
             $table->timestamp('expense_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->decimal('amount', 10, 2);

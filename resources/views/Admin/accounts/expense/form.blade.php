@@ -36,11 +36,20 @@
                 @if(isset($expense->id)) @method('PUT') @endif
                 <div class="form-group row">
                     <label for="expense_title" class="col-2 col-form-label">
-                        Expense Title *
+                        Voucher *
                     </label>
                     <div class="col-10">
                         <input class="form-control" type="text" id="expense_title" name="expense_title"
-                               value="{{ old('expense_title', $expense->expense_title) }}" placeholder="Expense Title" required>
+                               value="{{ old('expense_title', $expense->expense_title) }}" placeholder="Voucher" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="expense_by" class="col-2 col-form-label">
+                        Expense By *
+                    </label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="expense_by" name="expense_by"
+                               value="{{ old('expense_by', $expense->expense_by) }}" placeholder="Full Name" required>
                     </div>
                 </div>
                 <div class="form-group row">
