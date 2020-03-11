@@ -14,8 +14,7 @@
     <base href="{{ url('/') }}">
 
     <!--begin::Global Theme Styles(used by all pages) -->
-    <link href="{{my_asset('css/print.css')}}" rel="stylesheet" type="text/css"/>
-{{--    <link href="{{my_asset('css/bootstrap-print.css')}}" rel="stylesheet" type="text/css"/>--}}
+    @include('layouts.partials.pdfcss')
     <!--end::Global Theme Styles -->
 
 @stack('css')
@@ -29,6 +28,7 @@
 <body>
 
 @yield('content')
+
 <script>
     function printData(selected_id)
     {
