@@ -13,6 +13,7 @@
                     <input class="form-control" type="text" id="sur_name"
                            name="sur_name"
                            value="{{ old('sur_name', $customer->sur_name) }}"
+                           onkeyup="this.value = this.value.toUpperCase();"
                            placeholder="Surname" required>
                 </div>
             </div>
@@ -25,6 +26,7 @@
                     <input class="form-control" type="text" id="given_name"
                            name="given_name"
                            value="{{ old('given_name', $customer->given_name) }}"
+                           onkeyup="this.value = this.value.toUpperCase();"
                            placeholder="Given Name" required>
                 </div>
             </div>
