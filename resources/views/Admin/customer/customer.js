@@ -279,7 +279,7 @@ let vm = new Vue({
         },
         calculateAge() {
             $('#date_of_birth').change(function () {
-                let DOB = moment($(this).val(), 'DD-MM-YYYY');
+                let DOB = moment($(this).val(), 'DD-MMM-YYYY');
                 let years = moment().diff(DOB, 'years');
                 let months = moment().diff(DOB.add(years, 'years'), 'months');
                 let days = moment().diff(DOB.add(months, 'months'), 'days');
