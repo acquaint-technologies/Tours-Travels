@@ -180,6 +180,11 @@ var KTWizard3 = function () {
                             });
                         }
                     }
+                    setTimeout(() => {
+                        if (response.success === true) {
+                            window.location.href = window.location.origin + "/customer";
+                        }
+                    }, 1000);
                 }
             });
             // }
