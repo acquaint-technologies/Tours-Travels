@@ -48,7 +48,7 @@
                 <div class="col-9">
                     <input class="form-control" type="text" id="date_of_birth"
                            name="date_of_birth"
-                           value="{{ \Carbon\Carbon::parse(old('date_of_birth', $customer->date_of_birth))->format('d-m-Y') }}"
+                           value="{{ \Carbon\Carbon::parse(old('date_of_birth', $customer->date_of_birth))->format('d-M-Y') }}"
                            placeholder="Date of Birth" required>
                     <span class="form-text text-danger" id="calculated_age"></span>
                 </div>
