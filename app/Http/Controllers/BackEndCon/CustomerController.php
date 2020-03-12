@@ -69,6 +69,8 @@ class CustomerController extends Controller
         $data = $request->all();
         $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
         $data['email'] = strtolower($data['email']);
+        $data['given_name'] = strtoupper($data['given_name']);
+        $data['sur_name'] = strtoupper($data['sur_name']);
         if ($request->ajax()) {
             return response()->json($this->ajaxStore($data, $validator, $request), 200);
         } else { // if request is not a AJAX request
