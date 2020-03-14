@@ -74,7 +74,7 @@
                             <option
                                 value=""
                                 {{ old('package_id', $haji->package_id) === null ? 'selected' : '' }}>
-                                Select a Customer
+                                Select a Package
                             </option>
                             @foreach($packages as $package)
                                 <option
@@ -88,34 +88,30 @@
                 </div>
                 <div class="form-group row">
                     <label for="year" class="col-2 col-form-label">
-                        Year *
+                        Year
                     </label>
                     <div class="col-10">
-                        <input class="form-control" type="text" id="year" name="year"
-                               value="{{ old('year', $haji->year) }}" placeholder="YYYY" required>
+                        <p id="year" class="form-control">{{ $haji->package ? $haji->package->year : '' }}</p>
                     </div>
                 </div>
                 @if($hajj_type == 'Haji')
                     <div class="form-group row">
-                        <label for="hijri" class="col-2 col-form-label">Hijri *</label>
+                        <label for="hijri" class="col-2 col-form-label">Hijri </label>
                         <div class="col-10">
-                            <input class="form-control" type="text" id="hijri" name="hijri"
-                                   value="{{ old('hijri', $haji->hijri) }}" placeholder="" required>
+                            <p id="hijri" class="form-control">{{ $haji->package ? $haji->package->hijri : '' }}</p>
                         </div>
                     </div>
                 @endif
                 <div class="form-group row">
-                    <label for="start_date" class="col-2 col-form-label">Start Date *</label>
+                    <label for="start_date" class="col-2 col-form-label">Start Date </label>
                     <div class="col-10">
-                        <input class="form-control kt-datepicker" type="text" id="start_date" name="start_date"
-                               value="{{ old('start_date', $haji->start_date) }}" placeholder="" required>
+                        <p id="start_date" class="form-control">{{ $haji->package ? \Carbon\Carbon::parse($haji->package->start_date)->format('d-M-Y') : '' }}</p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="end_date" class="col-2 col-form-label">End Date *</label>
+                    <label for="end_date" class="col-2 col-form-label">End Date </label>
                     <div class="col-10">
-                        <input class="form-control kt-datepicker" type="text" id="end_date" name="end_date"
-                               value="{{ old('end_date', $haji->end_date) }}" placeholder="">
+                        <p id="end_date" class="form-control">{{ $haji->package ? \Carbon\Carbon::parse($haji->package->end_date)->format('d-M-Y') : '' }}</p>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -216,6 +212,23 @@
             $('#omra-hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#add-new-omra-haji-information-sm').addClass('kt-menu__item--active');
             @endif
+
+            $('body').on('change', '#package_id', function(event) {
+                if (event.target.value) {
+                    axios.get(`${window.base_url}/json/package/get-info/${event.target.value}`).then(res => {
+                        let data = res.data.data;
+                        $('#year').text(data.year);
+                        $('#hijri').text(data.hijri);
+                        $('#start_date').text(moment(data.start_date).format('DD-MMM-YYYY'));
+                        $('#end_date').text(moment(data.end_date).format('DD-MMM-YYYY'));
+                    });
+                } else {
+                    $('#year').text('');
+                    $('#hijri').text('');
+                    $('#start_date').text('');
+                    $('#end_date').text('');
+                }
+            });
         });
     </script>
     <!--begin::Page Scripts(used by this page) -->
