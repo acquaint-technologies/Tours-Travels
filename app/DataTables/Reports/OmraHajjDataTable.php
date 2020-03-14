@@ -65,6 +65,9 @@ class OmraHajjDataTable extends DataTable {
         if (isset($this->data['full_name'])) {
             $model->where(DB::raw("CONCAT(IFNULL(given_name, ''), ' ', IFNULL(sur_name, ''))"), 'like', '%' . $this->data['full_name'] . '%');
         }
+        if (isset($this->data['group_id'])) {
+            $model->where('customers.group_id', '=', $this->data['group_id']);
+        }
         if (isset($this->data['serial_no'])) {
             $model->where('hajjs.serial_no', '=', $this->data['serial_no']);
         }
@@ -96,6 +99,9 @@ class OmraHajjDataTable extends DataTable {
         $filterData = [];
         if (isset($this->data['full_name'])) {
             $filterData['full_name'] = $this->data['full_name'];
+        }
+        if (isset($this->data['group_id'])) {
+            $filterData['group_id'] = $this->data['group_id'];
         }
         if (isset($this->data['serial_no'])) {
             $filterData['serial_no'] = $this->data['serial_no'];
@@ -140,7 +146,7 @@ class OmraHajjDataTable extends DataTable {
                 'initComplete' => "function (settings, json) {
                     var searchData = $searchData;
                     for (const property in searchData) {
-                        $('input[name=\"'+property+'\"]').val(searchData[property]);
+                        $('[name=\"'+property+'\"]').val(searchData[property]);
                     }
                     if(Object.keys(searchData).length > 0) {
                         $('#customer_report_filter').removeClass('kt-portlet--collapsed');
