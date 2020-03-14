@@ -18,6 +18,10 @@ class CreatePackagesTable extends Migration
             $table->tinyInteger('package_type')->default(1)->comment('1=Hajj | 2=Omra Hajj');
             $table->string('package_name');
             $table->string('pack_code')->nullable();
+            $table->year('year')->nullable();
+            $table->string('hijri')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->integer('no_of_days')->default(0);
             $table->bigInteger('hotel_id');
             $table->bigInteger('vehicle_id');
