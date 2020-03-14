@@ -47,6 +47,21 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="group" class="col-2 col-form-label">
+                        Group *
+                    </label>
+                    <div class="col-10">
+                        <select class="form-control kt-selectpicker" name="group" id="group">
+                                <option value="">All</option>
+                                @foreach($groups as $group)
+                                    <option value="{{ $group->id }}" {{ old('group') == $group->id ? 'selected' : '' }}>
+                                        {{ $group->group_name }} &nbsp;&nbsp; -- &nbsp;&nbsp; {{ $group->group_type == 1 ? 'Hajj Group' : 'Omra Hajj Group' }}
+                                    </option>
+                                @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="year" class="col-2 col-form-label">Year *</label>
                     <div class="col-10">
                         <input class="form-control" type="text" id="year" name="year" value="{{ old('year') }}" placeholder="2000">
