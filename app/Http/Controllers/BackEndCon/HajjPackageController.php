@@ -6,6 +6,7 @@ use App\Hotel;
 use App\Http\Controllers\Controller;
 use App\Package;
 use App\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Validator;
@@ -57,6 +58,8 @@ class HajjPackageController extends Controller
         $validatedData = Validator::make($request->all(), $this->dataToValidate())->validate();
 
         $validatedData['package_type'] = $this->package_type_no;
+        $validatedData['start_date'] = Carbon::parse($validatedData['start_date'])->format('Y-m-d');
+        $validatedData['end_date'] = Carbon::parse($validatedData['end_date'])->format('Y-m-d');
         $package = Package::create($validatedData);
         if ($package) {
             Session::flash('success', 'Package Created Successfully');
@@ -106,6 +109,8 @@ class HajjPackageController extends Controller
         $validatedData = Validator::make($request->all(), $this->dataToValidate())->validate();
 
         $validatedData['package_type'] = $this->package_type_no;
+        $validatedData['start_date'] = Carbon::parse($validatedData['start_date'])->format('Y-m-d');
+        $validatedData['end_date'] = Carbon::parse($validatedData['end_date'])->format('Y-m-d');
         $package = Package::FindOrFail($id)->update($request->all());
         if ($package) {
             Session::flash('success', 'Package Updated Successfully');
