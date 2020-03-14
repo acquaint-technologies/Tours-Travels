@@ -54,13 +54,7 @@ class OmraHajjPackageController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = Validator::make($request->all(), array(
-            'package_name' => 'required',
-            'pack_code' => 'required',
-            'no_of_days' => 'required|numeric',
-            'total_price' => 'required',
-            'status' => 'required',
-        ))->validate();
+        $validatedData = Validator::make($request->all(), $this->dataToValidate())->validate();
 
         $validatedData['package_type'] = $this->package_type_no;
         $package = Package::create($validatedData);
@@ -109,13 +103,7 @@ class OmraHajjPackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = Validator::make($request->all(), array(
-            'package_name' => 'required',
-            'pack_code' => 'required',
-            'no_of_days' => 'required|numeric',
-            'total_price' => 'required',
-            'status' => 'required',
-        ))->validate();
+        $validatedData = Validator::make($request->all(), $this->dataToValidate())->validate();
 
         $validatedData['package_type'] = $this->package_type_no;
         $package = Package::FindOrFail($id)->update($validatedData);
@@ -142,5 +130,18 @@ class OmraHajjPackageController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Whoops! Package Not Deleted'], 200);
         }
+    }
+
+    private function dataToValidate() {
+        return array(
+            'package_name' => 'required',
+            'pack_code' => 'required',
+            'year' => 'required|numeric',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'no_of_days' => 'required|numeric',
+            'total_price' => 'required',
+            'status' => 'required',
+        );
     }
 }
