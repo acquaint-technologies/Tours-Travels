@@ -50,6 +50,40 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="year" class="col-2 col-form-label">
+                        Year *
+                    </label>
+                    <div class="col-10">
+                        <input class="form-control" type="number" maxlength="4" id="year" name="year"
+                               value="{{ old('year', $package->year) }}"
+                               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                               placeholder="YYYY" required>
+                    </div>
+                </div>
+                @if ($package_type == 'Hajj')
+                    <div class="form-group row">
+                        <label for="hijri" class="col-2 col-form-label">Hijri *</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" id="hijri" name="hijri"
+                                   value="{{ old('hijri', $package->hijri) }}" placeholder="" required>
+                        </div>
+                    </div>
+                @endif
+                <div class="form-group row">
+                    <label for="start_date" class="col-2 col-form-label">Start Date *</label>
+                    <div class="col-10">
+                        <input class="form-control kt-datepicker" type="text" id="start_date" name="start_date"
+                               value="{{ old('start_date', $package->start_date) }}" placeholder="" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="end_date" class="col-2 col-form-label">End Date *</label>
+                    <div class="col-10">
+                        <input class="form-control kt-datepicker" type="text" id="end_date" name="end_date"
+                               value="{{ old('end_date', $package->end_date) }}" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="no_of_days" class="col-2 col-form-label">Number of Days *</label>
                     <div class="col-10">
                         <input class="form-control" type="number" id="no_of_days" name="no_of_days"

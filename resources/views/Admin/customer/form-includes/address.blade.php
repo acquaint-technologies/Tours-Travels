@@ -57,19 +57,29 @@
             </div>
             <div class="form-group row">
                 <label for="current_address"
-                       class="col-4 col-form-label text-right">Current
-                    Address</label>
+                       class="col-4 col-form-label text-right">Current Address</label>
                 <div class="col-8">
-                                                <textarea class="form-control" type="text" id="current_address"
-                                                          name="current_address"
-                                                          rows="5"
-                                                          placeholder="Address">{{ old('current_address', $customer->current_address) }}</textarea>
+                    <textarea class="form-control" type="text" id="current_address"
+                              name="current_address"
+                              rows="5"
+                              placeholder="Address">{{ old('current_address', $customer->current_address) }}</textarea>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="kt-heading kt-heading--md text-center">
                 Permanent Address Information
+            </div>
+            <div class="form-group row">
+                <label class="col-4 col-form-label text-right">
+
+                </label>
+                <div class="col-8">
+                    <label class="kt-checkbox">
+                        <input type="checkbox" @change="setSamePermanentAddress($event)"> Same as present address
+                        <span></span>
+                    </label>
+                </div>
             </div>
             <div class="form-group row">
                 <label for="permanent_district"
@@ -127,10 +137,10 @@
                        class="col-4 col-form-label text-right">Permanent
                     Address</label>
                 <div class="col-8">
-                                                <textarea class="form-control" type="text" id="permanent_address"
-                                                          name="permanent_address"
-                                                          rows="5"
-                                                          placeholder="Address">{{ old('permanent_address', $customer->permanent_address) }}</textarea>
+                    <textarea class="form-control" type="text" id="permanent_address"
+                              name="permanent_address"
+                              rows="5"
+                              placeholder="Address">{{ old('permanent_address', $customer->permanent_address) }}</textarea>
                 </div>
             </div>
         </div>

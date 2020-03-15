@@ -178,7 +178,7 @@
                 </div>
             </div>
             <section v-if="isGroup && (parseInt(type) === 2)">
-                <div class="form-group row">
+                <div class="form-group row" v-if="gender == 2">
                     <label for="maharam_id" class="col-3 col-form-label text-right">
                         Maharam ID
                     </label>

@@ -180,6 +180,12 @@ var KTWizard3 = function () {
                             });
                         }
                     }
+                    setTimeout(() => {
+                        if (response.success === true) {
+                            //window.location.href = window.location.origin + "/customer";
+                            window.location.href = window.base_url + "/customer";
+                        }
+                    }, 1000);
                 }
             });
             // }
@@ -210,6 +216,7 @@ let vm = new Vue({
         type: customer_type,
         identity: customer_identity_type,
         gender: customer_gender,
+        isSamePermanentAddress: false,
         current_district: current_district,
         current_police_station: current_police_station,
         permanent_district: permanent_district,
@@ -236,7 +243,7 @@ let vm = new Vue({
             hasError: false,
             input: null,
             message: null,
-        }
+        },
     },
     mounted() {
         let _this = this;
@@ -279,7 +286,7 @@ let vm = new Vue({
         },
         calculateAge() {
             $('#date_of_birth').change(function () {
-                let DOB = moment($(this).val(), 'DD-MM-YYYY');
+                let DOB = moment($(this).val(), 'DD-MMM-YYYY');
                 let years = moment().diff(DOB, 'years');
                 let months = moment().diff(DOB.add(years, 'years'), 'months');
                 let days = moment().diff(DOB.add(months, 'months'), 'days');
@@ -434,6 +441,19 @@ let vm = new Vue({
                         _this.validatePassportNoData.message = res.data.message;
                     }
                 });
+            }
+        },
+        setSamePermanentAddress(event){
+            if (event.target.checked) {
+                $('select[name="permanent_district"]').val($('select[name="current_district"]').val());
+                $('select[name="permanent_district"]').selectpicker('refresh');
+                this.permanent_police_stations = this.current_police_stations;
+                setTimeout(() => {
+                    $('select[name="permanent_police_station"]').val($('select[name="current_police_station"]').val());
+                    $('select[name="permanent_police_station"]').selectpicker('refresh');
+                }, 400);
+                $('input[name="permanent_postcode"]').val($('input[name="current_postcode"]').val());
+                $('textarea[name="permanent_address"]').val($('textarea[name="current_address"]').val());
             }
         }
     }

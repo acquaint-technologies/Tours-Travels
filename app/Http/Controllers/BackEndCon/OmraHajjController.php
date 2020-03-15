@@ -63,15 +63,7 @@ class OmraHajjController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = Validator::make($request->all(), array(
-            'customer_id' => 'required|numeric',
-            'package_id' => 'required|numeric',
-            'payment_status' => 'required|numeric',
-            'year' => 'required|numeric',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'departure_status' => 'required|numeric',
-        ))->validate();
+        $validatedData = Validator::make($request->all(), $this->dataToValidate())->validate();
 
         $data = $request->all();
         $data['type'] = $this->hajj_type_no;
@@ -123,14 +115,9 @@ class OmraHajjController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = Validator::make($request->all(), array(
-            'package_id' => 'required|numeric',
-            'payment_status' => 'required|numeric',
-            'year' => 'required|numeric',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'departure_status' => 'required|numeric',
-        ))->validate();
+        $dataToValidate = $this->dataToValidate();
+        unset($dataToValidate['customer_id']);
+        $validatedData = Validator::make($request->all(), $dataToValidate)->validate();
 
         $data = $request->all();
         $data['type'] = $this->hajj_type_no;
@@ -158,5 +145,14 @@ class OmraHajjController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Whoops! Haji Not Deleted'], 200);
         }
+    }
+
+    private function dataToValidate() {
+        return array(
+            'customer_id' => 'required|numeric',
+            'package_id' => 'required|numeric',
+            'payment_status' => 'required|numeric',
+            'departure_status' => 'required|numeric',
+        );
     }
 }

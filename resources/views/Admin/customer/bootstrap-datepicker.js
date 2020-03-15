@@ -18,7 +18,7 @@ var KTBootstrapDatepicker = function () {
     // Private functions
     var demos = function () {
         // minimum setup
-        $('#kt_datepicker_1, #kt_datepicker_1_validate, #date_of_birth, .kt-datepicker').datepicker({
+        $('#kt_datepicker_1, #kt_datepicker_1_validate, .kt-datepicker').datepicker({
             rtl: KTUtil.isRTL(),
             todayHighlight: true,
             orientation: "bottom left",
@@ -111,7 +111,17 @@ var KTBootstrapDatepicker = function () {
             todayHighlight: true,
             templates: arrows
         });
-    }
+
+        // Date of Birth
+        $('#date_of_birth').datepicker({
+            rtl: KTUtil.isRTL(),
+            todayHighlight: true,
+            orientation: "bottom left",
+            templates: arrows,
+            format: 'dd-M-yyyy',
+            autoclose: true
+        });
+    };
 
     return {
         // public functions
