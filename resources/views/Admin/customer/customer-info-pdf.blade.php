@@ -73,7 +73,7 @@
                             @endif
                             <tr>
                                 <td class="info-key">Management <span class="text-right">:</span></td>
-                                <td class="info-value">{{ $customer->management == 1 ? 'Private' : 'Government' }}</td>
+                                <td class="info-value">{{ ($customer->management == 1 ? 'Jurain Office' : $customer->management == 1) ? 'Mohammadpur Office' : 'Group Leader' }}</td>
                             </tr>
                             <tr>
                                 <td class="info-key">NID <span class="text-right">:</span></td>
