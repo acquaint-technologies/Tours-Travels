@@ -142,12 +142,16 @@
                     <select class="form-control kt-selectpicker" name="management"
                             id="management">
                         <option
-                            value="1" {{ old('management', $customer->management) !== 2 ? 'selected' : '' }}>
-                            Private
+                            value="1" {{ old('management', $customer->management) == 1 ? 'selected' : '' }}>
+                            Jurain Office
                         </option>
                         <option
-                            value="2" {{ old('management', $customer->management) === 2 ? 'selected' : '' }}>
-                            Government
+                            value="2" {{ old('management', $customer->management) == 2 ? 'selected' : '' }}>
+                            Mohammadpur Office
+                        </option>
+                        <option
+                            value="3" {{ old('management', $customer->management) == 3 ? 'selected' : '' }}>
+                            Group Leader
                         </option>
                     </select>
                 </div>
