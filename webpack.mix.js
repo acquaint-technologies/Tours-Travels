@@ -31,6 +31,9 @@ mix.js('resources/js/app.js', 'public/js')
         'public/vendor/dashboard/assets/js/scripts.bundle.js',
     ], 'public/js/all.js')
     .scripts([
+        'resources/views/Admin/scripts/bootstrap-datepicker.js',
+    ], 'public/js/pages/common/common.js')
+    .scripts([
         'resources/views/Admin/customer/bootstrap-datepicker.js',
         'resources/views/Admin/customer/customer.js',
     ], 'public/js/pages/customer.js')

@@ -62,4 +62,9 @@ class Customer extends Model
     {
         return $this->hasMany(AttachedDocument::class);
     }
+
+    public function submitted_passports()
+    {
+        return $this->hasMany(CustomerPassport::class, 'reference_id', 'id');
+    }
 }
