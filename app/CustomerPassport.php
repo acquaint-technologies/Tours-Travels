@@ -23,4 +23,9 @@ class CustomerPassport extends Model
         return $this->belongsToMany(PassportStatus::class, 'passport_history', 'passport_id', 'passport_status_id')
             ->orderBy('date', 'DESC')->limit(1);
     }
+
+    public function reference()
+    {
+        return $this->belongsTo(Customer::class, 'reference_id', 'id');
+    }
 }
