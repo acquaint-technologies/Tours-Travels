@@ -39,4 +39,5 @@
     var group_id = parseInt("{{ old('group_id', $customer->group_id) }}");
     var maharam_id = parseInt("{{ old('maharam_id', $customer->maharam_id) }}");
     var dependent_id = parseInt("{{ old('dependent_id', $customer->dependent_id) }}");
+    var customer_mobile = "{{ old('mobile', $customer->mobile) }}";
 </script>
