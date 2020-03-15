@@ -31,7 +31,7 @@ mix.js('resources/js/app.js', 'public/js')
         'public/vendor/dashboard/assets/js/scripts.bundle.js',
     ], 'public/js/all.js')
     .scripts([
-        'resources/views/Admin/scripts/bootstrap-datepicker.js',
+        'resources/views/Admin/scripts/bootstrap-pickers.js',
     ], 'public/js/pages/common/common.js')
     .scripts([
         'resources/views/Admin/customer/bootstrap-datepicker.js',
@@ -63,6 +63,9 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/views/Admin/passport-history/bootstrap-pickers.js',
         'resources/views/Admin/passport-history/passportHistory.js',
     ], 'public/js/pages/passportHistory.js')
+    .scripts([
+        'resources/views/Admin/passport-collection/passport-collection.js',
+    ], 'public/js/pages/passport-collection.js')
     .scripts([
         'resources/views/Admin/reports/bootstrap-pickers.js',
     ], 'public/js/pages/report-bootstrap-pickers.js');

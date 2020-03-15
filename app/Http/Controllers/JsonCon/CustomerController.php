@@ -37,4 +37,14 @@ class CustomerController extends Controller
             return response()->json(['success' => false, 'message' => 'Whoops! Data not found', 'status' => 400], 200);
         }
     }
+
+    public function getCustomerById($id)
+    {
+        $customer = Customer::with('group')->find($id);
+        if ($customer->count() > 0) {
+            return response()->json(['success' => true, 'data' => $customer, 'status' => 200], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Whoops! Data not found', 'status' => 400], 200);
+        }
+    }
 }
