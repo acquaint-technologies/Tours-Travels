@@ -111,7 +111,7 @@ class HajjPackageController extends Controller
         $validatedData['package_type'] = $this->package_type_no;
         $validatedData['start_date'] = Carbon::parse($validatedData['start_date'])->format('Y-m-d');
         $validatedData['end_date'] = Carbon::parse($validatedData['end_date'])->format('Y-m-d');
-        $package = Package::FindOrFail($id)->update($request->all());
+        $package = Package::FindOrFail($id)->update($validatedData);
         if ($package) {
             Session::flash('success', 'Package Updated Successfully');
             return redirect()->route('hajj-package.index');
