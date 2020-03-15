@@ -48,7 +48,7 @@
                         <td scope="row">{{ $customer->total_passport_submitted }}</td>
                         <td class="text-center">
                             <a href="{{ route($controllerInfo->routeNamePrefix . '.show', $customer->id) }}" class="btn btn-success btn-sm btn-icon-sm btn-circle"
-                               data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="View Customer Details">
+                               data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="View Passport Collection Details">
                                 <i class="flaticon-eye"></i>
                             </a>
                             <a href="{{ route($controllerInfo->routeNamePrefix . '.edit', $customer->id) }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">

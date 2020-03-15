@@ -91,11 +91,13 @@ class PassportCollectionController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
-        //
+        $controllerInfo = $this->controllerInfo;
+        $passport_collection = Customer::with(['submitted_passports'])->findOrFail($id);
+        return view('Admin.passport-collection.show', compact('controllerInfo', 'passport_collection'));
     }
 
     /**
