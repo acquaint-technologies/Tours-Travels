@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackEndCon;
 
 use App\Customer;
+use App\Group;
 use App\Http\Controllers\Controller;
 use App\Services\SmsSender;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class SmsSenderController extends Controller
     public function index()
     {
         $controllerInfo = $this->controllerInfo;
-        return view('Admin.sms.form', compact('controllerInfo'));
+        $groups = Group::all();
+        return view('Admin.sms.form', compact('controllerInfo', 'groups'));
     }
 
     /**
@@ -58,6 +60,9 @@ class SmsSenderController extends Controller
             }])->whereHas('hajj', function ($q) use ($request) {
                 $q->where('type', $request->service_type_id);
             });
+        }
+        if ($request->group) {
+            $customers->where('group_id', $request->group);
         }
         $customers = $customers->get();
         if ($customers->count() > 0) {

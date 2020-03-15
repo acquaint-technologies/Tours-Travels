@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackEndCon\Reports;
 
 use App\Customer;
 use App\DataTables\Reports\HajjDataTable;
+use App\Group;
 use App\Hajj;
 use App\Http\Controllers\Controller;
 use http\Env\Response;
@@ -34,7 +35,8 @@ class HajjReportController extends Controller
     public function index(HajjDataTable $hajj, Request $request)
     {
         $controllerInfo = $this->controllerInfo;
-        return $hajj->setData($request->input())->render('Admin.reports.haji-report.index-dt', compact('controllerInfo'));
+        $groups = Group::where('group_type', $this->controllerInfo->hajj_type_no)->get();
+        return $hajj->setData($request->input())->render('Admin.reports.haji-report.index', compact('controllerInfo', 'groups'));
     }
 
     /**
@@ -73,7 +75,8 @@ class HajjReportController extends Controller
     public function store(HajjDataTable $hajj, Request $request)
     {
         $controllerInfo = $this->controllerInfo;
-        return $hajj->setData($request->input())->render('Admin.reports.haji-report.index-dt', compact('controllerInfo'));
+        $groups = Group::where('group_type', $this->controllerInfo->hajj_type_no)->get();
+        return $hajj->setData($request->input())->render('Admin.reports.haji-report.index', compact('controllerInfo', 'groups'));
     }
 
     /**

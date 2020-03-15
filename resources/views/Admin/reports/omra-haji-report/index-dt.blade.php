@@ -42,6 +42,31 @@
                     </div>
                     <div class="col-4">
                         <div class="form-group row">
+                            <label for="group_id" class="col-4 col-form-label">
+                                {{ makeLabel('group') }}
+                            </label>
+                            <div class="col-8">
+                                <select class="form-control kt-selectpicker" data-size="7"
+                                        data-live-search="true"
+                                        name="group_id" id="group_id">
+                                    <option
+                                        value=""
+                                        {{ old('group_id') === null ? 'selected' : '' }}>
+                                        Select a Group
+                                    </option>
+                                    @foreach($groups as $group)
+                                        <option
+                                            value="{{ $group->id }}"
+                                            {{ old('group_id') === $group->id ? 'selected' : '' }}>
+                                            {{ $group->group_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group row">
                             <label for="serial_no" class="col-4 col-form-label">
                                 {{ makeLabel('serial_no') }}
                             </label>
@@ -113,6 +138,9 @@
         $(document).ready(function () {
             $('#reports-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#omra-haji-report-sm').addClass('kt-menu__item--active');
+            setTimeout(function () {
+                $('.kt-selectpicker').selectpicker('refresh');
+            }, 400);
         });
     </script>
 @endpush

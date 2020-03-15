@@ -9,7 +9,6 @@ use App\Group;
 use App\Http\Controllers\Controller;
 use App\MahramRelation;
 use App\ServiceType;
-use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -17,6 +16,7 @@ use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManagerStatic as Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Validator;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class CustomerController extends Controller
 {
@@ -69,6 +69,8 @@ class CustomerController extends Controller
         $data = $request->all();
         $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
         $data['email'] = strtolower($data['email']);
+        $data['given_name'] = strtoupper($data['given_name']);
+        $data['sur_name'] = strtoupper($data['sur_name']);
         if ($request->ajax()) {
             return response()->json($this->ajaxStore($data, $validator, $request), 200);
         } else { // if request is not a AJAX request
@@ -366,10 +368,16 @@ class CustomerController extends Controller
             ]
         ]);
         $customer = Customer::with('group', 'passport', 'maharam', 'dependent')->FindOrFail($id);
-        return view('Admin.customer.customer-info-pdf', compact('customer'));
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
-        $pdf->getDomPDF()->setHttpContext($contxt);
-        $pdf->loadView('Admin.customer.customer-info-pdf', compact('customer'))->setPaper('', 'landscape');
+//        return view('Admin.customer.customer-info-pdf', compact('customer'));
+        $pdf = PDF::loadView('Admin.customer.customer-info-pdf', compact('customer'))
+            ->setOptions([
+                'defaultPaperSize' => 'A4',
+                'isRemoteEnabled' => true,
+                'isJavascriptEnabled' => true,
+                'isPhpEnabled' => true,
+                'isHtml5ParserEnabled' => true,
+                'fullBase' => true,
+            ]);
         return $pdf->stream();
 //        return $pdf->download('invoice.pdf');
     }

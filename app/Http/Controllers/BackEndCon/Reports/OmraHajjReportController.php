@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackEndCon\Reports;
 
 use App\DataTables\Reports\OmraHajjDataTable;
+use App\Group;
 use App\Hajj;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -31,7 +32,8 @@ class OmraHajjReportController extends Controller
     public function index(OmraHajjDataTable $hajj, Request $request)
     {
         $controllerInfo = $this->controllerInfo;
-        return $hajj->setData($request->input())->render('Admin.reports.omra-haji-report.index-dt', compact('controllerInfo'));
+        $groups = Group::where('group_type', $this->controllerInfo->hajj_type_no)->get();
+        return $hajj->setData($request->input())->render('Admin.reports.omra-haji-report.index-dt', compact('controllerInfo', 'groups'));
     }
 
     /**
@@ -54,7 +56,8 @@ class OmraHajjReportController extends Controller
     public function store(OmraHajjDataTable $hajj, Request $request)
     {
         $controllerInfo = $this->controllerInfo;
-        return $hajj->setData($request->input())->render('Admin.reports.omra-haji-report.index-dt', compact('controllerInfo'));
+        $groups = Group::where('group_type', $this->controllerInfo->hajj_type_no)->get();
+        return $hajj->setData($request->input())->render('Admin.reports.omra-haji-report.index-dt', compact('controllerInfo', 'groups'));
     }
 
     /**

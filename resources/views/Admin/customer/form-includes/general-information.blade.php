@@ -13,6 +13,7 @@
                     <input class="form-control" type="text" id="sur_name"
                            name="sur_name"
                            value="{{ old('sur_name', $customer->sur_name) }}"
+                           onkeyup="this.value = this.value.toUpperCase();"
                            placeholder="Surname" required>
                 </div>
             </div>
@@ -25,6 +26,7 @@
                     <input class="form-control" type="text" id="given_name"
                            name="given_name"
                            value="{{ old('given_name', $customer->given_name) }}"
+                           onkeyup="this.value = this.value.toUpperCase();"
                            placeholder="Given Name" required>
                 </div>
             </div>
@@ -46,7 +48,7 @@
                 <div class="col-9">
                     <input class="form-control" type="text" id="date_of_birth"
                            name="date_of_birth"
-                           value="{{ \Carbon\Carbon::parse(old('date_of_birth', $customer->date_of_birth))->format('d-m-Y') }}"
+                           value="{{ \Carbon\Carbon::parse(old('date_of_birth', $customer->date_of_birth))->format('d-M-Y') }}"
                            placeholder="Date of Birth" required>
                     <span class="form-text text-danger" id="calculated_age"></span>
                 </div>
@@ -140,12 +142,16 @@
                     <select class="form-control kt-selectpicker" name="management"
                             id="management">
                         <option
-                            value="1" {{ old('management', $customer->management) !== 2 ? 'selected' : '' }}>
-                            Private
+                            value="1" {{ old('management', $customer->management) == 1 ? 'selected' : '' }}>
+                            Jurain Office
                         </option>
                         <option
-                            value="2" {{ old('management', $customer->management) === 2 ? 'selected' : '' }}>
-                            Government
+                            value="2" {{ old('management', $customer->management) == 2 ? 'selected' : '' }}>
+                            Mohammadpur Office
+                        </option>
+                        <option
+                            value="3" {{ old('management', $customer->management) == 3 ? 'selected' : '' }}>
+                            Group Leader
                         </option>
                     </select>
                 </div>

@@ -6,6 +6,7 @@ use App\Hotel;
 use App\Http\Controllers\Controller;
 use App\Package;
 use App\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Validator;
@@ -54,15 +55,11 @@ class HajjPackageController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = Validator::make($request->all(), array(
-            'package_name' => 'required',
-            'pack_code' => 'required',
-            'no_of_days' => 'required|numeric',
-            'total_price' => 'required',
-            'status' => 'required',
-        ))->validate();
+        $validatedData = Validator::make($request->all(), $this->dataToValidate())->validate();
 
         $validatedData['package_type'] = $this->package_type_no;
+        $validatedData['start_date'] = Carbon::parse($validatedData['start_date'])->format('Y-m-d');
+        $validatedData['end_date'] = Carbon::parse($validatedData['end_date'])->format('Y-m-d');
         $package = Package::create($validatedData);
         if ($package) {
             Session::flash('success', 'Package Created Successfully');
@@ -109,15 +106,11 @@ class HajjPackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = Validator::make($request->all(), array(
-            'package_name' => 'required',
-            'pack_code' => 'required',
-            'no_of_days' => 'required|numeric',
-            'total_price' => 'required',
-            'status' => 'required',
-        ))->validate();
+        $validatedData = Validator::make($request->all(), $this->dataToValidate())->validate();
 
         $validatedData['package_type'] = $this->package_type_no;
+        $validatedData['start_date'] = Carbon::parse($validatedData['start_date'])->format('Y-m-d');
+        $validatedData['end_date'] = Carbon::parse($validatedData['end_date'])->format('Y-m-d');
         $package = Package::FindOrFail($id)->update($request->all());
         if ($package) {
             Session::flash('success', 'Package Updated Successfully');
@@ -142,5 +135,19 @@ class HajjPackageController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Whoops! Package Not Deleted'], 200);
         }
+    }
+
+    private function dataToValidate() {
+        return array(
+            'package_name' => 'required',
+            'pack_code' => 'required',
+            'year' => 'required|numeric',
+            'hijri' => 'required|numeric',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'no_of_days' => 'required|numeric',
+            'total_price' => 'required',
+            'status' => 'required',
+        );
     }
 }

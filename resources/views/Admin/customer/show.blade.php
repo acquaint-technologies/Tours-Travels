@@ -128,7 +128,7 @@
                                                     class="float-right">:</span>
                                             </div>
                                             <div
-                                                class="col-9 info-value">{{ $customer->management == 1 ? 'Private' : 'Government' }}</div>
+                                                class="col-9 info-value">{{ ($customer->management == 1 ? 'Jurain Office' : $customer->management == 1) ? 'Mohammadpur Office' : 'Group Leader' }}</div>
                                         </div>
                                         <div class="row info-row">
                                             <div class="col-3 info-key font-weight-bolder">NID <span
