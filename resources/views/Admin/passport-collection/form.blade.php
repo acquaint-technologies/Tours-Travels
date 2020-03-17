@@ -52,7 +52,7 @@
                               <div class="col-6">
                                   <div class="form-group row">
                                       <label for="reference_id" class="col-3 col-form-label">
-                                          Ref. Customer
+                                          Ref. Customer *
                                       </label>
                                       <div class="col-9">
                                           <select class="form-control kt-selectpicker" data-size="10"
@@ -103,7 +103,16 @@
                           </div>
                       </div>
                       <div class="row">
-                          <div class="col-6 offset-6">
+                          <div class="col-6">
+                              <div class="form-group row">
+                                  <label for="box_no" class="col-3 col-form-label">Box Number</label>
+                                  <div class="col-9">
+                                      <input class="form-control" type="text" id="box_no" name="box_no"
+                                      value="{{ $passport_collection->submitted_passports ? $passport_collection->submitted_passports()->first()->box_no : '' }}">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-6">
                               <div class="form-group row">
                                   <label for="number_of_passport" class="col-3 col-form-label">Add Number of Passports</label>
                                   <div class="col-9">
