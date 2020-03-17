@@ -70,6 +70,7 @@ class PassportCollectionController extends Controller
         foreach ($request->passport['full_name'] as $key => $passport) {
             $data = array(
                 'reference_id' => $request->reference_id,
+                'box_no' => $request->box_no,
                 'passport_type' => 3, // 3 = Others
                 'full_name' => $request->passport['full_name'][$key],
                 'passport_no' => $request->passport['passport_no'][$key],
@@ -130,6 +131,7 @@ class PassportCollectionController extends Controller
         foreach ($request->passport['passport_no'] as $key => $passport) {
             $data = array(
                 'reference_id' => $id,
+                'box_no' => $request->box_no,
                 'passport_type' => 3, // 3 = Others
                 'full_name' => $request->passport['full_name'][$key],
                 'passport_no' => $request->passport['passport_no'][$key],
