@@ -151,10 +151,15 @@ class PassportCollectionController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $delete = CustomerPassport::find($id)->delete();
+        if ($delete) {
+            return response()->json(['success' => true, 'message' => $this->controllerInfo->title . ' Deleted Successfully'], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Whoops! Failed to Delete' . $this->controllerInfo->title], 200);
+        }
     }
 }
