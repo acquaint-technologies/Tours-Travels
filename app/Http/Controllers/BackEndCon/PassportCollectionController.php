@@ -122,11 +122,29 @@ class PassportCollectionController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
+        $createdPassport = false;
+        foreach ($request->passport['passport_no'] as $key => $passport) {
+            $data = array(
+                'reference_id' => $id,
+                'passport_type' => 3, // 3 = Others
+                'full_name' => $request->passport['full_name'][$key],
+                'passport_no' => $request->passport['passport_no'][$key],
+                'date_of_birth' => Carbon::parse($request->passport['date_of_birth'][$key])->format('Y-m-d'),
+                'expiry_date' => Carbon::parse($request->passport['expiry_date'][$key])->format('Y-m-d'),
+            );
+            $createdPassport = CustomerPassport::updateOrCreate(['passport_no' => $data['passport_no']], $data);
+        }
+        if ($createdPassport) {
+            Session::flash('success', $this->controllerInfo->title . ' Updated Successfully');
+            return redirect()->route($this->controllerInfo->routeNamePrefix . '.index');
+        } else {
+            Session::flash('error', 'Whoops! Failed to Update ' . $this->controllerInfo->title);
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
