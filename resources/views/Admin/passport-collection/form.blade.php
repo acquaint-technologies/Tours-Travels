@@ -116,6 +116,7 @@
 
                 @if (isset($passport_collection->id))
                     @foreach($passport_collection->submitted_passports as $passport)
+                        <input type="hidden" name="passport_id[]" value="{{ $passport->id }}">
                         <div class="card mt-3" id="passport-{{ $passport->id }}">
                             <div class="card-body">
                                 <div class="row">
@@ -125,7 +126,7 @@
                                                 Full Name *
                                             </label>
                                             <div class="col-9">
-                                                <input class="form-control" type="text" id="full_name[]" name="full_name[]"
+                                                <input class="form-control" type="text" id="full_name[]" name="passport[full_name][]"
                                                        value="{{ old('full_name[]', $passport->full_name) }}" placeholder="Full Name" required>
                                             </div>
                                         </div>
@@ -136,7 +137,7 @@
                                                 Passport Number *
                                             </label>
                                             <div class="col-9">
-                                                <input class="form-control" type="text" id="passport_no[]" name="passport_no[]"
+                                                <input class="form-control" type="text" id="passport_no[]" name="passport[passport_no][]"
                                                        value="{{ old('passport_no[]', $passport->passport_no) }}" placeholder="Passport Number" required>
                                             </div>
                                         </div>
@@ -145,7 +146,7 @@
                                         <div class="form-group row">
                                             <label for="date_of_birth[]" class="col-3 col-form-label">Date Of Birth *</label>
                                             <div class="col-9">
-                                                <input class="form-control kt-datepicker" type="text" id="date_of_birth[]" name="date_of_birth[]"
+                                                <input class="form-control kt-datepicker" type="text" id="date_of_birth[]" name="passport[date_of_birth][]"
                                                        value="{{ \Carbon\Carbon::parse(old('date_of_birth[]', $passport->date_of_birth))->format('d-m-Y') }}" placeholder="Date Of Birth" required>
                                             </div>
                                         </div>
@@ -154,7 +155,7 @@
                                         <div class="form-group row">
                                             <label for="expiry_date[]" class="col-3 col-form-label">Expiry Date *</label>
                                             <div class="col-9">
-                                                <input class="form-control kt-datepicker" type="text" id="expiry_date[]" name="expiry_date[]"
+                                                <input class="form-control kt-datepicker" type="text" id="expiry_date[]" name="passport[expiry_date][]"
                                                        value="{{ \Carbon\Carbon::parse(old('expiry_date[]', $passport->expiry_date))->format('d-m-Y') }}" placeholder="" required>
                                                 <span class="form-text text-danger" id="calculated_passport_expiry"></span>
                                             </div>
