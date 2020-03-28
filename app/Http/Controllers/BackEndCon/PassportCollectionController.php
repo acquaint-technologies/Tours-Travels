@@ -5,9 +5,9 @@ namespace App\Http\Controllers\BackEndCon;
 use App\Customer;
 use App\CustomerPassport;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -163,5 +163,28 @@ class PassportCollectionController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Whoops! Failed to Delete' . $this->controllerInfo->title], 200);
         }
+    }
+
+    /**
+     * Passport Collection PDF Print
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function pdf($id)
+    {
+        $controllerInfo = $this->controllerInfo;
+        $passport_collection = Customer::with(['submitted_passports'])->withCount('submitted_passports')->findOrFail($id);
+//        return view('Admin.passport-collection.pdf', compact('controllerInfo', 'passport_collection'));
+        $pdf = PDF::loadView('Admin.passport-collection.pdf', compact('controllerInfo', 'passport_collection'))
+            ->setOptions([
+                'defaultPaperSize' => 'A4',
+                'isRemoteEnabled' => true,
+                'isJavascriptEnabled' => true,
+                'isPhpEnabled' => true,
+                'isHtml5ParserEnabled' => true,
+                'fullBase' => true,
+            ]);
+        return $pdf->stream();
     }
 }
