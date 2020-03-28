@@ -22,6 +22,8 @@ class CreateCustomerPassportsTable extends Migration
             $table->date('issue_date')->nullable();
             $table->date('expiry_date')->nullable();
             $table->text('issue_location')->nullable();
+            $table->string('box_no')->nullable();
+            $table->bigInteger('reference_id')->nullable()->comment('reference_id should be customer_id');
             $table->timestamps();
         });
     }

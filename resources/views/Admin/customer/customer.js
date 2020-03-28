@@ -236,7 +236,7 @@ let vm = new Vue({
         }],
         validateMobileData: {
             hasError: false,
-            input: null,
+            input: customer_mobile,
             message: 'Mobile Number Must not be 11 digits',
         },
         validatePassportNoData: {
