@@ -17,6 +17,11 @@
                     View {{ $controllerInfo->title }}
                 </h3>
             </div>
+            <div class="float-right mt-3">
+                <a href="{{ route($controllerInfo->routeNamePrefix . '.pdf', $passport_collection->id) }}" class="btn btn-secondary btn-sm btn-upper" target="_blank">
+                    <i class="flaticon2-printer"></i> Print
+                </a>
+            </div>
         </div>
 
         <div class="kt-portlet__body">
