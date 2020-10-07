@@ -32,6 +32,11 @@
                 <thead>
                 <tr>
                     <th>Hotel Name</th>
+                    <th>Hotel Area</th>
+                    <th>No of Rooms</th>
+                    <th>No of Hajis</th>
+                    <th>Staying Start Date</th>
+                    <th>Staying End Date</th>
                     <th>Hotel Cost</th>
                     <th>Information Update</th>
                     <th class="text-center">Actions</th>
@@ -41,6 +46,11 @@
                 @foreach($hotels as $hotel)
                     <tr id="tr-{{ $hotel->id }}">
                         <td scope="row">{{ $hotel->hotel_name }}</td>
+                        <td>{{ $hotel->hotel_area }}</td>
+                        <td class="text-center">{{ $hotel->no_of_rooms }}</td>
+                        <td class="text-center">{{ $hotel->no_of_hajis }}</td>
+                        <td>{{ $hotel->staying_start_date }}</td>
+                        <td>{{ $hotel->staying_end_date }}</td>
                         <td class="text-right">{{ $hotel->cost }}</td>
                         <td>{{ $hotel->updated_at }}</td>
                         <td class="text-center">

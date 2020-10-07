@@ -44,9 +44,64 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="hotel_area" class="col-2 col-form-label">Hotel Area</label>
+                    <div class="col-10">
+                        <select class="form-control kt-selectpicker" data-size="5"
+                                data-live-search="false"
+                                name="hotel_area"
+                                id="hotel_area">
+                            <option
+                                value=""
+                                {{ !old('hotel_area', $hotel->hotel_area) ? 'selected' : '' }}>
+                                Select a Hotel Area
+                            </option>
+                            <option value="Makka"
+                                {{ old('hotel_area', $hotel->hotel_area) == 'Makka' ? 'selected' : '' }}>
+                                Makka
+                            </option>
+                            <option value="Madina"
+                                {{ old('hotel_area', $hotel->hotel_area) == 'Madina' ? 'selected' : '' }}>
+                                Madina
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="no_of_rooms" class="col-2 col-form-label">
+                        No of Rooms
+                    </label>
+                    <div class="col-10">
+                        <input class="form-control" type="number" id="no_of_rooms" name="no_of_rooms"
+                               value="{{ old('no_of_rooms', $hotel->no_of_rooms) }}" placeholder="No of Rooms">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="no_of_hajis" class="col-2 col-form-label">
+                        No of Hajis
+                    </label>
+                    <div class="col-10">
+                        <input class="form-control" type="number" id="no_of_hajis" name="no_of_hajis"
+                               value="{{ old('no_of_hajis', $hotel->no_of_hajis) }}" placeholder="No of Hajis">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="staying_start_date" class="col-2 col-form-label">Staying Start Date</label>
+                    <div class="col-10">
+                        <input class="form-control kt-datepicker" type="text" id="staying_start_date" name="staying_start_date"
+                               value="{{ \Carbon\Carbon::parse(old('staying_start_date', $hotel->staying_start_date))->format('d-m-Y') }}" placeholder="Staying Start Date" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="staying_end_date" class="col-2 col-form-label">Staying End Date</label>
+                    <div class="col-10">
+                        <input class="form-control kt-datepicker" type="text" id="staying_end_date" name="staying_end_date"
+                               value="{{ \Carbon\Carbon::parse(old('staying_end_date', $hotel->staying_end_date))->format('d-m-Y') }}" placeholder="Staying End Date" required>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="cost" class="col-2 col-form-label">Hotel Cost *</label>
                     <div class="col-10">
-                        <input class="form-control" type="text" id="cost" name="cost"
+                        <input class="form-control" type="number" id="cost" name="cost"
                                value="{{ old('cost', $hotel->cost) }}" placeholder="1000.00" required>
                     </div>
                 </div>
@@ -77,4 +132,9 @@
             $('#hotel-rate-list-sm').addClass('kt-menu__item--active');
         });
     </script>
+
+    <!--begin::Page Scripts(used by this page) -->
+    <script src="{{ asset('js/pages/hotel-rate/hotel-rate.js') }}" type="text/javascript"></script>
+
+    <!--end::Page Scripts -->
 @endpush

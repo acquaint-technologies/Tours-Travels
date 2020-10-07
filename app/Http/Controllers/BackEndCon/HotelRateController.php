@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackEndCon;
 
 use App\Hotel;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Validator;
@@ -54,8 +55,16 @@ class HotelRateController extends Controller
     {
         $validatedData = Validator::make($request->all(), array(
             'hotel_name' => 'required',
+            'hotel_area' => 'nullable',
+            'no_of_rooms' => 'nullable',
+            'no_of_hajis' => 'nullable',
+            'staying_start_date' => 'nullable',
+            'staying_end_date' => 'nullable',
             'cost' => 'required',
         ))->validate();
+
+        $validatedData['staying_start_date'] = Carbon::parse($validatedData['staying_start_date'])->format('Y-m-d');
+        $validatedData['staying_end_date'] = Carbon::parse($validatedData['staying_end_date'])->format('Y-m-d');
 
         $hotel = Hotel::create($validatedData);
         if ($hotel) {
@@ -105,10 +114,18 @@ class HotelRateController extends Controller
     {
         $validatedData = Validator::make($request->all(), array(
             'hotel_name' => 'required',
+            'hotel_area' => 'nullable',
+            'no_of_rooms' => 'nullable',
+            'no_of_hajis' => 'nullable',
+            'staying_start_date' => 'nullable',
+            'staying_end_date' => 'nullable',
             'cost' => 'required',
         ))->validate();
 
-        $hotel = Hotel::FindOrFail($id)->update($validatedData);
+        $validatedData['staying_start_date'] = Carbon::parse($validatedData['staying_start_date'])->format('Y-m-d');
+        $validatedData['staying_end_date'] = Carbon::parse($validatedData['staying_end_date'])->format('Y-m-d');
+
+        $hotel = Hotel::findOrFail($id)->update($validatedData);
         if ($hotel) {
             Session::flash('success', $this->controllerInfo->title . ' Updated Successfully');
             return redirect()->route($this->controllerInfo->routeNamePrefix . '.index');

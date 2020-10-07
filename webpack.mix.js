@@ -57,6 +57,9 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/views/Admin/accounts/deposit/deposit.js',
     ], 'public/js/pages/accounts/deposit.js')
     .scripts([
+        'resources/views/Admin/hotel-rate/bootstrap-datepicker.js',
+    ], 'public/js/pages/hotel-rate/hotel-rate.js')
+    .scripts([
         'resources/views/Admin/accounts/expense/bootstrap-pickers.js',
     ], 'public/js/pages/accounts/expense.js')
     .scripts([
