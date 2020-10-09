@@ -23,9 +23,14 @@ class CreatePackagesTable extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->integer('no_of_days')->default(0);
+            $table->date('makka_arival_date')->nullable();
+            $table->date('madina_arival_date')->nullable();
+            $table->date('makka_ziyarah_date')->nullable();
+            $table->date('madinaa_ziyarah_date')->nullable();
             $table->bigInteger('hotel_id');
             $table->bigInteger('vehicle_id');
             $table->double('total_price')->default(0);
+            $table->text('package_description')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0=Inactive | 1=Active');
             $table->timestamps();
         });

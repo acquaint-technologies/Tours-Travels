@@ -91,6 +91,34 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="makka_arival_date" class="col-2 col-form-label">Makka Arrival Date</label>
+                    <div class="col-10">
+                        <input class="form-control kt-datepicker" type="text" id="makka_arival_date" name="makka_arival_date"
+                               value="{{ old('makka_arival_date', $package->makka_arival_date) }}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="madina_arival_date" class="col-2 col-form-label">Madina Arrival Date</label>
+                    <div class="col-10">
+                        <input class="form-control kt-datepicker" type="text" id="madina_arival_date" name="madina_arival_date"
+                               value="{{ old('madina_arival_date', $package->madina_arival_date) }}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="makka_ziyarah_date" class="col-2 col-form-label">Makka Ziyarah Date</label>
+                    <div class="col-10">
+                        <input class="form-control kt-datepicker" type="text" id="makka_ziyarah_date" name="makka_ziyarah_date"
+                               value="{{ old('makka_ziyarah_date', $package->makka_ziyarah_date) }}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="madinaa_ziyarah_date" class="col-2 col-form-label">Madina Ziyarah date</label>
+                    <div class="col-10">
+                        <input class="form-control kt-datepicker" type="text" id="madinaa_ziyarah_date" name="madinaa_ziyarah_date"
+                               value="{{ old('madinaa_ziyarah_date', $package->madinaa_ziyarah_date) }}">
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="hotel_id" class="col-2 col-form-label text-right">
                         Hotel *</label>
                     <div class="col-10">
@@ -129,6 +157,15 @@
                     <div class="col-10">
                         <input class="form-control" type="text" id="total_price" name="total_price"
                                value="{{ old('total_price', $package->total_price) }}" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="package_description" class="col-2 col-form-label">Package Description</label>
+                    <div class="col-10">
+                        <textarea class="form-control" type="text" id="package_description"
+                                  name="package_description"
+                                  rows="5"
+                                  placeholder="Description">{{ old('package_description', $package->package_description) }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
