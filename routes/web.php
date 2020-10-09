@@ -74,6 +74,8 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
 
     Route::resource('customer-payment', 'CustomerPaymentController');
 
+    Route::resource('visa-management', 'VisaManagementController');
+
     // Reports Routes
     Route::group(['namespace' => 'Reports'], function () {
         Route::resource('customer-report', 'CustomerReportController');
