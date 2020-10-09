@@ -31,8 +31,11 @@
             <table class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
                 <thead>
                 <tr>
-                    <th>Vehicle Name</th>
-                    <th>Vehicle Cost</th>
+                    <th>Airlines Name</th>
+                    <th>Airlines Cost</th>
+                    <th>Flight Number</th>
+                    <th>Departure Datetime</th>
+                    <th>Arrival Datetime</th>
                     <th>Information Update</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -42,6 +45,9 @@
                     <tr id="tr-{{ $vehicle->id }}">
                         <td scope="row">{{ $vehicle->vehicle_name }}</td>
                         <td class="text-right">{{ $vehicle->cost }}</td>
+                        <td>{{ $vehicle->flight_number }}</td>
+                        <td>{{ \Carbon\Carbon::parse($vehicle->departure_datetime)->format('d-m-Y h:i A') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($vehicle->arrival_datetime)->format('d-m-Y h:i A') }}</td>
                         <td>{{ $vehicle->updated_at }}</td>
                         <td class="text-center">
                             {{--<a href="{{ route($controllerInfo->routeNamePrefix . '.show', $vehicle->id) }}" class="btn btn-success btn-sm btn-icon-sm btn-circle">

@@ -36,7 +36,7 @@
                 @if(isset($vehicle->id)) @method('PUT') @endif
                 <div class="form-group row">
                     <label for="vehicle_name" class="col-2 col-form-label">
-                        Vehicle Name *
+                        Airlines Name *
                     </label>
                     <div class="col-10">
                         <input class="form-control" type="text" id="vehicle_name" name="vehicle_name"
@@ -44,10 +44,31 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cost" class="col-2 col-form-label">Vehicle Cost *</label>
+                    <label for="cost" class="col-2 col-form-label">Airlines Cost *</label>
                     <div class="col-10">
-                        <input class="form-control" type="text" id="cost" name="cost"
+                        <input class="form-control" type="number" id="cost" name="cost"
                                value="{{ old('cost', $vehicle->cost) }}" placeholder="1000.00" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="flight_number" class="col-2 col-form-label">Flight Number</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="flight_number" name="flight_number"
+                               value="{{ old('flight_number', $vehicle->flight_number) }}" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="departure_datetime" class="col-2 col-form-label">Departure Datetime</label>
+                    <div class="col-10">
+                        <input class="form-control kt_datetimepicker" type="text" id="departure_datetime" name="departure_datetime"
+                               value="{{ old('departure_datetime', \Carbon\Carbon::parse($vehicle->departure_datetime)->format('d-m-Y H:i:s')) }}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="arrival_datetime" class="col-2 col-form-label">Arrival Datetime</label>
+                    <div class="col-10">
+                        <input class="form-control kt_datetimepicker" type="text" id="arrival_datetime" name="arrival_datetime"
+                               value="{{ old('arrival_datetime', \Carbon\Carbon::parse($vehicle->arrival_datetime)->format('d-m-Y H:i:s')) }}">
                     </div>
                 </div>
                 <div class="kt-portlet__foot">
@@ -75,6 +96,16 @@
         $(document).ready(function () {
             $('#makka-madina-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#vehicle-rate-list-sm').addClass('kt-menu__item--active');
+
+            $('.kt_datetimepicker').datetimepicker({
+                todayHighlight: true,
+                inline: true,
+                sideBySide: true,
+                orientation: "bottom left",
+                locale: 'de',
+                format: 'dd-mm-yyyy hh:ii:ss',
+                autoclose: true
+            });
         });
     </script>
 @endpush

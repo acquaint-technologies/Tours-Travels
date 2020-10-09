@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackEndCon;
 
 use App\Vehicle;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Validator;
@@ -15,7 +16,7 @@ class VehicleRateController extends Controller
     public function __construct()
     {
         $this->controllerInfo = (object)array(
-            'title' => 'Vehicle Rate',
+            'title' => 'Airlines Rate',
             'routeNamePrefix' => 'vehicle-rate',
         );
     }
@@ -55,7 +56,13 @@ class VehicleRateController extends Controller
         $validatedData = Validator::make($request->all(), array(
             'vehicle_name' => 'required',
             'cost' => 'required',
+            'flight_number' => 'nullable',
+            'departure_datetime' => 'nullable',
+            'arrival_datetime' => 'nullable',
         ))->validate();
+
+        $validatedData['departure_datetime'] = Carbon::parse($validatedData['departure_datetime']);
+        $validatedData['arrival_datetime'] = Carbon::parse($validatedData['arrival_datetime']);
 
         $vehicle = Vehicle::create($validatedData);
         if ($vehicle) {
@@ -106,9 +113,15 @@ class VehicleRateController extends Controller
         $validatedData = Validator::make($request->all(), array(
             'vehicle_name' => 'required',
             'cost' => 'required',
+            'flight_number' => 'nullable',
+            'departure_datetime' => 'nullable',
+            'arrival_datetime' => 'nullable',
         ))->validate();
 
-        $vehicle = Vehicle::FindOrFail($id)->update($validatedData);
+        $validatedData['departure_datetime'] = Carbon::parse($validatedData['departure_datetime']);
+        $validatedData['arrival_datetime'] = Carbon::parse($validatedData['arrival_datetime']);
+
+        $vehicle = Vehicle::findOrFail($id)->update($validatedData);
         if ($vehicle) {
             Session::flash('success', $this->controllerInfo->title . ' Updated Successfully');
             return redirect()->route($this->controllerInfo->routeNamePrefix . '.index');
