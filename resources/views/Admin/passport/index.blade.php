@@ -38,7 +38,7 @@
                     <th>Passport Type</th>
                     <th>Passport Issue Date</th>
                     <th>Passport Expiry Date</th>
-                    <th>Passport Issue Location</th>
+                    <th>Address</th>
                     <th class="text-center">Actions</th>
                 </tr>
                 </thead>

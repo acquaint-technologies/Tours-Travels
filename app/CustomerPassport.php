@@ -28,4 +28,9 @@ class CustomerPassport extends Model
     {
         return $this->belongsTo(Customer::class, 'reference_id', 'id');
     }
+
+    public function documents()
+    {
+        return $this->hasMany(PassportDocument::class);
+    }
 }

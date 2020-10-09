@@ -39,6 +39,7 @@ mix.js('resources/js/app.js', 'public/js')
     ], 'public/js/pages/customer.js')
     .scripts([
         'resources/views/Admin/passport/bootstrap-datepicker.js',
+        'resources/views/Admin/passport/passport.js',
     ], 'public/js/pages/passport.js')
     .scripts([
         'resources/views/Admin/hajj/bootstrap-datepicker.js',

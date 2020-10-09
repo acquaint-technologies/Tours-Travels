@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +29,7 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::resource('omra-hajj-groups', 'OmraHajjGroupController');
     Route::resource('customer', 'CustomerController');
     Route::get('customer/pdf/{customer}', 'CustomerController@customerInfoPDF')->name('customer.pdf');
+    Route::post('/passport-info/delete-document/{document_id}', 'PassportController@deleteDocument');
     Route::resource('passport-info', 'PassportController');
     Route::resource('passport-collection', 'PassportCollectionController');
     Route::get('passport-collection/pdf/{passport_collection}', 'PassportCollectionController@pdf')->name('passport-collection.pdf');

@@ -21,6 +21,7 @@ class CreateCustomerPassportsTable extends Migration
             $table->tinyInteger('passport_type')->comment('1=General | 2=Government | 3=Others');
             $table->date('issue_date')->nullable();
             $table->date('expiry_date')->nullable();
+            $table->string('emergency_contact_number')->nullable();
             $table->text('issue_location')->nullable();
             $table->string('box_no')->nullable();
             $table->bigInteger('reference_id')->nullable()->comment('reference_id should be customer_id');

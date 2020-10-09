@@ -8,9 +8,10 @@
 @endif
 
 @section('content')
+    @include('dashboard::components.delete-modal')
     @include('dashboard::msg.message')
     <!--begin::Portlet-->
-    <div class="kt-portlet">
+    <div class="kt-portlet" id="passport_page">
         <div class="kt-portlet__head">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
@@ -28,8 +29,8 @@
         }
     @endphp
     <!--begin::Form-->
-        <form id="menu-form" action="{{ $route }}" method="POST"
-              class="kt-form kt-form--label-right">
+        <form id="passport-form" action="{{ $route }}" method="POST"
+              class="kt-form kt-form--label-right" enctype="multipart/form-data">
             <div class="kt-portlet__body">
                 @csrf
                 @if(isset($passport->id)) @method('PUT') @endif
@@ -90,11 +91,64 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="issue_location" class="col-2 col-form-label">Issue Location</label>
+                    <label for="emergency_contact_number" class="col-2 col-form-label">
+                        Emergency Contact Number
+                    </label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" id="emergency_contact_number" name="emergency_contact_number"
+                               value="{{ old('emergency_contact_number', $passport->emergency_contact_number) }}" placeholder="01XXXXXXXXXX">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="issue_location" class="col-2 col-form-label">Address</label>
                     <div class="col-10">
                         <textarea class="form-control" type="text" id="issue_location" name="issue_location"
                                   rows="5"
                                   placeholder="Address">{{ old('issue_location', $passport->issue_location) }}</textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">
+                        Additional Documents
+                    </label>
+                    <div class="col-10" id="document_upload_div">
+                        @if (isset($passport->id))
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="9">Document Title</th>
+                                            <th colspan="1">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($passport->documents as $document)
+                                        <tr row-id="{{$document->id}}">
+                                            <td colspan="9">{{ $document->title }}</td>
+                                            <td colspan="1">
+                                                <button type="button" class="btn btn-danger" @click="deleteDocument({{$document->id}})">
+                                                    <i class="flaticon-delete"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
+                        <div class="row">
+                            <div class="col-5">
+                                <input class="form-control" type="file" id="document[]" name="document[]">
+                            </div>
+                            <div class="col-5">
+                                <input class="form-control" type="text" id="document_title[]" name="document_title[]" placeholder="Document Title">
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-success" @click="addNewDocument()">Add</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="kt-portlet__foot">
