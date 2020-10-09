@@ -21,6 +21,11 @@ Route::get('reboot', function () {
     return '<center><h1>System Rebooted!</h1></center>';
 });
 
+Route::get('storage-link', function () {
+    Artisan::call('storage:link', []);
+    return '<center><h1>The [public/storage] directory has been linked.</h1></center>';
+});
+
 Route::get('composer/dump-autoload', function () {
     Artisan::call('composer:dump-autoload');
     return '<center><h1>Composer Dump Autoload has been executed!</h1></center>';
