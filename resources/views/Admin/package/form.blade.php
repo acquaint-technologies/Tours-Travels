@@ -91,17 +91,17 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="makka_arival_date" class="col-2 col-form-label">Makka Arrival Date</label>
+                    <label for="makka_arrival_date" class="col-2 col-form-label">Makka Arrival Date</label>
                     <div class="col-10">
-                        <input class="form-control kt-datepicker" type="text" id="makka_arival_date" name="makka_arival_date"
-                               value="{{ old('makka_arival_date', $package->makka_arival_date) }}">
+                        <input class="form-control kt-datepicker" type="text" id="makka_arrival_date" name="makka_arrival_date"
+                               value="{{ old('makka_arrival_date', $package->makka_arrival_date) }}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="madina_arival_date" class="col-2 col-form-label">Madina Arrival Date</label>
+                    <label for="madina_arrival_date" class="col-2 col-form-label">Madina Arrival Date</label>
                     <div class="col-10">
-                        <input class="form-control kt-datepicker" type="text" id="madina_arival_date" name="madina_arival_date"
-                               value="{{ old('madina_arival_date', $package->madina_arival_date) }}">
+                        <input class="form-control kt-datepicker" type="text" id="madina_arrival_date" name="madina_arrival_date"
+                               value="{{ old('madina_arrival_date', $package->madina_arrival_date) }}">
                     </div>
                 </div>
                 <div class="form-group row">

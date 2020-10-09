@@ -23,8 +23,8 @@ class CreatePackagesTable extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->integer('no_of_days')->default(0);
-            $table->date('makka_arival_date')->nullable();
-            $table->date('madina_arival_date')->nullable();
+            $table->date('makka_arrival_date')->nullable();
+            $table->date('madina_arrival_date')->nullable();
             $table->date('makka_ziyarah_date')->nullable();
             $table->date('madinaa_ziyarah_date')->nullable();
             $table->bigInteger('hotel_id');

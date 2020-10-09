@@ -60,8 +60,8 @@ class HajjPackageController extends Controller
         $validatedData['package_type'] = $this->package_type_no;
         $validatedData['start_date'] = Carbon::parse($validatedData['start_date']);
         $validatedData['end_date'] = Carbon::parse($validatedData['end_date']);
-        $validatedData['makka_arival_date'] = Carbon::parse($validatedData['makka_arival_date']);
-        $validatedData['madina_arival_date'] = Carbon::parse($validatedData['madina_arival_date']);
+        $validatedData['makka_arrival_date'] = Carbon::parse($validatedData['makka_arrival_date']);
+        $validatedData['madina_arrival_date'] = Carbon::parse($validatedData['madina_arrival_date']);
         $validatedData['makka_ziyarah_date'] = Carbon::parse($validatedData['makka_ziyarah_date']);
         $validatedData['madinaa_ziyarah_date'] = Carbon::parse($validatedData['madinaa_ziyarah_date']);
 
@@ -116,8 +116,8 @@ class HajjPackageController extends Controller
         $validatedData['package_type'] = $this->package_type_no;
         $validatedData['start_date'] = Carbon::parse($validatedData['start_date']);
         $validatedData['end_date'] = Carbon::parse($validatedData['end_date']);
-        $validatedData['makka_arival_date'] = Carbon::parse($validatedData['makka_arival_date']);
-        $validatedData['madina_arival_date'] = Carbon::parse($validatedData['madina_arival_date']);
+        $validatedData['makka_arrival_date'] = Carbon::parse($validatedData['makka_arrival_date']);
+        $validatedData['madina_arrival_date'] = Carbon::parse($validatedData['madina_arrival_date']);
         $validatedData['makka_ziyarah_date'] = Carbon::parse($validatedData['makka_ziyarah_date']);
         $validatedData['madinaa_ziyarah_date'] = Carbon::parse($validatedData['madinaa_ziyarah_date']);
 
@@ -157,8 +157,8 @@ class HajjPackageController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
             'no_of_days' => 'required|numeric',
-            "makka_arival_date" => 'nullable',
-            "madina_arival_date" => 'nullable',
+            "makka_arrival_date" => 'nullable',
+            "madina_arrival_date" => 'nullable',
             "makka_ziyarah_date" => 'nullable',
             "madinaa_ziyarah_date" => 'nullable',
             'hotel_id' => 'required',
