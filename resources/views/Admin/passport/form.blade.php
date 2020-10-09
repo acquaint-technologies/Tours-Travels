@@ -127,9 +127,14 @@
                                         <tr row-id="{{$document->id}}">
                                             <td colspan="9">{{ $document->title }}</td>
                                             <td colspan="1">
-                                                <button type="button" class="btn btn-danger" @click="deleteDocument({{$document->id}})">
+                                                <button type="button" class="btn btn-danger btn-sm" @click="deleteDocument({{$document->id}})">
                                                     <i class="flaticon-delete"></i>
                                                 </button>
+                                                <a href="{{ Storage::disk('public')->url('uploads/customers/passport-documents/' . $document->document) }}"
+                                                   target="_blank"
+                                                   class="btn btn-primary btn-sm">
+                                                    <i class="flaticon-download-1"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                         @endforeach
