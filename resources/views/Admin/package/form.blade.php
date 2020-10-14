@@ -1,4 +1,4 @@
-@extends('dashboard::layouts.app')
+@extends('Admin.layouts.app')
 
 @section('page_title', $package_type . ' Package')
 @if(isset($package->id))

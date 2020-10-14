@@ -15,6 +15,7 @@ class CreatePassportStatusesTable extends Migration
     {
         Schema::create('passport_statuses', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('serial_no')->nullable();
             $table->string('status_name')->nullable();
             $table->text('description')->nullable();
             $table->bigInteger('status_id')->nullable();

@@ -1,4 +1,4 @@
-@extends('dashboard::layouts.app')
+@extends('Admin.layouts.app')
 
 @section('page_title', $controllerInfo->title)
 @if(isset($passport_collection->id))

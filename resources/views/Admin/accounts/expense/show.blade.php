@@ -1,4 +1,4 @@
-@extends('dashboard::layouts.app')
+@extends('Admin.layouts.app')
 
 @push('css')
     <style>

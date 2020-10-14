@@ -84,6 +84,8 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
         Route::resource('passport-report', 'PassportReportController');
     });
     // END Reports Routes
+
+    Route::resource('passport-status', 'PassportStatusController');
 });
 
 // Turned off Register Routes

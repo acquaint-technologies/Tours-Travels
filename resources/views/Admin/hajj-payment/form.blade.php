@@ -1,4 +1,4 @@
-@extends('dashboard::layouts.app')
+@extends('Admin.layouts.app')
 
 @section('page_title', $hajj_type . ' Payment')
 @if(isset($hajj_payment->id))

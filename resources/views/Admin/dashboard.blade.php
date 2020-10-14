@@ -1,4 +1,4 @@
-@extends('dashboard::layouts.app')
+@extends('Admin.layouts.app')
 
 @section('page_title', 'Dashboard')
 @section('page_tagline', 'Admin Dashboard')
