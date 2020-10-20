@@ -56,6 +56,13 @@
                                     @click="getPassportStatusHistories({{$passport->id}})">
                                 <i class="fas fa-history"></i>
                             </button>
+                            @if (in_array($passport->passportStatuses->count() > 0 && $passport->passportStatuses->first()->status_name, ['Passport Received', 'Passport Delivered to Client']))
+                                <button type="button" class="btn btn-label-success btn-sm btn-icon-sm btn-circle"
+                                        data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="Print"
+                                        onclick="prints({{$passport->id}})">
+                                    <i class="fas fa-print"></i>
+                                </button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -73,6 +80,9 @@
     <script src="{{asset('vendor/dashboard/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}" type="text/javascript"></script>
     <script>
+        function prints(id) {
+            window.open(base_url + '/passport-history/receipt/print/'+id, "_blank", "toolbar=yes,scrollbars=yes,width=815,height=1100");
+        }
         $(document).ready(function () {
             $('#passport-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#check-passport-history-sm').addClass('kt-menu__item--active');

@@ -106,6 +106,7 @@
                 }
             });
         });
+        var paymentType = '1';
     </script>
     <!--begin::Page Scripts(used by this page) -->
     <script src="{{ asset('js/pages/accounts/deposit.js') }}" type="text/javascript"></script>

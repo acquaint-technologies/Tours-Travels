@@ -43,6 +43,11 @@
                                        class="btn btn-primary btn-sm btn-icon-sm btn-circle">
                                         <i class="flaticon2-edit"></i>
                                     </a>
+                                    <button type="button" class="btn btn-label-success btn-sm btn-icon-sm btn-circle"
+                                            data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="Print"
+                                            @click="printReceipt(payment.id)">
+                                        <i class="fas fa-print"></i>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackEndCon\Accounts;
 use App\HajjPayment;
 use App\Http\Controllers\Controller;
 use App\Hajj;
+use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -208,5 +209,12 @@ class DepositController extends Controller
         $controllerInfo = $this->controllerInfo;
         $haji = Hajj::with('payments')->FindOrFail($id);
         return view('Admin.accounts.deposit.show', compact('controllerInfo', 'haji'));
+    }
+
+    public function printReceipt($id)
+    {
+        $controllerInfo = $this->controllerInfo;
+        $payment = HajjPayment::with(['hajj'])->find($id);
+        return view('Admin.accounts.deposit.receipt', compact('controllerInfo', 'payment'));
     }
 }

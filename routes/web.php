@@ -64,6 +64,7 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
 
     // Accounts Management Routes
     Route::group(['namespace' => 'Accounts'], function () {
+        Route::get('deposit-list/receipt/print/{id}', 'DepositController@printReceipt')->name('deposit-list.print-receipt');
         Route::resource('deposit-list', 'DepositController');
         Route::get('deposit-list/add/{hajj_id}', 'DepositController@addPayment')->name('deposit-list.add-payment');
         Route::post('hajj-payment-status/change', 'DepositController@changePaymentStatus')->name('deposit-list.change-status');

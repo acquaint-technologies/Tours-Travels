@@ -68,6 +68,9 @@ let vm = new Vue({
             } else {
                 console.log('Hajj ID Not Found!');
             }
+        },
+        printReceipt(id) {
+            window.open(base_url + '/deposit-list/receipt/print/'+id, "_blank", "toolbar=yes,scrollbars=yes,width=815,height=1100");
         }
     }
 });
