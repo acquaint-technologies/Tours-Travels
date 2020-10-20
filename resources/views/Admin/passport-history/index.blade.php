@@ -56,7 +56,10 @@
                                     @click="getPassportStatusHistories({{$passport->id}})">
                                 <i class="fas fa-history"></i>
                             </button>
-                            @if (in_array($passport->passportStatuses->count() > 0 && $passport->passportStatuses->first()->status_name, ['Passport Received', 'Passport Delivered to Client']))
+                            @php
+                                $currentStatus = $passport->passportStatuses->count() > 0 ? $passport->passportStatuses->first()->status_name:null;
+                            @endphp
+                            @if (in_array($currentStatus, ['Passport Received', 'Passport Delivered to Client']))
                                 <button type="button" class="btn btn-label-success btn-sm btn-icon-sm btn-circle"
                                         data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="Print"
                                         onclick="prints({{$passport->id}})">

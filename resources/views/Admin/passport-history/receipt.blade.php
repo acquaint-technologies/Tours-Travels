@@ -31,7 +31,6 @@
                     <img alt="Brand" src="{{brandLogo()}}">
                 </td>
                 <td colspan="3" style="border-right:none;text-align:right;">
-                    <h1 style="font-size: 3.5em;">Sales Invoice</h1>
                 </td>
             </tr>
             </tbody>
@@ -51,8 +50,8 @@
                     <br><b>Fax:</b>
                 </td>
                 <td colspan="4" valign="top" style="border-right:none;text-align:left;">
-                    <b>Invoice No:</b>&nbsp;&nbsp;&nbsp;1410
-                    <br><b>Invoice Date:</b>&nbsp;&nbsp;&nbsp;14-mar-2020
+                    <b>SL No:</b>&nbsp;&nbsp;&nbsp;{{$passport->id}}
+                    <br><b>Date:</b>&nbsp;&nbsp;&nbsp;{{$passport->created_at->format('d-M-Y')}}
                 </td>
             </tr>
             </thead>
@@ -77,37 +76,17 @@
                     <table cellpadding="3" cellspacing="0" border="0" style="width:100%; border-collapse: collapse; font-size:10px;">
                         <tbody>
                         <tr>
-                            <th style="border: 1px solid #000">Ticket No.</th>
-                            <th style="border: 1px solid #000">Pax Name</th>
-                            <th style="border: 1px solid #000">Sector</th>
-                            <th style="border: 1px solid #000">Flight Dt</th>
-                            <th style="border: 1px solid #000">Class</th>
-                            <th style="border: 1px solid #000">Pax Type</th>
-                            <th style="border: 1px solid #000">Payable Amount in BDT</th>
+                            <th style="border: 1px solid #000">Passport No.</th>
+                            <th style="border: 1px solid #000">Full Name</th>
+                            <th style="border: 1px solid #000">Passport Status</th>
                         </tr>
-                        @for ($i = 0; $i < 35; $i++)
+                        @if ($passport)
                             <tr>
-                                <td style="border: 1px solid #000; text-align: center;">6522301377487</td>
-                                <td style="border: 1px solid #000; text-align: center;">MIAH/RAJIBMR</td>
-                                <td style="border: 1px solid #000; text-align: center;">DAC/SIN</td>
-                                <td style="border: 1px solid #000; text-align: center;">3/18/20</td>
-                                <td style="border: 1px solid #000; text-align: center;">L</td>
-                                <td style="border: 1px solid #000; text-align: center;">ADL</td>
-                                <td style="border: 1px solid #000; text-align: right;">14500</td>
+                                <td style="border: 1px solid #000; text-align: center;">{{$passport->passport_no}}</td>
+                                <td style="border: 1px solid #000; text-align: center;">{{$passport->full_name}}</td>
+                                <td style="border: 1px solid #000; text-align: center;">{{$passport->passportStatuses->first()->status_name}}</td>
                             </tr>
-                        @endfor
-                        <tr>
-                            <td colspan="6" style="text-align: right;">Total</td>
-                            <td style="text-align: right;"><b>14500 BDT</b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="7" style="border: none; text-align: center;">
-                                <br>
-                                <br>
-                                <br>
-                                in words: &nbsp;<b><i>Fourteen Thousand Five Hundred BDT Only</i></b>
-                            </td>
-                        </tr>
+                        @endif
                         </tbody>
                     </table>
                 </td>

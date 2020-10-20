@@ -33,6 +33,7 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::resource('passport-info', 'PassportController');
     Route::resource('passport-collection', 'PassportCollectionController');
     Route::get('passport-collection/pdf/{passport_collection}', 'PassportCollectionController@pdf')->name('passport-collection.pdf');
+    Route::get('passport-history/receipt/print/{id}', 'PassportHistoryController@printReceipt')->name('passport-history.print-receipt');
     Route::resource('passport-history', 'PassportHistoryController');
     Route::post('passport-history/change-status', 'PassportHistoryController@changeStatus')->name('passport-history.change-status');
     Route::resource('hajj-package', 'HajjPackageController');

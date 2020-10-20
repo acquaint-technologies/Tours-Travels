@@ -126,4 +126,12 @@ class PassportHistoryController extends Controller
             return redirect()->route($this->controllerInfo->routeNamePrefix . '.index');
         }
     }
+
+    public function printReceipt($id)
+    {
+        $passport = CustomerPassport::with(['passportStatuses' => function ($q) {
+            $q->orderBy('date', 'DESC')->first();
+        }])->find($id);
+        return view('Admin.passport-history.receipt', compact('passport'));
+    }
 }
