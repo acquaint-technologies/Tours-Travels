@@ -87,6 +87,12 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     });
     // END Reports Routes
 
+    // Ticket Management Routes
+    Route::group(['namespace' => 'TicketManagement'], function () {
+        Route::resource('ticketing-airlines', 'TicketingAirlineController');
+    });
+    // END Ticket Management Routes
+
     Route::resource('passport-status', 'PassportStatusController');
 });
 

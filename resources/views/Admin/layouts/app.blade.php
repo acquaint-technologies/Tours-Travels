@@ -11,3 +11,20 @@
         </li>
     @endif
 @endpush
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('.kt_datetimepicker').datetimepicker({
+                todayHighlight: true,
+                inline: true,
+                sideBySide: true,
+                orientation: "bottom left",
+                locale: 'de',
+                format: 'dd-mm-yyyy hh:ii:ss',
+                autoclose: true
+            });
+            $('.kt-selectpicker').selectpicker();
+        });
+    </script>
+@endpush
