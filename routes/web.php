@@ -90,6 +90,8 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     // Ticket Management Routes
     Route::group(['namespace' => 'TicketManagement'], function () {
         Route::resource('ticketing-airlines', 'TicketingAirlineController');
+        Route::resource('ticket-sales', 'TicketSalesController');
+        Route::resource('ticket-refund', 'TicketRefundController');
     });
     // END Ticket Management Routes
 
