@@ -79,10 +79,8 @@
         $(document).ready(function () {
             $('#ticket-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#ticketing-airlines-sm').addClass('kt-menu__item--active');
-            $('.table').DataTable({
-                responsive: {
-                    details: false
-                }
+            $('.dataTable').DataTable({
+                responsive: true
             });
         });
     </script>

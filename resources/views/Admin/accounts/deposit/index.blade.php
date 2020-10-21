@@ -101,9 +101,7 @@
             $('#accounts-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#deposit-list-sm').addClass('kt-menu__item--active');
             $('#deposits-list-table').DataTable({
-                responsive: {
-                    details: false
-                }
+                responsive: true
             });
         });
         var paymentType = '1';

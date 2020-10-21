@@ -15,6 +15,12 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
+            $('.kt-datepicker').datepicker({
+                todayHighlight: true,
+                orientation: "bottom left",
+                format: 'dd-mm-yyyy',
+                autoclose: true
+            });
             $('.kt_datetimepicker').datetimepicker({
                 todayHighlight: true,
                 inline: true,

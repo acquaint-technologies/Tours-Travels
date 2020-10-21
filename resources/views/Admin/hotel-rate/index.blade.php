@@ -84,9 +84,7 @@
             $('#makka-madina-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#hotel-rate-list-sm').addClass('kt-menu__item--active');
             $('.table').DataTable({
-                responsive: {
-                    details: false
-                }
+                responsive: true
             });
         });
     </script>

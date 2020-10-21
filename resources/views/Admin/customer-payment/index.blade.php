@@ -85,9 +85,7 @@
             $('#customer-payment-details-sm').addClass('kt-menu__item--active');
             @endif
             $('.table').DataTable({
-                responsive: {
-                    details: false
-                }
+                responsive: true
             });
         });
     </script>

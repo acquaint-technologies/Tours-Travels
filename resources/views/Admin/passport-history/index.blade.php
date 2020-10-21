@@ -90,9 +90,7 @@
             $('#passport-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
             $('#check-passport-history-sm').addClass('kt-menu__item--active');
             $('#passport-history-table').DataTable({
-                responsive: {
-                    details: false
-                }
+                responsive: true
             });
         });
     </script>
