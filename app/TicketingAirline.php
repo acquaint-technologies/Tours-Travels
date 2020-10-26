@@ -19,7 +19,7 @@ class TicketingAirline extends Model
 
         static::saving(function ($model) {
             $model->airlines_code = substr($model->airlines_code, 0, 2);
-            $model->ticketing_serial = substr($model->airlines_code, 0, 3);
+            $model->ticketing_serial = substr($model->ticketing_serial, 0, 3);
         });
     }
 
