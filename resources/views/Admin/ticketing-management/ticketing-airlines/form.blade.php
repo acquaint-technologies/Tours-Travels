@@ -46,14 +46,14 @@
                 <div class="form-group row">
                     <label for="airlines_code" class="col-2 col-form-label">Airlines Code *</label>
                     <div class="col-10">
-                        <input class="form-control" type="number" id="airlines_code" name="airlines_code"
+                        <input class="form-control" type="text" id="airlines_code" name="airlines_code"
                                value="{{ old('airlines_code', $airline->airlines_code) }}" placeholder="" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="ticketing_serial" class="col-2 col-form-label">Ticketing Serial *</label>
                     <div class="col-10">
-                        <input class="form-control" type="number" id="ticketing_serial" name="ticketing_serial"
+                        <input class="form-control" type="text" id="ticketing_serial" name="ticketing_serial"
                                value="{{ old('ticketing_serial', $airline->ticketing_serial) }}" placeholder="" required>
                     </div>
                 </div>
