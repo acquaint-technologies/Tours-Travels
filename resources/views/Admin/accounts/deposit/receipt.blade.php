@@ -14,7 +14,9 @@
 
     <style type="text/css">
         .line {
-            width: 130px; height: 765px; border-bottom: 1px solid black;
+            width: 130px;
+            height: 765px;
+            border-bottom: 1px solid black;
         }
     </style>
 
@@ -24,118 +26,111 @@
 <div id="printBody">
 
     <div style="width: 21cm; height: 29.7cm; float:left; margin-right:10px;">
-        <table cellpadding="3" cellspacing="0" border="0" style="width:100%; border-collapse: collapse; font-size:10px;">
-            <tbody style="text-align: left;">
-            <tr>
-                <td style="border-left:none; text-align:left;">
-                    <img alt="Brand" src="{{brandLogo()}}">
-                </td>
-                <td colspan="3" style="border-right:none;text-align:right;">
-                    <h1 style="font-size: 3.5em;">Sales Invoice</h1>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <br>
-        <table cellpadding="3" cellspacing="0" border="0" style="width:100%; border-collapse: collapse; font-size:14px;">
-            <thead>
-            <tr>
-                <td colspan="8" style="width: 75%;">
-                    <h3>S.N. TRAVELS & TOURS</h3>
-                    <p style="margin-top: 0px; margin-bottom: 0px"><b>Address:</b>
-                        &nbsp;&nbsp;&nbsp;Chistia Tower, Jurain, Dhaka-1204
-                    </p>
-                    <b>Phone Number:</b>&nbsp;&nbsp;&nbsp;01847287740-49 02-47441616
-                    <br><b>Email:</b>&nbsp;&nbsp;&nbsp;sntravelstour@gmail.com
-                    <br><b>Fax:</b>
-                </td>
-                <td colspan="4" valign="top" style="border-right:none;text-align:left;">
-                    <b>Invoice No:</b>&nbsp;&nbsp;&nbsp;{{$payment->id}}
-                    <br><b>Invoice Date:</b>&nbsp;&nbsp;&nbsp;{{$payment->created_at->format('d-M-Y')}}
-                </td>
-            </tr>
-            </thead>
-            <tbody style="text-align: left;">
-            <tr>
-                <td colspan="12" style="border-left:none; text-align:left;">
-                    <br>
-                    <br>
-                    <p><b>Travel Consultant:</b> Abdul Momin (Staff)</p>
-                    <p><b>Address:</b> Jurain Ofc, 01813939784</p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <br>
+        @for($i=0;$i<2;$i++)
+            @if ($i>0)
+                <div style="width: 100%; margin: 20px 0; border-bottom: 1px dashed black;"></div>
+            @endif
+            <div style="border: 1px solid #000; padding: 5px;">
+                <table cellpadding="3" cellspacing="0" border="0" style="width:100%; border-collapse: collapse; font-size:14px;">
+                    <tbody style="text-align: left;">
+                    <tr>
+                        <td colspan="3" style="border-left:none; text-align:left;width: 59%;">
+                            <img alt="Brand" src="{{brandLogo()}}">
+                        </td>
+                        <td colspan="1" style="border-right:none;">
+                            <h1 style="text-align:right;font-size: 3.5em;">Money Receipt</h1>
+                            <div style="margin-left: 20px;margin-top: -25px;">
+                                <b>Receipt No:</b>&nbsp;&nbsp;&nbsp;{{$payment->id}}
+                                <br><b>Date:</b>&nbsp;&nbsp;&nbsp;{{$payment->created_at->format('d F Y')}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table cellpadding="3" cellspacing="0" border="0" style="width:100%; border-collapse: collapse; font-size:14px;">
+                    <thead>
+                    <tr>
+                        <td colspan="8" style="width: 75%;">
+                            <h3>S.N. TRAVELS & TOURS</h3>
+                            <p style="margin-top: 0px; margin-bottom: 0px"><b>Address:</b>
+                                &nbsp;&nbsp;&nbsp;Chistia Tower, Jurain, Dhaka-1204
+                            </p>
+                            <b>Phone Number:</b>&nbsp;&nbsp;&nbsp;01847287740-49 02-47441616
+                            <br><b>Email:</b>&nbsp;&nbsp;&nbsp;sntravelstour@gmail.com
+                            <br><b>Fax:</b>
+                        </td>
+                        <td colspan="4" valign="middle" style="border-right:none;text-align:left;">
+                            @if ($i==0)
+                                <b>** Customer Copy **</b>
+                            @else
+                                <b>** Office Copy **</b>
+                            @endif
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody style="text-align: left;">
+                    </tbody>
+                </table>
+                <br>
+                <br>
 
-        <table style="width:100%; border-collapse: collapse; min-height: 680px;">
-            <tbody>
-            <tr>
-                <td valign="top">
-                    <table cellpadding="3" cellspacing="0" border="0" style="width:100%; border-collapse: collapse; font-size:10px;">
-                        <tbody>
-                        <tr>
-                            <th style="border: 1px solid #000">Ticket No.</th>
-                            <th style="border: 1px solid #000">Pax Name</th>
-                            <th style="border: 1px solid #000">Sector</th>
-                            <th style="border: 1px solid #000">Flight Dt</th>
-                            <th style="border: 1px solid #000">Class</th>
-                            <th style="border: 1px solid #000">Pax Type</th>
-                            <th style="border: 1px solid #000">Payable Amount in BDT</th>
-                        </tr>
-                        @if ($payment)
-                            <tr>
-                                <td style="border: 1px solid #000; text-align: center;">{{$payment->ticket_no}}</td>
-                                <td style="border: 1px solid #000; text-align: center;">{{$payment->depositor_name}}</td>
-                                <td style="border: 1px solid #000; text-align: center;">DAC/SIN</td>
-                                <td style="border: 1px solid #000; text-align: center;">{{\Carbon\Carbon::now()->format('m/d/Y')}}</td>
-                                <td style="border: 1px solid #000; text-align: center;">{{$payment->class}}</td>
-                                <td style="border: 1px solid #000; text-align: center;">{{$payment->type_value}}</td>
-                                <td style="border: 1px solid #000; text-align: right;">{{$payment->amount}}</td>
-                            </tr>
-                        @endif
-                        <tr>
-                            <td colspan="6" style="text-align: right;">Total</td>
-                            <td style="text-align: right;"><b>{{$payment->amount}} BDT</b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="7" style="border: none; text-align: center;">
-                                <br>
-                                <br>
-                                <br>
-                                in words: &nbsp;<b><i>{{numberToWord($payment->amount)}} BDT Only</i></b>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                <table style="width:100%; border-collapse: collapse;">
+                    <tbody>
+                    <tr>
+                        <td valign="top">
+                            <table cellpadding="3" cellspacing="0" border="0" style="width:100%; border-collapse: collapse; font-size:18px;">
+                                <tbody>
+                                <tr>
+                                    <td style="width: 20%"></td>
+                                    <td style="width: 20%; text-align: right;">Received From</td>
+                                    <td style="width: 60%">
+                                        &nbsp; <b>{{$payment->depositor_name}}</b>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%"></td>
+                                    <td style="width: 20%; text-align: right;">The Sum of Total</td>
+                                    <td style="">
+                                        &nbsp; <b>{{number_format($payment->amount, 2)}}</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%"></td>
+                                    <td style="width: 20%; text-align: right;">By</td>
+                                    <td style="">
+                                        &nbsp; <b>{{$payment->type_value}}</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="width: 80%; padding-left: 40px;">
+                                        <b>Total Amount In Words: </b> {{numberToWord($payment->amount)}} BDT Only
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="width: 80%; padding-left: 100px;">Remarks:</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
-        <table cellpadding="3" cellspacing="0" border="0" style="width:100%; border-collapse: collapse; font-size:10px; margin-top: 50px;">
-            <tbody style="text-align: left;">
-            <tr>
-                <td valign="bottom" style="border-left:none; text-align:center;">
-                    <div style="width: 130px; margin: auto; border-bottom: 1px solid black;"></div>
-                    <br>
-                    <b>Prepared By</b>
-                </td>
-                <td style="border-left:none; text-align:center;">
-                    <div style="width: 130px; margin: auto; border-bottom: 1px solid black;"></div>
-                    <br>
-                    <b>Received By</b>
-                </td>
-                <td style="border-left:none; text-align:center;">
-                    <div style="width: 130px; margin: auto; border-bottom: 1px solid black;"></div>
-                    <br>
-                    <b>Authorized By</b>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                <table cellpadding="3" cellspacing="0" border="0" style="width:100%; border-collapse: collapse; font-size:14px; margin-top: 50px;">
+                    <tbody style="text-align: left;">
+                    <tr>
+                        <td colspan="4" valign="bottom" style="border-left:none; text-align:center;width: 70%;"></td>
+                        <td style="border-left:none; text-align:center;">
+                            <div style="width: 140px; margin: auto; border-bottom: 1px solid black;"></div>
+                            <br>
+                            <b>Receiving Officer</b>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        @endfor
     </div>
 </div>
 <script>
