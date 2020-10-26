@@ -71,9 +71,13 @@ class TicketSalesCommissionController extends Controller
         $filter = [];
         if ($request->input('start_date')) {
             $filter['start_date'] = $request->input('start_date');
+        } else {
+            $filter['start_date'] = Carbon::now();
         }
         if ($request->input('end_date')) {
             $filter['end_date'] = $request->input('end_date');
+        } else {
+            $filter['start_date'] = Carbon::now();
         }
         $ticketSales = $this->calculateSalesCommissionQuery($filter)->paginate($perPage);
         $ticketSalesSum = $this->getSalesCommissionSum($filter);
