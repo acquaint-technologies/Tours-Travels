@@ -1,14 +1,22 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Hotel;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Hotel::class, function (Faker $faker) {
-    static $number = 1;
-    return [
-        'hotel_name' => 'Hotel ' . $number++,
-        'cost' => $faker->numberBetween($min = 10000, $max = 50000),
-    ];
-});
+class HotelFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        static $number = 1;
+        return [
+            'hotel_name' => 'Hotel ' . $number++,
+            'cost' => $this->faker->numberBetween($min = 10000, $max = 50000),
+        ];
+    }
+}

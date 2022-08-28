@@ -7,9 +7,11 @@
 require('./bootstrap');
 require('./plugins');
 
-window.Vue = require('vue');
+import Vue from 'vue';
 import Loading from 'vue-loading-overlay';
-window.Vue.use(Loading, {
+
+window.Vue = Vue;
+Vue.use(Loading, {
     container: null,
     color: 'green',
 });

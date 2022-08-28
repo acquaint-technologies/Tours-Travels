@@ -23,7 +23,27 @@ if (mix.inProduction()) {
     });
 }
 
+mix.webpackConfig({
+    stats: {
+        children: false
+    }
+});
+
+mix.options({
+    legacyNodePolyfills: true,
+    // processCssUrls: false,
+});
+
+if (!mix.inProduction()) {
+    mix.sourceMaps();
+}
+
+mix.version();
+mix.disableSuccessNotifications();
+
+mix.setResourceRoot((process.env.ASSET_URL || "") + "/");
 mix.js('resources/js/app.js', 'public/js')
+    .vue()
     .sass('resources/sass/app.scss', 'public/css')
     .scripts([
         'public/vendor/dashboard/assets/js/kt-global.js',
