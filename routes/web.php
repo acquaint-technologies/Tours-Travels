@@ -35,13 +35,13 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     Route::resource('passport-collection', 'PassportCollectionController');
     Route::get('passport-collection/pdf/{passport_collection}', 'PassportCollectionController@pdf')->name('passport-collection.pdf');
     Route::get('passport-history/receipt/print/{id}', 'PassportHistoryController@printReceipt')->name('passport-history.print-receipt');
-    Route::resource('passport-history', 'PassportHistoryController');
+    Route::resource('passport-history', 'PassportHistoryController')->except('create');
     Route::post('passport-history/change-status', 'PassportHistoryController@changeStatus')->name('passport-history.change-status');
     Route::resource('hajj-package', 'HajjPackageController');
     Route::resource('omra-hajj-package', 'OmraHajjPackageController');
     Route::resource('haji', 'HajjController');
     Route::resource('omra-haji', 'OmraHajjController');
-    Route::resource('sms-sending-system', 'SmsSenderController');
+    Route::resource('sms-sending-system', 'SmsSenderController')->except('create');
 
     Route::get('deposit-details/{hajj_id}', 'Accounts\DepositController@depositDetails')->name('deposit-details.view');
 
@@ -67,24 +67,24 @@ Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], func
     // Accounts Management Routes
     Route::group(['namespace' => 'Accounts'], function () {
         Route::get('deposit-list/receipt/print/{id}', 'DepositController@printReceipt')->name('deposit-list.print-receipt');
-        Route::resource('deposit-list', 'DepositController');
+        Route::resource('deposit-list', 'DepositController')->except('create');
         Route::get('deposit-list/add/{hajj_id}', 'DepositController@addPayment')->name('deposit-list.add-payment');
         Route::post('hajj-payment-status/change', 'DepositController@changePaymentStatus')->name('deposit-list.change-status');
         Route::resource('expense-list', 'ExpenseController');
-        Route::resource('cash-in-hand', 'CashInHandController');
+        Route::resource('cash-in-hand', 'CashInHandController')->except('create');
     });
     // END Accounts Management Routes
 
-    Route::resource('customer-payment', 'CustomerPaymentController');
+    Route::resource('customer-payment', 'CustomerPaymentController')->except('create');
 
     Route::resource('visa-management', 'VisaManagementController');
 
     // Reports Routes
     Route::group(['namespace' => 'Reports'], function () {
-        Route::resource('customer-report', 'CustomerReportController');
-        Route::resource('haji-report', 'HajjReportController');
-        Route::resource('omra-haji-report', 'OmraHajjReportController');
-        Route::resource('passport-report', 'PassportReportController');
+        Route::resource('customer-report', 'CustomerReportController')->except('create');
+        Route::resource('haji-report', 'HajjReportController')->except('create');
+        Route::resource('omra-haji-report', 'OmraHajjReportController')->except('create');
+        Route::resource('passport-report', 'PassportReportController')->except('create');
     });
     // END Reports Routes
 
