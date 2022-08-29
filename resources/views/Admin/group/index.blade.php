@@ -5,22 +5,8 @@
     <link href="{{asset('vendor/dashboard/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet">
 @endpush
 
-@php
-if (isset($group_type)){
-    $group_type = $group_type . ' ';
-    if ($group_type == 'Hajj ') {
-        $routeNamePrefix = 'hajj-groups';
-    } elseif ($group_type == 'Omra Hajj ') {
-        $routeNamePrefix = 'omra-hajj-groups';
-    }
-} else {
-    $group_type  = '';
-    $routeNamePrefix = 'groups';
-}
-@endphp
-
-@section('page_title', $group_type . 'Groups')
-@section('page_tagline', $group_type . 'Group List')
+@section('page_title', getRoutes()->pageTitle(request()->route()))
+@section('page_tagline', getRoutes()->getTitleByRoute(request()->route()))
 
 @section('content')
     @include('dashboard::components.delete-modal')
@@ -29,16 +15,18 @@ if (isset($group_type)){
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
-                    <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
-                    <h3 class="kt-portlet__head-title">
-                        {{ $group_type }} Group List
-                    </h3>
+                <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
+                <h3 class="kt-portlet__head-title">
+                    {{ getRoutes()->getTitleByRoute(request()->route()) }}
+                </h3>
             </div>
-            <div class="float-right mt-3">
-                <a href="{{ route($routeNamePrefix . '.create') }}" class="btn btn-label-success btn-sm btn-upper">
-                    <i class="fa fa-plus"></i> Add New {{ $group_type }} Group
-                </a>
-            </div>
+            @if(\Illuminate\Support\Facades\Route::has($route = getRoutes()->getAsPrefix(request()->route()) . 'create'))
+                <div class="float-right mt-3">
+                    <a href="{{ route($route) }}" class="btn btn-label-success btn-sm btn-upper">
+                        <i class="fa fa-plus"></i> {{ getRoutes()->getTitleByRouteName($route) }}
+                    </a>
+                </div>
+            @endif
         </div>
         <div class="kt-portlet__body">
             <!--begin: Datatable -->
@@ -69,10 +57,10 @@ if (isset($group_type)){
                         <td>{{ $group->contact_no }}</td>
                         <td>{{ $group->email }}</td>
                         <td class="text-center">
-                            <a href="{{ route($routeNamePrefix . '.show', $group->id) }}" class="btn btn-success btn-sm btn-icon-sm btn-circle">
+                            <a href="{{ route(getRoutes()->getAsPrefix(request()->route()) . 'show', $group->id) }}" class="btn btn-success btn-sm btn-icon-sm btn-circle">
                                 <i class="flaticon-eye"></i>
                             </a>
-                            <a href="{{ route($routeNamePrefix . '.edit', $group->id) }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">
+                            <a href="{{ route(getRoutes()->getAsPrefix(request()->route()) . 'edit', $group->id) }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">
                                 <i class="flaticon2-edit"></i>
                             </a>
                             <button type="button" class="btn btn-danger btn-sm btn-icon-sm btn-circle delete-button" data-toggle="modal" data-target="#delete-modal" data-id="{{ $group->id }}">
@@ -96,16 +84,6 @@ if (isset($group_type)){
     <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
-            @if($group_type == 'Hajj ')
-            $('#hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#hajj-groups-sm').addClass('kt-menu__item--active');
-            @elseif($group_type == 'Omra Hajj ')
-            $('#omra-hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#omra-hajj-groups-sm').addClass('kt-menu__item--active');
-            @else
-            $('#groups-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#groups-sm').addClass('kt-menu__item--active');
-            @endif
             $('.table').DataTable({
                 responsive: true
             });

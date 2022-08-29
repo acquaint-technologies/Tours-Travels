@@ -613,7 +613,7 @@
             "dist": {
                 "type": "path",
                 "url": "metronic-dashboard",
-                "reference": "cc9bc2dac5c8c5f3d9722620aed818302204e629"
+                "reference": "639c8085aef59ddfb5f8f3345da78227267a31ad"
             },
             "require": {
                 "gajus/dindent": "^2.0",
@@ -628,6 +628,16 @@
                 }
             },
             "autoload": {
+                "files": [
+                    "src/app/Helpers/DevOptions.php",
+                    "src/app/Helpers/Menus.php",
+                    "src/app/Helpers/ProjectInfo.php",
+                    "src/app/Helpers/Route.php",
+                    "src/app/Helpers/Users.php"
+                ],
+                "classmap": [
+                    "src/app/Helpers/GetRoute.php"
+                ],
                 "psr-4": {
                     "Anam\\Dashboard\\": "src/"
                 }

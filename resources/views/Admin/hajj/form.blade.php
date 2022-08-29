@@ -1,11 +1,13 @@
 @extends('Admin.layouts.app')
 
-@section('page_title', $hajj_type . ' Information')
-@if(isset($haji->id))
-    @section('page_tagline', 'Update '.$hajj_type.' Information')
-@else
-    @section('page_tagline', 'Add '.$hajj_type.' Information')
-@endif
+@php
+    if (!isset($group->id)){
+        $haji = new \App\Hajj();
+    }
+@endphp
+
+@section('page_title', getRoutes()->pageTitle(request()->route()))
+@section('page_tagline', getRoutes()->getTitleByRoute(request()->route()))
 
 @section('content')
     @include('dashboard::msg.message')
@@ -14,25 +16,17 @@
         <div class="kt-portlet__head">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    @if(isset($haji->id)) Update @else Add @endif {{$hajj_type}} Information
+                    {{ getRoutes()->getTitleByRoute(request()->route()) }}
                 </h3>
             </div>
         </div>
 
-    @php
-        if (isset($haji->id)){
-            $route = $hajj_type == 'Haji' ? route('haji.update', $haji->id) : route('omra-haji.update', $haji->id);
-        }else {
-            $route = $hajj_type == 'Haji' ? route('haji.store') : route('omra-haji.store');
-            $haji = new \App\Hajj();
-        }
-    @endphp
-    <!--begin::Form-->
-        <form id="menu-form" action="{{ $route }}" method="POST"
+        <!--begin::Form-->
+        <form id="group-form" action="{{ getRoutes()->getFormUrl(request()->route()) }}" method="POST"
               class="kt-form kt-form--label-right">
             <div class="kt-portlet__body">
                 @csrf
-                @if(isset($haji->id)) @method('PUT') @endif
+                @if(request()->route()->getActionMethod() == 'edit') @method('PUT') @endif
                 @if(isset($haji->id))
                     <div class="form-group row">
                         <label for="payment_status" class="col-2 col-form-label">Customer *</label>
@@ -205,14 +199,6 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            @if($hajj_type == 'Haji')
-            $('#hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#add-haji-information-sm').addClass('kt-menu__item--active');
-            @else
-            $('#omra-hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#add-new-omra-haji-information-sm').addClass('kt-menu__item--active');
-            @endif
-
             $('body').on('change', '#package_id', function(event) {
                 if (event.target.value) {
                     axios.get(`${window.base_url}/json/package/get-info/${event.target.value}`).then(res => {

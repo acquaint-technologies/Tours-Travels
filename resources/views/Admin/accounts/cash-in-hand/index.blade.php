@@ -5,23 +5,28 @@
     <link href="{{asset('vendor/dashboard/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet">
 @endpush
 
-@section('page_title', $controllerInfo->title)
-@section('page_tagline', $controllerInfo->title . ' List')
+@section('page_title', getRoutes()->pageTitle(request()->route()))
+@section('page_tagline', getRoutes()->getTitleByRoute(request()->route()))
 
 @section('content')
     @include('dashboard::components.delete-modal')
     @include('dashboard::msg.message')
     <!--begin::Portlet-->
-    <div class="kt-portlet" data-ktportlet="true" id="customer_report_filter">
+    <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                 <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
                 <h3 class="kt-portlet__head-title">
-                    {{ $controllerInfo->title }} List
+                    {{ getRoutes()->getTitleByRoute(request()->route()) }}
                 </h3>
             </div>
-            <div class="float-right mt-3">
-            </div>
+            @if(\Illuminate\Support\Facades\Route::has($route = getRoutes()->getAsPrefix(request()->route()) . 'create'))
+                <div class="float-right mt-3">
+                    <a href="{{ route($route) }}" class="btn btn-label-success btn-sm btn-upper">
+                        <i class="fa fa-plus"></i> {{ getRoutes()->getTitleByRouteName($route) }}
+                    </a>
+                </div>
+            @endif
         </div>
         <div class="kt-portlet__body">
             <form id="cash-in-hand-filter-form" action="{{ route('cash-in-hand.store') }}" method="POST" class="kt-form kt-form--label-right">

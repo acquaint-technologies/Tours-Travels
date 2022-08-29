@@ -5,8 +5,8 @@
     <link href="{{asset('vendor/dashboard/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet">
 @endpush
 
-@section('page_title', $hajj_type)
-@section('page_tagline', $hajj_type . ' List')
+@section('page_title', getRoutes()->pageTitle(request()->route()))
+@section('page_tagline', getRoutes()->getTitleByRoute(request()->route()))
 
 @section('content')
     @include('dashboard::components.delete-modal')
@@ -15,16 +15,18 @@
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
-                    <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
-                    <h3 class="kt-portlet__head-title">
-                        {{ $hajj_type }} List
-                    </h3>
+                <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
+                <h3 class="kt-portlet__head-title">
+                    {{ getRoutes()->getTitleByRoute(request()->route()) }}
+                </h3>
             </div>
-            <div class="float-right mt-3">
-                <a href="{{ $hajj_type == 'Haji' ? route('haji.create') : route('omra-haji.create') }}" class="btn btn-label-success btn-sm btn-upper">
-                    <i class="fa fa-plus"></i> Add New {{ $hajj_type }}
-                </a>
-            </div>
+            @if(\Illuminate\Support\Facades\Route::has($route = getRoutes()->getAsPrefix(request()->route()) . 'create'))
+                <div class="float-right mt-3">
+                    <a href="{{ route($route) }}" class="btn btn-label-success btn-sm btn-upper">
+                        <i class="fa fa-plus"></i> {{ getRoutes()->getTitleByRouteName($route) }}
+                    </a>
+                </div>
+            @endif
         </div>
         <div class="kt-portlet__body">
             <!--begin: Datatable -->
@@ -61,7 +63,7 @@
                                data-skin="brand" data-offset="60px 0px" data-toggle="kt-tooltip" data-placement="top" title="View Payments">
                                 <i class="fas fa-money-bill"></i>
                             </a>
-                            <a href="{{ $hajj_type == 'Haji' ? route('haji.edit', $haji->id) :  route('omra-haji.edit', $haji->id)  }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">
+                            <a href="{{ route(getRoutes()->getAsPrefix(request()->route()) . 'edit', $haji->id) }}" class="btn btn-primary btn-sm btn-icon-sm btn-circle">
                                 <i class="flaticon2-edit"></i>
                             </a>
                             <button type="button" class="btn btn-danger btn-sm btn-icon-sm btn-circle delete-button" data-toggle="modal" data-target="#delete-modal" data-id="{{ $haji->id }}">
@@ -85,13 +87,6 @@
     <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
-            @if($hajj_type == 'Haji')
-            $('#hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#all-haji-information-sm').addClass('kt-menu__item--active');
-            @else
-            $('#omra-hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#all-omra-haji-information-sm').addClass('kt-menu__item--active');
-            @endif
             $('.table').DataTable({
                 responsive: true
             });

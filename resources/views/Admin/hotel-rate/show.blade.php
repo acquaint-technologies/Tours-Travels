@@ -9,21 +9,7 @@
     </style>
 @endpush
 
-@php
-    if (isset($group_type)){
-        $group_type = $group_type . ' ';
-        if ($group_type == 'Hajj ') {
-            $routeNamePrefix = 'hajj-groups';
-        } elseif ($group_type == 'Omra Hajj ') {
-            $routeNamePrefix = 'omra-hajj-groups';
-        }
-    } else {
-        $group_type  = '';
-        $routeNamePrefix = 'groups';
-    }
-@endphp
-
-@section('page_title', $group_type . 'Group')
+@section('page_title', getRoutes()->pageTitle(request()->route()))
 @section('page_tagline', $group->group_name)
 
 @section('content')
@@ -35,7 +21,7 @@
                 <span class="kt-portlet__head-icon" onclick="printData()"><i
                         class="kt-font-brand flaticon2-line-chart"></i></span>
                 <h3 class="kt-portlet__head-title">
-                    View {{ $group_type }} Group
+                    {{ getRoutes()->getTitleByRoute(request()->route()) }}
                 </h3>
             </div>
             <div class="float-right mt-3 display-none">
@@ -52,7 +38,7 @@
                         <div class="kt-bg-light-dark kt-portlet__head">
                             <div class="kt-portlet__head-label">
                                 <h3 class="kt-portlet__head-title">
-                                    {{ $group_type }} Group Information
+                                    {{ getRoutes()->pageTitle(request()->route()) }} Information
                                 </h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
@@ -68,7 +54,7 @@
                                 <div class="row">
                                     <div class="col-9">
                                         <div class="row info-row">
-                                            <div class="col-3 info-key font-weight-bolder">{{ $group_type }} Group Name <span
+                                            <div class="col-3 info-key font-weight-bolder">{{ getRoutes()->pageTitle(request()->route()) }} Name <span
                                                     class="float-right">:</span>
                                             </div>
                                             <div class="col-9 info-value">{{ $group->group_name }}</div>
@@ -199,18 +185,4 @@
 
 @push('scripts')
     @include('dashboard::scripts.delete')
-    <script>
-        $(document).ready(function () {
-            @if($group_type == 'Hajj ')
-            $('#hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#hajj-groups-sm').addClass('kt-menu__item--active');
-            @elseif($group_type == 'Omra Hajj ')
-            $('#omra-hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#omra-hajj-groups-sm').addClass('kt-menu__item--active');
-            @else
-            $('#groups-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#groups-sm').addClass('kt-menu__item--active');
-            @endif
-        });
-    </script>
 @endpush

@@ -1,20 +1,13 @@
 @extends('Admin.layouts.app')
 
 @php
-    if (isset($hotel->id)){
-        $route = route($controllerInfo->routeNamePrefix . '.update', $hotel->id);
-    } else {
-        $route = route($controllerInfo->routeNamePrefix . '.store');
+    if (!isset($hotel->id)){
         $hotel = new \App\Hotel();
     }
 @endphp
 
-@section('page_title', $controllerInfo->title)
-@if(isset($hotel->id))
-    @section('page_tagline', 'Update '.$controllerInfo->title)
-@else
-    @section('page_tagline', 'Create '.$controllerInfo->title)
-@endif
+@section('page_title', getRoutes()->pageTitle(request()->route()))
+@section('page_tagline', getRoutes()->getTitleByRoute(request()->route()))
 
 @section('content')
     @include('dashboard::msg.message')
@@ -23,17 +16,17 @@
         <div class="kt-portlet__head">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    @if(isset($hotel->id)) Update @else Create @endif {{ $controllerInfo->title }}
+                    {{ getRoutes()->getTitleByRoute(request()->route()) }}
                 </h3>
             </div>
         </div>
 
     <!--begin::Form-->
-        <form id="group-form" action="{{ $route }}" method="POST"
+        <form id="group-form" action="{{ getRoutes()->getFormUrl(request()->route()) }}" method="POST"
               class="kt-form kt-form--label-right">
             <div class="kt-portlet__body">
                 @csrf
-                @if(isset($hotel->id)) @method('PUT') @endif
+                @if(request()->route()->getActionMethod() == 'edit') @method('PUT') @endif
                 <div class="form-group row">
                     <label for="hotel_name" class="col-2 col-form-label">
                         Hotel Name *

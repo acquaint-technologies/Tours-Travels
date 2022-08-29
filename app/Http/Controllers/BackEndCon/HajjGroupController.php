@@ -5,8 +5,9 @@ namespace App\Http\Controllers\BackEndCon;
 use App\Group;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class HajjGroupController extends Controller
 {
@@ -66,9 +67,12 @@ class HajjGroupController extends Controller
         ))->validate();
         $validatedData['group_type'] = $this->group_type_no;
 
+        DB::beginTransaction();
+        $lastGroup = Group::select('id')->orderByDesc('id')->first();
+        $validatedData['group_code'] = 'SN-G' . getSixDigitNumber($lastGroup ? $lastGroup->id : 0);
         $group = Group::create($validatedData);
-        $updated_group = $group->update(['group_code' => 'SN-G' . getSixDigitNumber($group->id)]);
-        if ($updated_group) {
+        DB::commit();
+        if ($group) {
             Session::flash('success', $this->title . ' Created Successfully');
             return redirect()->route($this->routeNamePrefix . '.index');
         } else {

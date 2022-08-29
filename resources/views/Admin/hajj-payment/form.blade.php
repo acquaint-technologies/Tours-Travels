@@ -1,11 +1,13 @@
 @extends('Admin.layouts.app')
 
-@section('page_title', $hajj_type . ' Payment')
-@if(isset($hajj_payment->id))
-    @section('page_tagline', 'Update '.$hajj_type.' Payment')
-@else
-    @section('page_tagline', 'Add '.$hajj_type.' Payment')
-@endif
+@php
+    if (!isset($group->id)){
+        $hajj_payment = new \App\HajjPayment();
+    }
+@endphp
+
+@section('page_title', getRoutes()->pageTitle(request()->route()))
+@section('page_tagline', getRoutes()->getTitleByRoute(request()->route()))
 
 @section('content')
     @include('dashboard::msg.message')
@@ -14,25 +16,17 @@
         <div class="kt-portlet__head">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    @if(isset($hajj_payment->id)) Update @else Add @endif {{$hajj_type}} Payment
+                    {{ getRoutes()->getTitleByRoute(request()->route()) }}
                 </h3>
             </div>
         </div>
 
-    @php
-        if (isset($hajj_payment->id)){
-            $route = $hajj_type == 'Haji' ? route('hajj-payment.update', $hajj_payment->id) : route('omra-hajj-payment.update', $hajj_payment->id);
-        }else {
-            $route = $hajj_type == 'Haji' ? route('hajj-payment.store') : route('omra-hajj-payment.store');
-            $hajj_payment = new \App\HajjPayment();
-        }
-    @endphp
-    <!--begin::Form-->
-        <form id="menu-form" action="{{ $route }}" method="POST"
+        <!--begin::Form-->
+        <form id="group-form" action="{{ getRoutes()->getFormUrl(request()->route()) }}" method="POST"
               class="kt-form kt-form--label-right">
             <div class="kt-portlet__body">
                 @csrf
-                @if(isset($hajj_payment->id)) @method('PUT') @endif
+                @if(request()->route()->getActionMethod() == 'edit') @method('PUT') @endif
                 <input type="hidden" name="hajj_id" value="{{ $haji->id }}">
                 <div class="form-group row">
                     <label for="full_name" class="col-2 col-form-label">Customer </label>
@@ -158,17 +152,6 @@
 @endsection
 
 @push('scripts')
-    <script>
-        $(document).ready(function () {
-            @if($hajj_type == 'Haji')
-            $('#hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#all-haji-information-sm').addClass('kt-menu__item--active');
-            @else
-            $('#omra-hajj-management-mm').addClass('kt-menu__item--submenu kt-menu__item--open kt-menu__item--here');
-            $('#all-omra-haji-information-sm').addClass('kt-menu__item--active');
-            @endif
-        });
-    </script>
     <!--begin::Page Scripts(used by this page) -->
     <script src="{{ asset('js/pages/hajj-payment.js') }}" type="text/javascript"></script>
 

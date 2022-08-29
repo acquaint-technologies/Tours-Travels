@@ -5,8 +5,8 @@
     <link href="{{asset('vendor/dashboard/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet">
 @endpush
 
-@section('page_title', $package_type . ' Packages')
-@section('page_tagline', $package_type . ' Package List')
+@section('page_title', getRoutes()->pageTitle(request()->route()))
+@section('page_tagline', getRoutes()->getTitleByRoute(request()->route()))
 
 @section('content')
     @include('dashboard::components.delete-modal')
@@ -15,16 +15,18 @@
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
-                    <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
-                    <h3 class="kt-portlet__head-title">
-                        {{ $package_type }} Package List
-                    </h3>
+                <span class="kt-portlet__head-icon"><i class="kt-font-brand flaticon2-line-chart"></i></span>
+                <h3 class="kt-portlet__head-title">
+                    {{ getRoutes()->getTitleByRoute(request()->route()) }}
+                </h3>
             </div>
-            <div class="float-right mt-3">
-                <a href="{{ $package_type == 'Hajj' ? route('hajj-package.create') : route('omra-hajj-package.create') }}" class="btn btn-label-success btn-sm btn-upper">
-                    <i class="fa fa-plus"></i> Create {{ $package_type }} Package
-                </a>
-            </div>
+            @if(\Illuminate\Support\Facades\Route::has($route = getRoutes()->getAsPrefix(request()->route()) . 'create'))
+                <div class="float-right mt-3">
+                    <a href="{{ route($route) }}" class="btn btn-label-success btn-sm btn-upper">
+                        <i class="fa fa-plus"></i> {{ getRoutes()->getTitleByRouteName($route) }}
+                    </a>
+                </div>
+            @endif
         </div>
         <div class="kt-portlet__body">
             <!--begin: Datatable -->
