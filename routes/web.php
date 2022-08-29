@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +24,7 @@ Route::get('/', function () {
 include 'json.php';
 
 Route::group(['namespace' => 'BackEndCon', 'middleware' => ['auth:admin']], function () {
-    Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard.index');
+    Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');
     Route::resource('groups', 'GroupController');
     Route::resource('hajj-groups', 'HajjGroupController');
     Route::resource('omra-hajj-groups', 'OmraHajjGroupController');
