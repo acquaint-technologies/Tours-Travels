@@ -36,7 +36,7 @@
                                value="{{ old('group_name', $group->group_name) }}" placeholder="Group Name" required>
                     </div>
                 </div>
-                @if ($group_type == '')
+                @if (request()->routeIs('groups.*'))
                     <div class="form-group row">
                         <label for="group_type" class="col-2 col-form-label">Group Type *</label>
                         <div class="col-10">
